@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <title>Datos personales</title>
+</head>
+
+<body class="text-center">
+    <div class="jumbotron d-sm-flex min-vh-100">
+        <div class="container align-self-center">    
+            <form class="form-signin" action="usuario.php" method="post">
+                <h1 class="h3 mb-3 font-weight-normal">Tus datos</h1>
+                <label for="nombre" class="sr-only">Nombre</label>
+                <input type="text" id="nombre" class="form-control" placeholder="Tu nombre" required="" autofocus="">
+                <label for="apellidos" class="sr-only">Apellidos</label>
+                <input type="text" id="apellidos" class="form-control" placeholder="Apellidos" required="">
+                <button class="btn btn-lg btn-primary btn-block" type="submit">Sign in</button>
+                <p class="mt-5 mb-3 text-muted">© 2017-2019</p>
+            </form>
+        </div>
+    </div>
+
+</body>
+
+</html>
