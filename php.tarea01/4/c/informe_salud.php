@@ -12,7 +12,7 @@
     />
     <link
       rel="stylesheet"
-      href="../../css/main.css"
+      href="../css/main.css"
       type="text/css"
       media="screen"
       title="no title"
@@ -20,6 +20,20 @@
     />
     <title>Tarea Online 01</title>
   </head>
+
+<?php
+// Calcular IMC y metabolismo basal
+// IMC = masa(kg) / estatura al cuadrado (m2) = resultado x kg/m2
+// [OPCIONAL] indicar estado nutricional según la clasificación de la OMS:
+// (https://es.wikipedia.org/wiki/%C3%8Dndice_de_masa_corporal)
+// Metabolismo basal (fórmula de Harris-Benedict):
+// - Hombre: (peso (kg) * 10) + (altura(cm) * 6,25) - (edad * 5) + 5
+// - Mujer: (peso (kg) * 10) + (altura(cm) * 6,25) - (edad * 5) + 161
+// El resultado se indicará en Kilocalorías/día
+// Recogida de datos
+// Validación
+// Procesamiento
+?>
   <body>
 
     <!-- Navegación -->
@@ -61,25 +75,12 @@
     <!-- Título e imagen de portada -->
     <header class="header">
       <div class="jumbotron text-center">
-        <h1 class="display-3">Ejercicio 4-a</h1>
-        <p class="lead">Piedra, Papel, Tijera, Lagarto, Spock</p>
+        <h1 class="display-3">Ejercicio 4-c</h1>
+        <p class="lead">Informe de salud personalizado</p>
       </div>
     </header>
 
-    <div class="container align-self-center p-4 bg-light mt-5" style="max-width: 500px;">    
-        <form class="" action="piedra_papel.php" method="post">
-            <div class="form-group">
-              <label for="mano">Elige una opción:</label>
-              <select class="form-control" name="mano" id="mano">
-                <option>Piedra</option>
-                <option>Papel</option>
-                <option>Tijera</option>
-                <option>Lagarto</option>
-                <option>Spock</option>
-              </select>
-            </div>
-            <input type="submit" name="submit" class="btn btn-block bg-primary text-light mb-3" value="Piedra, papel..."/>
-        </form>
+    <div class="container">
     </div>
     <!-- Librerías JS requeridas por BootStrap -->
     <script

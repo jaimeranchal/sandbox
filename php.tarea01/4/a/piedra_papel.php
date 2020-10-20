@@ -20,6 +20,48 @@
     />
     <title>Tarea Online 01</title>
   </head>
+
+<?php
+// Recogida de datos
+if (isset($_POST["submit"]) && $_SERVER["REQUEST_METHOD"] == "POST") {
+    $eleccionUsuario = $_POST["mano"];
+} else {
+    $eleccionUsuario = "Error";
+}
+$opciones = array("Piedra", "Papel", "Tijera", "Lagarto", "Spock");
+// Validación de datos
+// Procesamiento
+// 1. Elegir una opción al azar
+$opcionAleatoria = rand(0,4);
+$eleccionRival = $opciones[$opcionAleatoria];
+
+// 2. Decide el ganador
+// Dos posibles resultados: usuario gana o pierde
+// REGLAS:
+// piedra gana a tijeras y a lagarto
+// papel gana a piedra y a Spock
+// tijeras gana a papel y a lagarto
+// lagarto gana a papel y a Spock
+// Spock gana a piedra y a tijeras
+if ($eleccionUsuario == "Piedra" && $eleccionRival == "Tijera"
+    || $eleccionUsuario == "Piedra" && $eleccionRival == "Lagarto"
+    || $eleccionUsuario == "Papel" && $eleccionRival == "Piedra"
+    || $eleccionUsuario == "Papel" && $eleccionRival == "Spock"
+    || $eleccionUsuario == "Tijera" && $eleccionRival == "Papel"
+    || $eleccionUsuario == "Tijera" && $eleccionRival == "Lagarto"
+    || $eleccionUsuario == "Lagarto" && $eleccionRival == "Papel"
+    || $eleccionUsuario == "Lagarto" && $eleccionRival == "Spock"
+    || $eleccionUsuario == "Spock" && $eleccionRival == "Piedra"
+    || $eleccionUsuario == "Spock" && $eleccionRival == "Tijeras"
+) {
+    $resultado = "¡Has ganado!";
+    //! añadir opción de empate
+} else {
+    $resultado = "Lo siento, has perdido...";
+}
+// Salida
+?>
+
   <body>
 
     <!-- Navegación -->
@@ -67,19 +109,11 @@
     </header>
 
     <div class="container align-self-center p-4 bg-light mt-5" style="max-width: 500px;">    
-        <form class="" action="piedra_papel.php" method="post">
-            <div class="form-group">
-              <label for="mano">Elige una opción:</label>
-              <select class="form-control" name="mano" id="mano">
-                <option>Piedra</option>
-                <option>Papel</option>
-                <option>Tijera</option>
-                <option>Lagarto</option>
-                <option>Spock</option>
-              </select>
-            </div>
-            <input type="submit" name="submit" class="btn btn-block bg-primary text-light mb-3" value="Piedra, papel..."/>
-        </form>
+        <!-- Has perdido!! / Has ganado!! -->
+        <p>Tu opción: <b><?php echo $eleccionUsuario;  ?></b></p>
+        <p>La opción de tu rival: <b><?= $eleccionRival ?></b> </p>
+        <h2><?= $resultado ?></h2>
+        <button class="btn btn-block btn-outline-primary" onclick="document.location='piedra_papel.html'">Volver a intentarlo</button>
     </div>
     <!-- Librerías JS requeridas por BootStrap -->
     <script

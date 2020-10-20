@@ -12,7 +12,7 @@
     />
     <link
       rel="stylesheet"
-      href="../../css/main.css"
+      href="../css/main.css"
       type="text/css"
       media="screen"
       title="no title"
@@ -20,6 +20,16 @@
     />
     <title>Tarea Online 01</title>
   </head>
+
+<?php
+// Calcular área y longitud de una circunferencia:
+// Recogida de datos
+$diametro = $_POST["diametro"];
+// Validación
+// Procesamiento
+$longitud = $diametro * M_PI;
+$area = (($diametro/2) ** 2) * M_PI;
+?>
   <body>
 
     <!-- Navegación -->
@@ -61,25 +71,17 @@
     <!-- Título e imagen de portada -->
     <header class="header">
       <div class="jumbotron text-center">
-        <h1 class="display-3">Ejercicio 4-a</h1>
-        <p class="lead">Piedra, Papel, Tijera, Lagarto, Spock</p>
+        <h1 class="display-3">Ejercicio 4-b</h1>
+        <p class="lead">Diámetro de una circunferencia</p>
       </div>
     </header>
 
     <div class="container align-self-center p-4 bg-light mt-5" style="max-width: 500px;">    
-        <form class="" action="piedra_papel.php" method="post">
-            <div class="form-group">
-              <label for="mano">Elige una opción:</label>
-              <select class="form-control" name="mano" id="mano">
-                <option>Piedra</option>
-                <option>Papel</option>
-                <option>Tijera</option>
-                <option>Lagarto</option>
-                <option>Spock</option>
-              </select>
-            </div>
-            <input type="submit" name="submit" class="btn btn-block bg-primary text-light mb-3" value="Piedra, papel..."/>
-        </form>
+        <ul>
+            <li><b>Área:</b> <?php echo round($area, 2)?></li>
+            <li><b>Longitud:</b> <?php echo round($longitud, 2)?></li>
+        </ul>
+        <button class="btn btn-block btn-outline-primary" onclick="document.location='circunferencia.html'">Volver a calcular</button>
     </div>
     <!-- Librerías JS requeridas por BootStrap -->
     <script

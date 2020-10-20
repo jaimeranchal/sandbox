@@ -18,7 +18,7 @@
       title="no title"
       charset="utf-8"
     />
-    <title>Tutorial XAMPP</title>
+    <title>Tarea Online 01</title>
   </head>
   <body>
 
@@ -28,7 +28,7 @@
         <div class="navbar-nav-scroll">
             <ul class="navbar-nav flex-row">
                 <li class="nav-item">
-                    <a class="nav-link" href="#">Inicio</a>
+                    <a class="nav-link" href="../../inicio.html">Inicio</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" href="../../1/ejercicio1.html">Ejercicio 1</a>
@@ -66,7 +66,60 @@
       </div>
     </header>
 
-    <div class="container">
+    <!-- Formulario para introducir sexo, edad, altura y peso -->
+    <div class="container align-self-center p-4 bg-light mt-5" style="max-width: 500px;">    
+        <form class="shadow p-4" action="informe_salud.php" method="post">
+            <h2>Datos personales</h2>
+            <p>Rellene los datos y pulse enviar para generar un informe con su <abbr title="Indice de Masa Corporal">IMC</abbr> y metabolismo basal: </p>
+            <div class="form-group">
+                <div class="input-group mb-3">
+                    <div class="input-group-prepend">
+                        <div id="sexo" class="input-group-text">
+                            Sexo
+                        </div>
+                    </div>
+                    <input type="number" class="form-control" name="sexo" id="sexo" required>
+                </div>
+                <!-- edad -->
+                <div class="input-group mb-3">
+                    <div class="input-group-prepend">
+                        <div id="edad" class="input-group-text">
+                            edad
+                        </div>
+                    </div>
+                    <input type="number" class="form-control" placeholder="años" name="edad" id="edad" required>
+                </div>
+                <!-- altura -->
+                <div class="input-group mb-3">
+                    <div class="input-group-prepend">
+                        <div id="altura" class="input-group-text">
+                            altura
+                        </div>
+                    </div>
+                    <input type="number" class="form-control" placeholder="cm" name="altura" id="altura" required>
+                </div>
+                <!-- peso -->
+                <div class="input-group mb-3">
+                    <div class="input-group-prepend">
+                        <div id="peso" class="input-group-text">
+                            peso
+                        </div>
+                    </div>
+                    <input type="number" class="form-control" placeholder="kg" name="peso" id="peso" required>
+                </div>
+            </div>
+            <!--
+            <label for="sexo">sexo: </label>
+            <input type="number" class="form-control mb-3" name="sexo" id="sexo" required>
+            <label for="edad">Edad: </label>
+            <input type="number" class="form-control mb-3" name="edad" id="edad" required>
+            <label for="altura">altura: </label>
+            <input type="number" class="form-control mb-3" name="altura" id="altura" required>
+            <label for="peso">peso: </label>
+            <input type="number" class="form-control mb-3" name="peso" id="peso" required>
+            <button type="submit" class="btn btn-success btn-block mb-3">Enviar</button>
+            -->
+        </form>
     </div>
     <!-- Librerías JS requeridas por BootStrap -->
     <script
