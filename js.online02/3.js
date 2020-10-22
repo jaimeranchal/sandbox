@@ -8,3 +8,4 @@
  *   El juego se repetirá hasta que el usario desee acabar.
  */
 "use strict";
+//! no se pueden utilizar arrays

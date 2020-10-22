@@ -8,6 +8,7 @@
 // declarar variables
 
 //! Añade al texto a la MISMA ventana
+//? Lo suyo es que las ventanas se creen una al lado de la otra
 function abrir(){
     // ventana = window.open("https://iestrassierra.com", "ventana");
     for (var i = 0; i < 10; i++) {
@@ -16,6 +17,11 @@ function abrir(){
         //ventana = open("", "ventana" + i, "width=500, height=600");
         ventana.document.write("<h1>Ventana secundaria" + (i+1) + "</h1>");
         ventana.document.write("<button>Cerrar ventana</button>");
+        // función anónima para cerrar ventana al pulsar el botón
+        ventana.onclick=function(){//función anónima
+            ventana.close();
+            ventana=undefined;
+        }       
     } 
 }
 
