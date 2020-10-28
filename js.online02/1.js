@@ -1,32 +1,30 @@
 /* Ejercicio 1:
- *  - Crear 10 ventanas desde la ventana principal, indicando "Ventana Secundaria 1, 2, ..."
+ *  - Crear 10 ventanas desde la ventana principal, indicando "ventana Secundaria 1, 2, ..."
  *  - El tamaño de la ventana será 300pxX300px
  *  - En la ventana secundaria tendrá un botón Cerrar que permitirá cerrar esa ventana
  */
 "use strict";
 
-// declarar variables
-
-//! Añade al texto a la MISMA ventana
-//? Lo suyo es que las ventanas se creen una al lado de la otra
+// Intenté crear las ventanas una al lado de la otra 
+// basándome en su posición con ventanaSec.screenX y
+// moveBy(300,0) pero no funcionaba.
+// En general el problema que me he encontrado es crear
+// una referencia única para cada ventana (tienen nombre
+// único, pero no sé cómo usarlo para llamar a las propiedades
+// y métodos)
 function abrir(){
-    // ventana = window.open("https://iestrassierra.com", "ventana");
+    // declarar variables
+    let ventanaSec, nombreVentana;
     for (var i = 0; i < 10; i++) {
-        let ventana;
-        ventana = open("", "ventana", "width=300, height=300");
-        //ventana = open("", "ventana" + i, "width=500, height=600");
-        ventana.document.write("<h1>Ventana secundaria" + (i+1) + "</h1>");
-        ventana.document.write("<button>Cerrar ventana</button>");
-        // función anónima para cerrar ventana al pulsar el botón
-        ventana.onclick=function(){//función anónima
-            ventana.close();
-            ventana=undefined;
+        nombreVentana = "Ventana Secundaria" + (i+1);
+        ventanaSec = open("", "_blank", "width=300, height=300");
+        ventanaSec.document.write("<h1>" + nombreVentana + "</h1>");
+        ventanaSec.document.write("<button>Cerrar ventana</button>");
+        // función anónima para cerrar ventanaSec al pulsar el botón
+        // Sólo me funciona en la última ventana abierta; 
+        // entiendo que porque todas usan la misma referencia (ventanaSec)
+        ventanaSec.onclick=function(){//función anónima
+            ventanaSec.close();
         }       
     } 
-}
-
-//! no sé invocar esta función desde CADA ventana
-function cerrSec(){
-    ventana.close();
-    ventana=undefined;
 }
