@@ -69,85 +69,71 @@
     
     <!-- Contenido -->
     <div class="container">
-      <p>https://codeofaninja.com/2013/06/how-to-run-a-php-script.html</p>
-      <h2 id="instalando-el-servidor-xampp">Instalando el servidor XAMPP</h2>
-      <h3 id="qué-es-xampp">¿Qué es XAMPP?</h3>
-      <p>
-        Más que un servidor, XAMPP es un <em>paquete</em> de software que
-        incluye lo mínimo necesario para servir una web:
-      </p>
-      <ul>
-        <li>el servidor Apache,</li>
-        <li>
-          un sistema de gestión de base de datos (MariaDB a partir de la versión
-          5.6.15) y
-        </li>
-        <li>soporte para dos lenguajes de <em>scripting</em>: php y perl.</li>
-      </ul>
-      <h3 id="dónde-conseguirlo">¿Dónde conseguirlo?</h3>
-      <p>
-        Desde la misma web oficial,
-        <a href="https://apachefriends.org">apachefriends</a>, donde hay
-        disponibles versiones para Windows y Linux.
-      </p>
-      <h2 id="requisitos">Requisitos</h2>
-      <p>
-        En principio no es necesario instalar ningún paquete de software
-        adicional; todo lo necesario está incluido en la descarga oficial.
-      </p>
-      <h2 id="windows">Windows</h2>
-      <ol type="1">
-        <li>Escoge la opción correspondiente</li>
-        <li>Navega hasta la carpeta donde hayas descargado el ejecutable.</li>
-        <li>
-          Haz doble click sobre el archivo y sigue las instrucciones de
-          instalación.
-        </li>
-        <li>se inicia en modo gráfico</li>
-        <li>
-          Los archivos de nuestra página se guardan en
-          <code>C:\xampp\htdocs</code>
-        </li>
-      </ol>
-      <h2 id="linux">Linux</h2>
-      <ol type="1">
-        <li>Escoge la opción correspondiente</li>
-        <li>Navega hasta la carpeta donde hayas descargado el ejecutable.</li>
-        <li>
-          Si quieres instalarlo en modo gráfico, haz click derecho sobre el
-          archivo y elige la opción
-          <em>abrir con el instalador de paquetes</em>.
-        </li>
-        <li>
-          Si quieres instalaro en modo texto, mediante la terminal:
-          <ol type="1">
-            <li>abre una consola</li>
-            <li>navega hasta el directorio <code>cd directorio/</code></li>
-            <li>
-              ejecuta con permisos de superusuario
-              <code>dpkg -i xampp-installer.run</code>
+        <h2 id="instalando-el-servidor-xampp">Instalando el servidor XAMPP</h2>
+        <h3 id="qué-es-xampp">¿Qué es XAMPP?</h3>
+        <p>Más que un servidor, XAMPP es un <em>paquete</em> de software que incluye lo mínimo necesario para servir una web:</p>
+        <ul>
+            <li>el servidor Apache,</li>
+            <li>un sistema de gestión de base de datos (MariaDB a partir de la versión 5.6.15; MySQL en versiones anteriores) y </li>
+            <li>soporte para dos lenguajes de <em>servidor</em>: php y perl.</li>
+        </ul>
+
+        <h3 id="dónde-conseguirlo">¿Dónde conseguirlo?</h3>
+        <p>Se puede descargar desde la misma web oficial, <a href="https://apachefriends.org">apachefriends</a>, donde hay disponibles versiones para Windows y Linux.</p>
+        <figure class="figure">
+            <img class="rounded mx-auto d-block img-thumbnail" src="../images/DWES.TO01.01.png" alt="Apache Friends"/>
+            <figcaption class="figure-caption text-center">Página principal de Apache Friends</figcaption>
+        </figure>
+        <figure class="figure">
+            <img class="rounded mx-auto d-block img-thumbnail" src="../images/DWES.TO01.02.png" alt="Apache Friends"/>
+            <figcaption class="figure-caption text-center">Sección de descargas</figcaption>
+        </figure>
+        <figure class="figure">
+            <img class="rounded mx-auto d-block img-thumbnail" src="../images/DWES.TO01.03.png" alt="Apache Friends"/>
+            <figcaption class="figure-caption text-center">Nos lleva a SourceForge, donde podemos elegir qué versión descargar</figcaption>
+        </figure>
+        <h2 id="requisitos">Requisitos</h2>
+        <p>En principio no es necesario instalar ningún paquete de software adicional; todo lo necesario está incluido en la descarga oficial.</p>
+        <h2 id="windows">Windows</h2>
+        <p>Para instalar la versión de Windows sólo hay que seguir los siguientes pasos:</p>
+        <ol type="1">
+            <li>Escoge la opción correspondiente</li>
+            <li>Navega hasta la carpeta donde hayas descargado el ejecutable.</li>
+            <li>Haz doble click sobre el archivo y sigue las instrucciones de instalación.</li>
+            <li>se inicia en modo gráfico</li>
+            <li>Los archivos de nuestra(s) página(s) se guardan en <code>C:\xampp\htdocs</code></li>
+        </ol>
+        <h2 id="linux">Linux</h2>
+        <p>En Linux podemos instalar XAMPP de dos formas, en modo gráfico, mediante el explorador de archivos de nuestra distribución y el ratón, o por consola, ejecutando una serie de comandos. Esta última opción es la única posible si estamos trabajando en un servidor sin interfaz gráfica, por ejemplo.</p>
+        <ol type="1">
+            <li>Si quieres instalarlo en <i>modo gráfico</i>, </li>
+                <ol type="1">
+                    <li>Navega hasta la carpeta donde hayas descargado el ejecutable.</li>
+                    <li>haz click derecho sobre el archivo y elige la opción <em>abrir con el instalador de paquetes</em>.</li>
+                </ol>
+            <li>Si quieres instalarlo en <i>modo texto</i>:
+                <ol type="1">
+                    <li>abre una terminal de comandos</li>
+                    <li>navega hasta el directorio donde hayas guardado la descarga <code>cd directorio/</code></li>
+                    <li>ejecuta con permisos de superusuario <code>dpkg -i xampp-installer.run</code></li>
+                    <li>sigue las instrucciones en pantalla</li>
+                </ol>
             </li>
-            <li>sigue las instrucciones en pantalla</li>
-          </ol>
-        </li>
-        <li>
-          Los archivos de nuestra página se guardarán en el directorio
-          <code>/opt/lampp/htdocs</code>
-        </li>
-        <li>
-          <code>/opt/lampp</code> se inicia en modo gráfico desde el menú, o
-          desde terminarl con <code>sudo /opt/lampp/xampp start</code>
-        </li>
-      </ol>
-      <h2 id="ejecutando-php-puro">Ejecutando PHP puro</h2>
-      <ul>
-        <li>
-          Creando un archivo llamado <code>codigo.php</code> en el directorio de
-          XAMPP.
-        </li>
-        <li>Abriéndolo directamente en el navegador.</li>
-      </ul>
-      <h2 id="ejecutando-php-embebido">Ejecutando PHP embebido</h2>
+            <li>Los archivos de nuestra(s) página(s) se guardarán en el directorio<code>/opt/lampp/htdocs</code></li>
+            <li><code>/opt/lampp</code> se inicia en modo gráfico desde el menú, o desde terminal con <code>sudo /opt/lampp/xampp start</code></li>
+        </ol>
+
+        <h2>Ejecutar código PHP</h2>
+        <p>PHP es un lenguaje de servidor; eso quiere decir que se ejecuta en el lado del servidor (el programa que <i>sirve</i> la página o aplicación web) y <b>no es visible</b> en el lado del cliente. Abrir directamente en el navegador un archivo escrito en php sólo mostrará las etiquetas html que contenga, pero nada codificado en php.</p>
+        <p>¿Cómo podemos <i>ver</i> el resultado de un código PHP? Alojándolo en un servidor, que se encargará de procesarlo y enviar al cliente (el navegador, por ejemplo) los datos resultantes.</p>
+
+        <h3 id="ejecutando-php-puro">PHP puro</h3>
+        <p> Si sólo queremos ejecutar código PHP y nada más, creamos un archivo llamado, p.ej., <i>codigo.php</i> en el directorio de XAMPP. Luego solo hay que abrir la dirección que tengamos configurada para el servidor en el navegador.</p>
+        <h3 id="ejecutando-php-embebido">PHP embebido</h3>
+        <p>La otra opción, más habitual, es combinar una estructura en HTML con código PHP para generar contenido dinámico. A este tipo de código se le llama <i>embebido</i> porque se encuentra insertado dentro de otro.</p>
+        <h2>Fuentes</h2>
+        <a href="https://codeofaninja.com/2013/06/how-to-run-a-php-script.html" target="_blank">codeofaninja.com</a>
+        <p></p>
     </div>
     <!-- Librerías JS requeridas por BootStrap -->
     <script
