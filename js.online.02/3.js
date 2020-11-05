@@ -15,7 +15,7 @@ let acertados = 0;
 let aNumeroUsuario, aNumeroGanador;
 let seguir = true;
 let error = "Error: revise que los números introducidos están dentro del rango [1-49]\n y que no ha introducido ningún carácter extra";
-let mensaje = "Introduzca una combinación de 6 números [1-49], separados por comas";
+let mensaje = "Introduzca una combinación de 6 números [1-49], separados por espacio";
 
 // Lógica
 // Pedimos números al usuario

@@ -19,12 +19,19 @@ function abrir(){
         nombreVentana = "Ventana Secundaria" + (i+1);
         ventanaSec = open("", "_blank", "width=300, height=300");
         ventanaSec.document.write("<h1>" + nombreVentana + "</h1>");
-        ventanaSec.document.write("<button>Cerrar ventana</button>");
+        ventanaSec.document.write("<button onclick='cerrar();'>Cerrar ventana</button>");
+        ventanaSec.document.write("<script src='1.js'></script>")
         // función anónima para cerrar ventanaSec al pulsar el botón
         // Sólo me funciona en la última ventana abierta; 
         // entiendo que porque todas usan la misma referencia (ventanaSec)
+        /*
         ventanaSec.onclick=function(){//función anónima
             ventanaSec.close();
         }       
+        */
     } 
+}
+
+function cerrar(){
+    self.close();
 }
