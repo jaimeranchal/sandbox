@@ -68,10 +68,87 @@
 
     <div class="container">
         <h2>Diferencias entre front-end, back-end y full-stack</h2>
+        <p>Los términos <i>front-end</i>, <i>back-end</i> y <i>full-stack</i> se usan para 
+        clasificar a los desarrolladores web según el campo en el que se especializan.</p>
+        <ul>
+            <li><b>Front-end</b>: se centran en implementar el aspecto visual de la aplicación
+            y todo lo relacionado con la interfaz y experiencia del usuario (UI y UX). Un
+            desarrollador front-end maneja HTML, CSS y JavaScript, fundamentalmente.</li> 
+            <li><b>Back-end</b>: controlan el buen funcionamiento de la aplicación en el
+            lado del <i>servidor</i>, gestionando el procesado y comunicación de los datos
+            entre la aplicación y una base de datos. Deben conocer por lo tanto, lenguajes
+            de servidor (PHP, Java, Perl o JavaScript), de base de datos (variantes de SQL si
+            se emplea una base de datos relacional, o MongoDB, por ejemplo, si se emplea otro
+            tipo de base de datos).</li>
+            <li><b>Full-stack</b>: es la combinación de los dos anteriores. En teoría, un 
+            desarrollador full-stack es el que destaca en <i>ambos lados</i> de una aplicación web:
+             cliente y servidor.</li>
+        </ul>
+
         <h2>¿Qué es WCAG?</h2>
-        <p>Enlace de wikipedia: <a href="https://en.wikipedia.org/wiki/Web_Content_Accessibility_Guidelines" target="_blank">WCAG</a>.</p>
+        <p>Son las siglas de <i>Web Content Accesibility Guidelines </i>(Pautas de Accesibilidad 
+        para el Contenido Web), desarrolladas por la 
+        <a href="https://www.w3.org/WAI/standards-guidelines/wcag/es" target="_blank">W3C</a> en 
+        cooperación con personas y organizaciones de todo el mundo, con el objetivo de hacer la web
+        más fácil fundamentalmente para personas con discapacidad, pero también para cualquiera 
+        <i>agente de usuario</i>, incluidos dispositivos con capacidades reducidas, como ciertos
+        móviles.</p>
+        <p>A día de hoy la versión más reciente es la WCAG 2.1. La versión 2.0 fue publicada en 
+        diciembre de 2008, y convertida en un estándar ISO en 2012.</p>
+        <p>Estas pautas o directrices se asientan en <b>cuatro principios</b>:</p>
+        <ol>
+            <li><i>Perceptibilidad</i>: se recomienda proporcionar alternativas a cualquier contenido
+            de naturaleza no textual, como descripciones o símbolos. El contenido textual que sea 
+            complejo por sí mismo o por su representación visual debe poder presentarse de forma más 
+            sencilla y fácil de comprender.</li>
+            <li><i>Operabilidad</i>: la interfaz de usuario debe ser intuitiva, indicando al usuario 
+            donde se encuentra en todo momento y qué opciones tiene. Si es necesario debe contener 
+            sistemas de ayuda. No debe imponer limitaciones de tiempo y, si es posible, debe poder ser 
+            controlada desde teclado.</li>
+            <li><i>Inteligibilidad</i>: se aplica tanto al contenido como a la interfaz de usuario; se 
+            recomienda el uso de patrones visuales y de interacción predecibles, así como implementar 
+            ayudas para corregir al usuario en caso de error.</li>
+            <li><i>Robustez</i>: el contenido web debe poder ser interpretado correctamente por el mayor 
+            número posible de agentes de usuario.</li>
+        </ol>
+        <p>.</p>
+
         <h3>Importancia de validar el código</h3>
-        <p>Validar en <a href="https://en.wikipedia.org/wiki/HTML5#XHTML_5_(XML-serialized_HTML_5)" target="_blank">XHTML 5</a>.</p>
+        <p>Cuando hablamos de <i>validación</i> nos referimos al proceso porque el que se comprueba que 
+        algo tiene un formato determinado y cumple con ciertas restricciones. En el caso de una página HTML,
+        decimos que está validada cuando todas las etiquetas están cerradas y no hay ninguna solapada (todas 
+        las etiquetas terminan <i>antes</i> de que se abra otra o se cierre la que la contiene).</p>
+        <p>Hay varias razones por las que se recomienda asegurarnos de que nuestro código cumpla con los 
+        requisitos necesarios, y es especialmente importante en el caso de que manejemos datos introducidos
+        por el usuario.</p>
+        <h4>Validación de HTML</h4>
+        <p>Aporta las siguientes ventajas:</p>
+        <ul>
+            <li><b>Compatibilidad</b>: asegurar que nuestra aplicación sea utilizable en el mayor número
+            posible de dispositivos.</li>
+            <li><b>Visualización</b>: asegurar que el contenido de nuestra aplicación se vea correctamente.</li>
+            <li><b>Mantenimiento</b>: un código validado cumple con unos estándares y por lo tanto tiene una
+            estructura predecible y es más fácil de revisar en buscar de errores o de modificar para añadir
+            mejoras.</li>
+        </ul>
+        <h4>Validación de Formularios</h4>
+        <p>Es especialmente importante para garantizar el buen funcionamiento de la aplicación. En particular, 
+        ayuda a controlar los siguientes aspectos: </p>
+        <ul>
+            <li><b>Datos correctos</b>: garantiza que los datos introducidos tienen el formato correcto.</li>
+            <li><b>Privacidad</b>: proteger los datos de los usuarios para que sean manipulados o lleguen a 
+            manos de terceros.</li>
+            <li><b>Seguridad</b>: proteger la propia aplicación de ataques que causen un mal funcionamiento o 
+            alteren la aplicación.</li>
+        </ul>
+        <p>Fuentes:</p>
+        <ul>
+            <li><a href="https://en.wikipedia.org/wiki/HTML5#XHTML_5_(XML-serialized_HTML_5)" target="_blank">Wikipedia</a></li>
+            <li><a href="https://developer.mozilla.org/es/docs/Learn/HTML/Forms/Validacion_formulario_datos" target="_blank">Documentación de Mozilla</a></li>
+            <li><a href="https://guiadev.com/validar-el-codigo-html-y-css/" target="_blank">guiadev.com</a></li>
+            <li><a href="https://en.wikipedia.org/wiki/Web_Content_Accessibility_Guidelines" target="_blank">WCAG</a></li>
+        </ul>
+        
     </div>
     <!-- Librerías JS requeridas por BootStrap -->
     <script
