@@ -39,5 +39,5 @@ Thumbs.db
 
 # Notes
 #######
-*.md
+# *.md
 !README.md
