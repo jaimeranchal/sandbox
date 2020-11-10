@@ -112,16 +112,19 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     </nav>
 
     <!--<div class="jumbotron d-sm-flex min-vh-100">-->
-        <div class="container align-self-center p-4 bg-secondary mt-5" style="max-width: 500px;">    
+        <div class="container align-self-center p-2 bg-secondary mt-5" >    
             <form class="shadow p-4 bg-white" action="usuario.php" method="post">
                 <h2>Tu curriculum</h2>
+                <h3>Datos personales</h3>
                 <ul>
                     <li>Nombre y apellidos: <?=$name ?></li>
                     <li>Correo electrónico: <?=$email ?></li>
                     <li>Fecha de nacimiento: <?=$nacimiento?></li>
                 </ul>
-                <h3>Datos personales</h3>
                 <h3>Formación</h3>
+                <ul>
+                    <li><<i><?=$titulo1 ?></i>, <?=$titulo1fin ?></li>
+                </ul>
                 <h3>Experiencia profesional</h3>
                 <h3>Idiomas</h3>
                 <h3>Otras habilidades</h3>
