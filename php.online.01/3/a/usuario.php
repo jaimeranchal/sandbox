@@ -1,16 +1,28 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN"
 "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
+<html lang="es" xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="main.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <title>Datos de usuario</title>
+</head>
+
 <?php
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 	// Función de validación principal 
-	function validate($str) {
+	function filtrar($str) {
 		return trim(htmlspecialchars($str));
 	}
 
 	if (empty($_POST['nombre'])) {
 		$nameError = 'El nombre no puede estar vacío';
 	} else {
-		$name = validate($_POST['nombre']);
+		$name = filtrar($_POST['nombre']);
 		if (!preg_match('/^[a-zA-Z0-9\s]+$/', $name)) {
 			$nameError = 'El nombre solo puede contener letras, números y espacios en blanco';
 		}
@@ -19,7 +31,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 	if (empty($_POST['email'])) {
 		$emailError = 'Por favor introduce tu email';
 	} else {
-		$email = validate($_POST['email']);
+		$email = filtrar($_POST['email']);
 		if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
 			$emailError = 'Email inválido';
 		}
@@ -52,21 +64,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 }
 
 ?>
-<html lang="es" xmlns="http://www.w3.org/1999/xhtml">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
-    <link rel="stylesheet" href="main.css">
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
-    <title>Formulario sencillo</title>
-</head>
 
 <body>
     <!-- Navegación -->
-    <nav class="navbar navbar-expand-lg navbar-dark flex-column flex-md-row bg-info">
+    <nav class="navbar navbar-expand-lg navbar-dark flex-column flex-md-row bg-dark">
         <a class="navbar-brand mr-0 mr-md-2" href="#">PHP</a>
         <div class="navbar-nav-scroll">
             <ul class="navbar-nav flex-row">
@@ -102,17 +103,25 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     </nav>
 
     <!--<div class="jumbotron d-sm-flex min-vh-100">-->
-        <div class="container align-self-center p-4 bg-success mt-5" style="max-width: 500px;">    
+    <div class="container align-self-center p-4 bg-success mt-5" style="max-width: 500px;">    
+        <div class="shadow p-4 bg-white">
             <h2>Formulario sencillo</h2>
             <p>Revisa los datos introducidos </p>
-            <ul class="list-group list-group-flush">
-                <li class="list-group-item">Nombre y apellidos: <?php echo $_POST["nombre"]; ?></li>
-                <li class="list-group-item">Email: <?php echo $_POST["email"]; ?></li>
-                <li class="list-group-item">Teléfono: <?php echo $_POST["tfno"]; ?></li>
-                <li class="list-group-item">Web: <?php echo $_POST["web"]; ?></li>
-                <li class="list-group-item">Consulta: <?php echo $_POST["comentarios"]; ?></li>
-            </ul>
+            <dl class="list-group list-group-flush">
+                <dt>Nombre y apellidos</dt>
+                <dd><?php echo $_POST["nombre"]; ?></dd>
+                <dt>Email:</dt>
+                <dd><?php echo $_POST["email"]; ?></dd>
+                <dt>Teléfono:</dt>
+                <dd><?php echo $_POST["tfno"]; ?></dd>
+                <dt>Web:</dt>
+                <dd><?php echo $_POST["web"]; ?></dd>
+                <dt>Consulta:</dt>
+                <dd><?php echo $_POST["comentarios"]; ?></dd>
+            </dl>
+            <button class="btn btn-block btn-outline-primary" onclick="document.location='usuario.html'">Introducir datos de otro usuario</button>
         </div>
+    </div>
 </body>
 
 </html>

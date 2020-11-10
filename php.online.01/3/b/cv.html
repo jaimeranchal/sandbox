@@ -50,16 +50,108 @@
     </nav>
 
     <!--<div class="jumbotron d-sm-flex min-vh-100">-->
-        <div class="container align-self-center p-4 bg-success mt-5" style="max-width: 500px;">    
-            <form class="shadow p-4 bg-white" action="usuario.php" method="post">
-                <h2>Generador de CV</h2>
-                <p>Rellene los datos y pulse enviar </p>
-                <input type="text" class="form-control mb-3" name="nombre" placeholder="Nombre y apellidos" id="nombre" required>
-                <input type="email" class="form-control mb-3" name="email" placeholder="Correo electrónico" id="email" required>
-                <input type="text" class="form-control mb-3" name="tfno" placeholder="Teléfono (opcional)" id="tfno">
-                <input type="text" class="form-control mb-3" name="web" placeholder="Sitio web personal (opcional)" id="web">
-                <textarea class="form-control mb-5" name="comentarios" placeholder="Escriba su consulta aquí" id="comentarios"></textarea>
-                <button type="submit" class="btn btn-success btn-block mb-3">Enviar</button>
+        <div class="container align-self-center p-2 bg-secondary mt-5" >    
+            <form class="shadow p-4 bg-white" action="cv.php" method="post">
+                <h2 class="text-center">Generador de CV</h2>
+                <p class="lead text-center">Rellene el formulario con sus datos y pulse enviar para generar su currículum vitae</p>
+                <fieldset>
+                    <legend>Datos personales</legend>
+                    <label for="nombre">Nombre y apellidos</label>
+                    <input type="text" class="form-control mb-3" name="nombre" placeholder="" id="nombre" required>
+                    <label for="direccion">Dirección</label>
+                    <input type="text" class="form-control mb-3" name="direccion" placeholder="" id="direccion" required>
+                    <label for="email">Correo electrónico</label>
+                    <input type="email" class="form-control mb-3" name="email" placeholder="micorreo@ejemplo.com" id="email" required>
+                    <label for="nacimiento">Fecha de nacimiento</label>
+                    <input type="date" class="form-control mb-3" name="nacimiento" id="nacimiento">
+                    <label for="tfno">Teléfono (opcional)</label>
+                    <input type="text" class="form-control mb-3" name="tfno" id="tfno">
+                    <label for="web">Página web (opcional)</label>
+                    <input type="text" class="form-control mb-3" name="web" id="web">
+                </fieldset>
+
+                <hr>
+
+                <fieldset>
+                    <legend>Formación</legend>
+                    <label for="nivel1">Nivel</label>
+                    <select class="form-control mb-3" name="nivel1" id="nivel1">
+                        <option>Pre-universitario</option>
+                        <option>Universitario</option>
+                        <option>Máster</option>
+                        <option>Doctorado</option>
+                    </select>
+                    <label for="titulo1">Título</label>
+                    <input type="text" class="form-control mb-3" name="titulo1" id="titulo1">
+                    <label for="titulo1fin">Fecha de finalización</label>
+                    <input type="month" class="form-control" name="titulo1fin" id="titulo1fin"/>
+                    <!-- 
+                        Nivel (desplegable)
+                        Título
+                        Año de finalización
+                    -->
+                </fieldset>
+
+                <hr>
+
+                <fieldset>
+                    <legend>Experiencia profesional</legend>
+                    <label for="empresa">Empresa</label>
+                    <input type="text" class="form-control" name="empresa" id="empresa" />
+                    <label for="cargo">Cargo</label>
+                    <input type="text" class="form-control" name="cargo" id="cargo" />
+                    <label for="duracion">Duración</label>
+                    <select class="form-control mb-3" name="duracion" id="duracion">
+                        <option>Menos de 1 año</option>
+                        <option>Entre 1 y 3 años</option>
+                        <option>Entre 3 y 5 años</option>
+                        <option>Más de 5 años</option>
+                    </select>
+                    <div class="form-group">
+                        <label for="titulo1fin">Fecha de finalización</label>
+                        <input type="month" class="form-control" name="titulo1fin" id="titulo1fin"/>
+                        <div class="form-check">
+                            <input type="checkbox" class= "form-check-input" name="trabajo-actual" id="trabajo-actual" />
+                            <label class="form-check-label" for="trabajo-actual">Trabajando actualmente</label>
+                        </div>
+                    </div>
+                </fieldset>
+
+                <hr>
+
+                <fieldset>
+                    <legend>Idiomas</legend>
+                    <div class="form-group">
+                        <div class="form-check">
+                            <input type="checkbox" class= "form-check-input" name="idioma" id="idioma" />
+                            <label class="form-check-label" for="idioma">Inglés</label>
+                        </div>
+                        <div class="form-check">
+                            <input type="checkbox" class= "form-check-input" name="idioma" id="idioma" />
+                            <label class="form-check-label" for="idioma">Francés</label>
+                        </div>
+                        <div class="form-check">
+                            <input type="checkbox" class= "form-check-input" name="idioma" id="idioma" />
+                            <label class="form-check-label" for="idioma">Alemán</label>
+                        </div>
+                        <div class="form-check">
+                            <input type="checkbox" class= "form-check-input" name="idioma" id="idioma" />
+                            <label class="form-check-label" for="idioma">Chino</label>
+                        </div>
+                        <div class="form-check">
+                            <input type="checkbox" class= "form-check-input" name="idioma" id="idioma" />
+                            <label class="form-check-label" for="idioma">Árabe</label>
+                        </div>
+                    </div>
+                </fieldset>
+
+                <hr>
+
+                <fieldset>
+                    <legend>Otras habilidades</legend>
+                    <textarea class="form-control mb-5" name="otros" placeholder="Describa otras aptitudes que posea" id="otros"></textarea>
+                    <button type="submit" class="btn btn-primary btn-block mb-3">Enviar</button>
+                </fieldset>
             </form>
         </div>
 </body>
