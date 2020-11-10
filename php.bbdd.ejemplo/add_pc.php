@@ -23,7 +23,7 @@
 	
 	<h2>Añadir</h2>
 	
-	<p><a href='index.php'>Inicio</a> | <a href='lista_pc.php'>Listado</a> | Añadir | Editar | Borrar</p>
+	<p><a href='index.php'>Inicio</a> | <a href='lista_pc.php'>Listado</a> | Añadir | <a href='update_pc.php'>Editar</a> | <a href='delete_pc.php'>Borrar</a></p>
 	
 	<p>¡Se ha insertado el ordenador correctamente'</p>
 	
