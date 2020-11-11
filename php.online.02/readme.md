@@ -16,17 +16,112 @@ Las características de las tres aplicaciones web son las siguientes:
 
 ## 1. Sistema de test online
 
-El usuario iniciará sesión y realizará una prueba online tipo test sobre PHP (mínimo 10 preguntas). El test tendrá un máximo de 3 intentos. Tiene que haber preguntas con respuestas únicas (radio) o múltiples (checkbox). El profesor, con rol administrador, iniciará sesión y podrá comprobar las respuestas y la nota de cada alumno y podrá generar un informe. Dicho informe mostrará las notas de cada alumno y estadísticas como nota media, moda, varianza, desviación típica, pregunta con más aciertos, pregunta con más fallos, etc.
+### Acceso alumno
+El usuario iniciará sesión y realizará una prueba online tipo test sobre PHP 
+
+- mínimo 10 preguntas
+- El test tendrá un máximo de 3 intentos.
+- Tiene que haber preguntas con respuestas únicas (radio) o múltiples (checkbox).
+
+### Acceso profesor 
+El profesor, con rol administrador, iniciará sesión y podrá 
+
+- comprobar las respuestas y la nota de cada alumno 
+- generar un informe. Dicho informe mostrará 
+    - las notas de cada alumno 
+    - estadísticas como 
+        - nota media,
+        - moda,
+        - varianza, 
+        - desviación típica,
+        - pregunta con más aciertos,
+        - pregunta con más fallos, etc.
+
+### Modelo de datos
+
+- tablas:
+    1. usuarios
+        - user_id (PK)
+        - nombre
+        - email
+        - rol
+    2. preguntas
+        - test_id
+        - pregunta_id (PK)
+        - texto
+    3. respuestas ( _la dejo tal cual o la fusiono con Opciones?_ )
+        - respuesta_id (PK)
+        - pregunta_id (FK)
+    4. Opciones
+        - numero (PK?)
+        - es_correcta (boolean)
+        - pregunta_id (FK)
+    5. Respuestas_usuario
+        - user_id (FK)
+        - pregunta_id (FK)
+        - numero (FK)
 
 ## 2. Reservas online de coches
 
-El usuario (cliente) iniciará sesión y realizará una reserva online de un coche desde y hasta una fecha determinada a partir de un catálogo de 10 coches diferentes. El usuario no podrá reservar un coche determinado desde y hasta una fecha determinada si se encuentra reservado algún momento entre esas fechas. El administrador (empresario) iniciará sesión y podrá comprobar todas las reservas de sus clientes y podrá generar un informe. Dicho informe mostrará las reservas de cada cliente y estadísticas como número de veces que ha reservado, cuántos días ha reservado, qué coche ha reservado más veces, etc.
+### Acceso cliente
+El usuario (cliente) iniciará sesión y realizará 
+
+- una reserva online de un coche 
+    - desde y hasta una fecha determinada 
+    - a partir de un catálogo de 10 coches diferentes. 
+    - no se podrá si el modelo se encuentra reservado algún momento entre esas fechas.
+
+### Acceso empresario
+El administrador (empresario) iniciará sesión y podrá 
+
+- comprobar todas las reservas de sus clientes 
+- generar un informe. Dicho informe 
+    - mostrará las reservas de cada cliente 
+    - estadísticas como 
+        - número de veces que ha reservado,
+        - cuántos días ha reservado,
+        - qué coche ha reservado más veces, etc.
+
+### Modelo de datos
+
+- Tablas
+    1. usuarios
+    2. reservas
+    3. coches
 
 ## 3. Pizzería online
 
-El usuario (cliente) iniciará sesión y realizará un pedido online de una o varias pizzas y podrá elegir hasta 10 ingredientes o hasta 5 especialidades diferentes. El usuario podrá añadir/eliminar ingredientes/pizzas y vaciar la cesta de la compra para empezar de nuevo. El administrador (empresario) iniciará sesión y podrá comprobar todos los pedidos de sus clientes y podrá generar un informe. Dicho informe mostrará los pedidos de cada cliente y estadísticas como precio medio del pedido, el ingrediente más y menos solicitado, la especialidad más y menos solicitada, etc.
+### Acceso cliente
+El usuario (cliente) iniciará sesión y podrá:
 
-Entrega:
+- realizar un pedido online de una o varias pizzas 
+- elegir 
+    - hasta 10 ingredientes o
+    - hasta 5 especialidades diferentes.
+- añadir/eliminar ingredientes/pizzas 
+- vaciar la cesta de la compra para empezar de nuevo.
+
+### Acceso empresario
+El administrador (empresario) iniciará sesión y podrá 
+
+- comprobar todos los pedidos de sus clientes 
+- generar un informe. Dicho informe 
+    - mostrará los pedidos de cada cliente 
+    - estadísticas como 
+        - precio medio del pedido,
+        - el ingrediente más y menos solicitado,
+        - la especialidad más y menos solicitada, etc.
+
+### Modelo de datos
+
+- Tablas
+    1. usuarios
+    2. pedidos
+    3. pizza ( _igual sobra_)
+    4. especialidades
+    5. ingredientes
+
+## Entrega
 
 - La estructura de archivos y carpetas debe quedar [así](https://milq.github.io/cursos/dwes/ud/2/estructura.txt).
 - El script [inicio.sql](https://milq.github.io/cursos/dwes/ud/2/inicio.sql) creará las tres bases de datos con sus tablas, inserciones y restricciones necesarias.
