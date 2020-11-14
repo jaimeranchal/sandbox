@@ -1,11 +1,11 @@
-export class Disco {
+class Disco {
     //propiedades
-    nombre;
-    autor;
-    fecha;
-    genero;
-    localización;
-    prestado = false;
+    // nombre;
+    // autor;
+    // fecha;
+    // genero;
+    // localización;
+    // prestado = false;
 
     //constructor
     constructor(){}

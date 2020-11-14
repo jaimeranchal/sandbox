@@ -13,24 +13,26 @@
 </head>
 
 <?php
+// Elimina caracteres especiales y los sustituye por entidades HTML
+function filtrar($str) {
+    return trim(htmlspecialchars($str));
+}
+
+// Función para validar fechas pasadas por cadena
+function validarFecha($str){
+    // descomponemos en valores la cadena de fecha
+    $valores = explode('-', $str);
+    // Comprobamos que todos los campos estén rellenos
+    if (count($valores) == 3 && checkdate($valores[1], $valores[2], $valores[0])) {
+        $fechaFormato = date('d/m/Y', strtotime($str));
+        return $fechaFormato;
+    } else {
+        return false;
+    } 
+}
+
 // Filtrado y validación de datos
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-	// Elimina caracteres especiales y los sustituye por entidades HTML
-	function filtrar($str) {
-		return trim(htmlspecialchars($str));
-	}
-
-    // Función para validar fechas
-    function validarFecha($fecha){
-        // descomponemos en valores la cadena de fecha
-        $valores = explode('-', $fecha);
-        // Comprobamos que todos los campos estén rellenos
-        if (count($valores) == 3 && checkdate($valores[1], $valores[2], $valores[0])) {
-            return $fecha;
-        } else {
-            return "";
-        } 
-    }
 
     // Datos personales
     // nombre y apellidos
@@ -63,10 +65,21 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 		}
 	}
 
-	$web = !empty($_POST['web']) ? (string) filter_var($_POST['web'], FILTER_VALIDATE_URL) : "";
+    // página web
+	if (empty($_POST['web'])) {
+		$webError = 'Por favor introduce tu web';
+	} else {
+		$web = filtrar($_POST['web']);
+		if (!filter_var($web, FILTER_VALIDATE_URL)) {
+			$webError = 'web inválida';
+		}
+	}
+
     // Fecha de nacimiento
     $nacimiento = validarFecha($_POST['nacimiento']);
+    $tituloFin = validarFecha($_POST['titulo1fin']);
     // Formación
+    /* $titulo1fin = validarFecha($_POST['titulo1fin']); */
     // Experiencia profesional
     // Otras
     $otros = !empty($_POST['otros']) ? (string) filtrar($_POST['otros']) : "";
@@ -118,16 +131,42 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 <h3>Datos personales</h3>
                 <ul>
                     <li>Nombre y apellidos: <?=$name ?></li>
-                    <li>Correo electrónico: <?=$email ?></li>
+                    <li>Correo electrónico: <a href="mailto:<?=$email?>"><?=$email ?></a></li>
                     <li>Fecha de nacimiento: <?=$nacimiento?></li>
+                <?php if (!empty($_POST['tfno'])) : ?>
+                    <li>Teléfono: <?=$_POST['tfno']?></li>
+                <?php endif; ?>
+                <?php if (!empty($_POST['web'])) : ?>
+                    <li>Página web: <a href="<?=$web?>"><?=$web?></a></li>
+                <?php endif; ?>
                 </ul>
                 <h3>Formación</h3>
+                <?php if ($_POST['nivel1'] == 'Universitario'): ?>
+                <h4>Grado / Licenciatura</h4>
                 <ul>
-                    <li><<i><?=$titulo1 ?></i>, <?=$titulo1fin ?></li>
+                    <li><i><?=$_POST['titulo1'] ?></i>, (<i>finalizado el </i><?=$tituloFin?>)</li>
                 </ul>
+                <?php endif; ?>
                 <h3>Experiencia profesional</h3>
+                <dl>
+                    <dt><?=filtrar($_POST['cargo'])?> en <?=filtrar($_POST['empresa'])?> (<?=$_POST['duracion']?>)</dt>
+                </dl>
                 <h3>Idiomas</h3>
+                <ul>
+                    <?php 
+                    $idiomas = $_POST['idioma'];
+                    $n = count($idiomas);
+                    for ($i=0; $i < $n; $i++) { 
+                    ?>
+                    <li><?php echo($idiomas[$i] . " ");?></li>    
+                    <?php
+                    }
+                    ?>
+                </ul>
                 <h3>Otras habilidades</h3>
+                <?php if(!empty($_POST['otros'])) :?>
+                <p><?=$_POST['otros']?></p>
+                <?php endif; ?>
             </form>
         </div>
 </body>

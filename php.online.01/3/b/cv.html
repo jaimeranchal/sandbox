@@ -83,16 +83,16 @@
                     <fieldset class="tabcontent" id="formacion">
                         <legend>Formación</legend>
                         <label for="nivel1">Nivel</label>
-                        <select class="form-control mb-3" name="nivel1" id="nivel1">
+                        <select class="form-control mb-3" name="nivel1" id="nivel1" required>
                             <option>Pre-universitario</option>
                             <option>Universitario</option>
                             <option>Máster</option>
                             <option>Doctorado</option>
                         </select>
                         <label for="titulo1">Título</label>
-                        <input type="text" class="form-control mb-3" name="titulo1" id="titulo1">
+                        <input type="text" class="form-control mb-3" name="titulo1" id="titulo1" required>
                         <label for="titulo1fin">Fecha de finalización</label>
-                        <input type="month" class="form-control" name="titulo1fin" id="titulo1fin"/>
+                        <input type="date" class="form-control" name="titulo1fin" id="titulo1fin" value="2009-07-10"/>
                         <!-- 
                             Nivel (desplegable)
                             Título
@@ -103,19 +103,19 @@
                     <fieldset class="tabcontent" id="experiencia">
                         <legend>Experiencia profesional</legend>
                         <label for="empresa">Empresa</label>
-                        <input type="text" class="form-control" name="empresa" id="empresa" />
+                        <input type="text" class="form-control" name="empresa" id="empresa" required/>
                         <label for="cargo">Cargo</label>
-                        <input type="text" class="form-control" name="cargo" id="cargo" />
+                        <input type="text" class="form-control" name="cargo" id="cargo" required/>
                         <label for="duracion">Duración</label>
-                        <select class="form-control mb-3" name="duracion" id="duracion">
+                        <select class="form-control mb-3" name="duracion" id="duracion" required>
                             <option>Menos de 1 año</option>
                             <option>Entre 1 y 3 años</option>
                             <option>Entre 3 y 5 años</option>
                             <option>Más de 5 años</option>
                         </select>
                         <div class="form-group">
-                            <label for="titulo1fin">Fecha de finalización</label>
-                            <input type="month" class="form-control" name="titulo1fin" id="titulo1fin"/>
+                            <label for="cargoFin">Fecha de finalización</label>
+                            <input type="month" class="form-control" name="cargoFin" id="cargoFin"/>
                             <div class="form-check">
                                 <input type="checkbox" class= "form-check-input" name="trabajo-actual" id="trabajo-actual" />
                                 <label class="form-check-label" for="trabajo-actual">Trabajando actualmente</label>
@@ -127,24 +127,24 @@
                         <legend>Idiomas</legend>
                         <div class="form-group">
                             <div class="form-check">
-                                <input type="checkbox" class= "form-check-input" name="idioma" id="idioma" />
-                                <label class="form-check-label" for="idioma">Inglés</label>
+                                <input type="checkbox" class= "form-check-input" name="idioma[ ]" id="idioma" value="inglés"/>
+                                <label class="form-check-label" for="idioma[]">Inglés</label>
                             </div>
                             <div class="form-check">
-                                <input type="checkbox" class= "form-check-input" name="idioma" id="idioma" />
-                                <label class="form-check-label" for="idioma">Francés</label>
+                                <input type="checkbox" class= "form-check-input" name="idioma[ ]" id="idioma" value="francés"/>
+                                <label class="form-check-label" for="idioma[]">Francés</label>
                             </div>
                             <div class="form-check">
-                                <input type="checkbox" class= "form-check-input" name="idioma" id="idioma" />
-                                <label class="form-check-label" for="idioma">Alemán</label>
+                                <input type="checkbox" class= "form-check-input" name="idioma[ ]" id="idioma" value="alemán"/>
+                                <label class="form-check-label" for="idioma[]">Alemán</label>
                             </div>
                             <div class="form-check">
-                                <input type="checkbox" class= "form-check-input" name="idioma" id="idioma" />
-                                <label class="form-check-label" for="idioma">Chino</label>
+                                <input type="checkbox" class= "form-check-input" name="idioma[ ]" id="idioma" value="chino"/>
+                                <label class="form-check-label" for="idioma[]">Chino</label>
                             </div>
                             <div class="form-check">
-                                <input type="checkbox" class= "form-check-input" name="idioma" id="idioma" />
-                                <label class="form-check-label" for="idioma">Árabe</label>
+                                <input type="checkbox" class= "form-check-input" name="idioma[ ]" id="idioma" value="árabe"/>
+                                <label class="form-check-label" for="idioma[]">Árabe</label>
                             </div>
                         </div>
                     </fieldset>
