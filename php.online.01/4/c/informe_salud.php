@@ -18,21 +18,66 @@
       title="no title"
       charset="utf-8"
     />
-    <title>Tarea Online 01</title>
+    <title>Informe de salud</title>
   </head>
 
 <?php
-// Calcular IMC y metabolismo basal
+// Recogida y validación de datos
+if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+    $sexo = $_POST['sexo'];
+    // Limitamos la edad a un rango realista, con un tope de 120 años
+    if ($_POST['edad'] < 1 && $_POST['edad'] > 120) {
+        echo("La edad no puede ser menor de 1 o mayor de 120 años");
+    } else {
+        $edad = $_POST['edad'];
+    }
+    // Limitamos el rango de la altura y "forzamos" al usuario a introducirla
+    // en centímetros
+    if ($_POST['altura'] < 50 && $_POST['altura'] > 250) {
+        echo("Introduzca una altura realista, en centímetros");
+    } else {
+        $altura = $_POST['altura'];
+    }
+    // Limitamos el rango del peso y "forzamos" al usuario a introducirlo
+    // en kilogramos
+    if ($_POST['peso'] < 50 && $_POST['peso'] > 250) {
+        echo("Introduzca un peso realista, en kilogramos");
+    } else {
+        $peso = $_POST['peso'];
+    }
+}
+// Procesamiento
 // IMC = masa(kg) / estatura al cuadrado (m2) = resultado x kg/m2
-// [OPCIONAL] indicar estado nutricional según la clasificación de la OMS:
-// (https://es.wikipedia.org/wiki/%C3%8Dndice_de_masa_corporal)
+$imc = $peso / pow(($altura / 100), 2);
 // Metabolismo basal (fórmula de Harris-Benedict):
 // - Hombre: (peso (kg) * 10) + (altura(cm) * 6,25) - (edad * 5) + 5
 // - Mujer: (peso (kg) * 10) + (altura(cm) * 6,25) - (edad * 5) + 161
 // El resultado se indicará en Kilocalorías/día
-// Recogida de datos
-// Validación
-// Procesamiento
+switch ($sexo) {
+    case 'Hombre':
+        $mb = ($peso * 10) + ($altura * 6.25) - ($edad * 5) + 5;
+        break;
+    case 'Mujer':
+        $mb = ($peso * 10) + ($altura * 6.25) - ($edad * 5) + 161;
+        break;
+}
+
+// [OPCIONAL] indicar estado nutricional según la clasificación de la OMS:
+switch ($imc) {
+    case ($imc < 18.50):
+        $estado_nutr_gen = 'peso bajo';
+        break;
+    case ($imc > 18.50 && $imc < 24.99):
+        $estado_nutr_gen = 'peso normal';
+        break;
+    case ($imc >= 25 && $imc < 30):
+        $estado_nutr_gen = 'sobrepeso';
+        break;
+    case ($imc >= 30):
+        $estado_nutr_gen = 'obesidad';
+        break;
+    default:
+}
 ?>
   <body>
 
@@ -80,7 +125,16 @@
       </div>
     </header>
 
-    <div class="container">
+    <div class="container align-self-center p-4 bg-light mt-5" style="max-width: 500px;">    
+        <div class="shadow p-4">
+        <h2>Informe</h2>
+        <p>Con la información que ha proporcionado, estos son sus resultados:</p>
+        <ul>
+            <li><b>IMC</b>: <?=round($imc,2)?> kg/m<sup>2</sup></li>
+            <li><b>Metabolismo basal</b>: <?=$mb?> kcal/día</li>
+            <li><b>Estado nutricional</b>: <?=$estado_nutr_gen?></li>
+        </ul>
+        </div>
     </div>
     <!-- Librerías JS requeridas por BootStrap -->
     <script

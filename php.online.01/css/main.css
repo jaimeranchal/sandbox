@@ -6,21 +6,13 @@
     }
 }
 
+.border-3 {
+    border-width: 25px !important;
+}
+
 img.centered {
     display: block;
     margin-left: auto;
     margin-right: auto;
     width: 75%;
 }
-
-div#cab1 {}
-div#cab2{
-    background: url('../images/cabecera.jpg');
-    background-color: #34cccc;
-    background-position: center;
-    background-attachment: scroll;
-}
-div#cab3 {}
-div#cab4 {}
-div#cab5 {}
-
