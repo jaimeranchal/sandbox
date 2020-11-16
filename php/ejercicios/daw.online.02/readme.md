@@ -37,29 +37,6 @@ El profesor, con rol administrador, iniciará sesión y podrá
         - pregunta con más aciertos,
         - pregunta con más fallos, etc.
 
-### Modelo de datos
-
-- tablas:
-    1. usuarios
-        - user_id (PK)
-        - nombre
-        - email
-        - rol
-    2. preguntas
-        - test_id
-        - pregunta_id (PK)
-        - texto
-    3. respuestas ( _la dejo tal cual o la fusiono con Opciones?_ )
-        - respuesta_id (PK)
-        - pregunta_id (FK)
-    4. Opciones
-        - numero (PK?)
-        - es_correcta (boolean)
-        - pregunta_id (FK)
-    5. Respuestas_usuario
-        - user_id (FK)
-        - pregunta_id (FK)
-        - numero (FK)
 
 ## 2. Reservas online de coches
 
@@ -81,13 +58,6 @@ El administrador (empresario) iniciará sesión y podrá
         - número de veces que ha reservado,
         - cuántos días ha reservado,
         - qué coche ha reservado más veces, etc.
-
-### Modelo de datos
-
-- Tablas
-    1. usuarios
-    2. reservas
-    3. coches
 
 ## 3. Pizzería online
 
@@ -112,14 +82,6 @@ El administrador (empresario) iniciará sesión y podrá
         - el ingrediente más y menos solicitado,
         - la especialidad más y menos solicitada, etc.
 
-### Modelo de datos
-
-- Tablas
-    1. usuarios
-    2. pedidos
-    3. pizza ( _igual sobra_)
-    4. especialidades
-    5. ingredientes
 
 ## Entrega
 
