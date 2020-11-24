@@ -1,10 +1,114 @@
+/* Importar tipografía de google font para encabezados */
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@500&display=swap');
+
 a.disabled {}
 article {}
-body {}
+blockquote {
+    font-style: italic;
+    font-size: 1.5em;
+    text-align: center;
+}
+body {
+    min-height: 100vh;
+    width: 100%;
+    display: flex;
+    flex-flow: column wrap;
+    justify-content: space-between;
+    margin: 0;
+    /* Tipografías */
+    font-family: Roboto;
+}
 div#banner {}
-div.carrusel {}
-footer {}
-header {}
+div.carrusel {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: flex-end;
+    align-self: flex-end;
+}
+
+.grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    grid-template-rows: 1fr 1fr;
+}
+.grid-item-big {
+    background: grey;
+    margin: 5px;
+    width: 400px;
+    height: 400px;
+}
+.grid-item {
+    background: lightgrey;
+    margin: 5px;
+    width: 300px;
+    height: 330px;
+}
+
+.grid-item img {
+    display: block;
+    margin: auto;
+    width: 250px;
+    height: 250px;
+}
+footer {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-evenly;
+    align-items: flex-start;
+    background: #CD533B;
+}
+
+h1, h2, h3, h4 {
+    text-align: center;
+    font-family: Montserrat;
+}
+
+h1.titulo {
+    font-size: 3em;
+}
+
+h2.subtitulo {
+    font-style: italic;
+    font-size: 1.5em;
+    margin-top: -10px;
+}
+header {
+    background: #C0BABC;
+}
+
+nav * {
+    background: #5c595a;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: flex-end;
+    align-self: flex-end;
+
+    padding: 3px;
+    margin-bottom: -1px;
+}
+
+nav a {
+    color: #C0BABC;
+    text-decoration: none;
+    font-family: Montserrat;
+}
+
 section.titulo_seccion {}
 section.catalogo {}
-section#principal {}
+section#principal {
+    margin: auto;
+    display: flex;
+    flex-direction:column;
+    max-width: 1000px;
+    justify-content: center;
+}
+
+#principal iframe {
+    display:block;
+    margin: auto;
+    padding: 1em 1em 3em 1em;
+}
