@@ -2,7 +2,6 @@
 
 // declaración de clase
 export class Disco {
-
     //constructor
     constructor(){
         //propiedades
@@ -21,13 +20,14 @@ export class Disco {
      * Solicita por teclado 5 primeras propiedades
      * Por defecto, prestado = false
      */
-    nuevoDisco() {
+    static nuevoDisco() {
         let disco = new Disco();
         disco.nombre  = prompt("Nombre del disco: ");
         disco.autor   = prompt("Autor del disco: ");
         disco.fecha   = prompt("Fecha del disco: ");
         disco.genero  = prompt("Género del disco: ");
         disco.estante = validarNum(prompt("Ubicación del disco (nº de estantería)"));
+        return disco;
     }
 
     /**
@@ -48,15 +48,15 @@ export class Disco {
      */
     mostrarDisco(){
         let estado;
-        this.prestado ? estado = "prestado" : estado = "disponible";
-        return `${this.nombre}, ${this.nombre}, ${this.nombre}, ${this.nombre}, ${this.nombre}, ${estado}`;
+        this.prestado ? estado = "prestado" : estado = "Disponible";
+        return `<li>${this.nombre}, ${this.autor} (${this.fecha}), <i>${this.genero}</i>, guardado en la estantería ${this.estante} [${estado}]</li>`;
     }
 }
 
 /**
  * Comprueba que el dato es un número
  */
-let validarNum = (dato) => {
+export let validarNum = (dato) => {
     while(isNaN(dato)) {
         let error   = "ERROR: El dato introducido debe ser un número";
         let mensaje = "Introduzca de nuevo el dato: ";

@@ -6,9 +6,9 @@ USE pruebaud2;
 
 create table libros(
     ISBN varchar(20),
-    titulo varchar(50) not null,
-    autor varchar(30) not null,
-    editorial varchar(20),
+    titulo varchar(150) not null,
+    autor varchar(50) not null,
+    editorial varchar(50),
     edicion year,
     fecha year, 
     CONSTRAINT PK_libros PRIMARY KEY (ISBN)

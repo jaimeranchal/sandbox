@@ -1,0 +1,66 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN"
+"http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
+<html lang="es" xmlns="http://www.w3.org/1999/xhtml">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width">
+        <title>Tarea Online 3 (Js)</title>
+        <link
+            rel="stylesheet"
+            href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
+            integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh"
+            crossorigin="anonymous"
+        />
+    </head>
+    <body>
+        <!-- Cabecera -->
+        <header class="header">
+            <div class="jumbotron text-center">
+                <h1 class="display-3">Tarea Online 3 (Cliente)</h1>
+                <h2 class="display-5">Ejercicio 2</h2>
+                <p class="lead">Gestión de discos de música</p>
+            </div>
+        </header>
+        <!-- Menú de aplicación -->
+        <!-- Navegación -->
+        <nav class="navbar navbar-expand-lg navbar-dark justify-content-center flex-column flex-md-row bg-dark">
+            <div class="navbar-nav-scroll">
+                <ul class="navbar-nav flex-row">
+                    <!-- añadir disco -->
+                    <li class="nav-item">
+                        <button id="add" class="btn nav-link">Nuevo</button>
+                    </li>
+                    <!-- mostrar discos -->
+                    <li class="nav-item">
+                        <button id="mostrar" class="btn nav-link">Mostrar</button>
+                    </li>
+                    <!-- mostrar discos ascendente por nombre -->
+                    <!-- mostrar discos descendente por año -->
+                    <!-- mostrar discos (intervalo inicio-fin) -->
+                    <!-- mostrar discos por género -->
+                    <!-- borrar disco -->
+                    <li class="nav-item">
+                        <button onclick="borrarDisco();" class="btn nav-link">Borrar</button>
+                    </li>
+                    <!-- prestar discos -->
+                    <li class="nav-item">
+                        <button onclick="prestarDisco();" class="btn nav-link">Prestar</button>
+                    </li>
+                    <!-- cambiar ubicación -->
+                    <li class="nav-item">
+                        <button onclick="moverDisco();" class="btn nav-link">Mover</button>
+                    </li>
+                </ul>
+            </div>
+        </nav>
+        <!-- contenido -->
+        <div id="contenido" class="container">
+            <h2 id="opcion"></h2>
+            <ul id="discos">
+
+            </ul>        
+        </div>
+        <script type="module" src="script.js"></script>
+    </body>
+</html>
+
