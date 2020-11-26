@@ -23,7 +23,7 @@ export class Disco {
     setDisco(disco) {
         disco.nombre  = prompt("Nombre del disco: ");
         disco.autor   = prompt("Autor del disco: ");
-        disco.fecha   = prompt("Fecha del disco: ");
+        disco.fecha   = validarNum(prompt("Fecha del disco: "));
         disco.genero  = prompt("Género del disco: ");
         disco.estante = validarNum(prompt("Ubicación del disco (nº de estantería)"));
     }

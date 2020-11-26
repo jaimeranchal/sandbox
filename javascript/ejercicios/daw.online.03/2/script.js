@@ -40,19 +40,63 @@ let mostrarDiscos = () =>{
 }
 
 /* TODO: mostrar:
- * 1. ascendente por nombre
- * 2. descendente por año
- * 3. intervalo inicio-fin, intro. por usuario
- * 4. por género
  */
-let listaDiscosNombre = () =>{}
-let listaDiscosFecha = () =>{}
-let listaDiscosInvervalo = () =>{}
+
+/* Muestra los discos en orden:
+ * 1. ascendente por nombre
+ */
+let listaDiscosNombre = () =>{
+    document.getElementById("opcion").innerHTML= "Tus discos";
+    // ordenamos el array
+    arrDiscos.sort(function(a,b){
+        return a.nombre.localeCompare(b.nombre); // incompleto (qué es a?)
+    })
+    arrDiscos.forEach(elemento => {
+        document.getElementById("discos").innerHTML=elemento.mostrarDisco();
+    })
+}
+
+/* Muestra los discos en orden:
+ * 2. descendente por año
+ */
+let listaDiscosFecha = () =>{
+    document.getElementById("opcion").innerHTML= "Tus discos";
+    // ordenamos el array
+    arrDiscos.sort(function(a,b){
+        return a.fecha < b.fecha; // incompleto (cómo funciona sort?)
+    })
+    arrDiscos.forEach(elemento => {
+        document.getElementById("discos").innerHTML=elemento.mostrarDisco();
+    })
+}
+
+
+/* Muestra los discos en orden:
+ * 3. intervalo inicio-fin, intro. por usuario
+ */
+let listaDiscosInvervalo = () =>{
+    // solicitamos inicio y fin al usuario
+    let inicio = modulo.Disco.validarNum(prompt("Primer disco de la lista: "));
+    let fin = modulo.Disco.validarNum(prompt("Último disco de la lista: "));
+    document.getElementById("opcion").innerHTML= "Tus discos";
+
+    // usamos los valores anteriores para fijar los límites de un bucle for
+    for (let i = inicio; i < fin; i++) {
+        // imprimimos los datos de cada disco
+        document.getElementById("discos").innerHTML=arrDiscos[i].mostrarDisco();
+    }
+}
+
 /**
  * Muestra discos por género
  * Valida que el género exista?
  */
-let listaDiscosGenero = () =>{}
+let listaDiscosGenero = () =>{
+    document.getElementById("opcion").innerHTML= "Tus discos";
+    arrDiscos.forEach(elemento => {
+        document.getElementById("discos").innerHTML=elemento.mostrarDisco();
+    })
+}
 
 let borrarDisco = () =>{}
 let prestarDisco = () =>{}
@@ -107,6 +151,8 @@ let menu = (opcion) => {
  * Muestra un mensaje al usuario con las opciones disponibles
  * y llama a la opción correspondiente mediante la función menu()
  */
+
+/* TODO: control de opción inexistente/inválida con bucle */
 let mostrarMenu = () => {
     // Mensajes
     let mensaje1 = "1. Añadir disco";
