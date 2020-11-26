@@ -1,0 +1,140 @@
+ul, ul li {
+    margin: 0;
+    padding: 0;
+    list-style: none
+}
+
+h1, h2, h3, p, form {
+    margin: 0;
+    padding: 0
+}
+
+.clear {
+    clear: both
+}
+
+img {
+    border: none
+}
+
+#contenedor {
+    width: 90%;
+    max-width: 900px;
+    width: expression(document.body.clientWidth > 901? "900px":"auto");
+    margin: 0 auto
+}
+
+#cabecera, #menu, #lateral, #contenido, #contenido #principal, #contenido #secundario, #pie {
+    /* border: 2px solid #777; */
+}
+
+#cabecera {
+    background-color: #e6adad; /* color de fondo */
+    padding: 2em; /* relleno en todos los lados */
+    border-top: 2px solid #c50000;
+    border-bottom: 2px solid #c50000;
+    clear: both;
+}
+
+#menu {
+    border: none;
+    padding: 1em;
+    clear: both;
+    float: right;
+}
+
+#menu li:hover {
+    background-color: #c50000;
+}
+
+#menu a:hover {
+    color: #fff;
+}
+
+#lateral {
+    /* float: left; */
+    float: right;
+    border: none;
+    width: 20%
+}
+
+#contenido {
+    /* float: right; */
+    float: left;
+    width: 78%;
+}
+
+#contenido #principal {
+    /* float: left; */
+    float: right;
+    border:none;
+    padding: 3px;
+    width: 78%;
+}
+
+#contenido #secundario {
+    /* float: right; */
+    float: left;
+    border:none;
+    padding: 3px;
+    width: 20%;
+}
+
+#contenido #secundario p {
+    background-color: #fff3cd;
+}
+
+#pie {
+    border:none;
+    padding: 3px;
+    clear: both;
+}
+
+#cabecera #logo {
+    float: left;
+}
+
+#cabecera #buscador {
+    float: right;
+}
+
+#menu ul#menu_principal li {
+    display: inline;
+    float: left;
+}
+
+#contenido #principal .articulo img {
+    width: 100px;
+    /* float: left; */
+    float: right;
+}
+
+#pie .enlaces {
+    /* float: left; */
+    float: right;
+}
+
+#pie .copyright {
+    /* float: right; */
+    float: left;
+}
+
+/* Reglas añadidas por mí */ 
+#noticias {
+    background-color: wheat;
+    padding: 7px;
+    border: 2px dotted #000000;
+}
+
+#publicidad {
+    background-color: #cdfff7;
+    padding: 7px;
+    margin-top: 1em;
+    border: 2px dashed #000000;
+}
+
+.articulo {
+    padding: 1em;
+    border: 1px solid #c50000;
+    margin-bottom: 1em;
+}
