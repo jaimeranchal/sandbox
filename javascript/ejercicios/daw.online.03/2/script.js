@@ -1,9 +1,9 @@
 "use strict"
 
-import * as modulo from "./modules/disco.mjs";
+import * as modulo from "./disco.mjs";
 
 // Declaraciones
-let arrDiscos = []; // para guardar los datos que se introduzcan
+let arrDiscos = [];     // para guardar los datos que se introduzcan
 
 // funciones
 
@@ -14,12 +14,12 @@ let arrDiscos = []; // para guardar los datos que se introduzcan
 let addDisco = () =>{
     let continuar = confirm("Introduzca los datos del disco:");
     while (continuar){
-        let disco = new Disco();
-        disco = modulo.Disco.setDisco();
-        let pos = prompt("¿Desea añadir el disco al comienzo o al final? [ (c)omienzo / (f)inal ]");
+        let disco = new modulo.Disco();
+        disco.setDisco();
+        let pos = prompt("¿Desea añadir el disco al comienzo o al final?\n[ (c)omienzo / (f)inal ]");
         // control de entrada
-        while (pos !== "c" || pos !== "f") {
-            pos = prompt("Error: escriba la opción deseada <br> c - comienzo de la lista <br>f - final de la lista");
+        while (pos !== "c" && pos !== "f") {
+            pos = prompt("Error: escriba la opción deseada \nc - comienzo de la lista \nf - final de la lista");
         }
         // añadimos el disco al principio (push) o al final (unshift)
         if (pos === "c") {
@@ -30,44 +30,61 @@ let addDisco = () =>{
         // control de repetición
         continuar = confirm("¿Añadir otro disco?");
     }
+    // volver al menú o terminar programa
+    mostrarMenu();
 }
 
-let mostrarDiscos = () =>{
-    document.getElementById("opcion").innerHTML= "Tus discos";
-    arrDiscos.forEach(elemento => {
-        document.getElementById("discos").innerHTML=elemento.mostrarDisco();
-    })
-}
-
-/* TODO: mostrar:
+/**
+ * Muestra el número de discos guardados
  */
+let mostrarDiscos = () =>{
+    document.getElementById("opcion").innerHTML= "Discos guardados";
+        document.getElementById("discos").innerHTML=`Has guardado ${arrDiscos.length} discos.`
+    // volver al menú o terminar programa
+    mostrarMenu();
+}
 
 /* Muestra los discos en orden:
  * 1. ascendente por nombre
  */
 let listaDiscosNombre = () =>{
-    document.getElementById("opcion").innerHTML= "Tus discos";
+    // cadena donde guardamos el resultado
+    let lista = "";
+
+    // Título informativo
+    document.getElementById("opcion").innerHTML= "Discos ordenados por nombre";
     // ordenamos el array
     arrDiscos.sort(function(a,b){
-        return a.nombre.localeCompare(b.nombre); // incompleto (qué es a?)
+        return a.nombre.localeCompare(b.nombre); 
     })
     arrDiscos.forEach(elemento => {
-        document.getElementById("discos").innerHTML=elemento.mostrarDisco();
+        lista += elemento.mostrarDisco();
+        document.getElementById("discos").innerHTML = lista;
     })
+
+    // volver al menú o terminar programa
+    mostrarMenu();
 }
 
 /* Muestra los discos en orden:
  * 2. descendente por año
  */
 let listaDiscosFecha = () =>{
-    document.getElementById("opcion").innerHTML= "Tus discos";
+    // cadena donde guardamos el resultado
+    let lista = "";
+
+    // Título informativo
+    document.getElementById("opcion").innerHTML= "Discos ordenados por fecha";
     // ordenamos el array
     arrDiscos.sort(function(a,b){
-        return a.fecha < b.fecha; // incompleto (cómo funciona sort?)
+        return b.fecha - a.fecha; 
     })
     arrDiscos.forEach(elemento => {
-        document.getElementById("discos").innerHTML=elemento.mostrarDisco();
+        lista += elemento.mostrarDisco();
+        document.getElementById("discos").innerHTML = lista;
     })
+    // volver al menú o terminar programa
+    mostrarMenu();
 }
 
 
@@ -75,37 +92,128 @@ let listaDiscosFecha = () =>{
  * 3. intervalo inicio-fin, intro. por usuario
  */
 let listaDiscosInvervalo = () =>{
+    // cadena donde guardamos el resultado
+    let lista = "";
+
     // solicitamos inicio y fin al usuario
-    let inicio = modulo.Disco.validarNum(prompt("Primer disco de la lista: "));
-    let fin = modulo.Disco.validarNum(prompt("Último disco de la lista: "));
-    document.getElementById("opcion").innerHTML= "Tus discos";
+    let inicio = modulo.validarNum(prompt(`Primer disco de la lista (1-${arrDiscos.length}): `));
+    let fin = modulo.validarNum(prompt(`Último disco de la lista (1-${arrDiscos.length}): `));
+
+    // Título informativo
+    document.getElementById("opcion").innerHTML= "Discos (intervalo personalizado)";
 
     // usamos los valores anteriores para fijar los límites de un bucle for
-    for (let i = inicio; i < fin; i++) {
+    for (let i = inicio - 1; i < fin; i++) {
+        lista += arrDiscos[i].mostrarDisco();
+        document.getElementById("discos").innerHTML = lista;
         // imprimimos los datos de cada disco
-        document.getElementById("discos").innerHTML=arrDiscos[i].mostrarDisco();
     }
+    // volver al menú o terminar programa
+    mostrarMenu();
 }
 
 /**
- * Muestra discos por género
- * Valida que el género exista?
+ * Muestra discos por género 
+ * Valida que haya discos del género solicitado
  */
 let listaDiscosGenero = () =>{
-    document.getElementById("opcion").innerHTML= "Tus discos";
+    let lista = ""; // cadena donde guardamos el resultado
+    let contador = 0; // número de resultados; controla qué se imprime luego
+
+    // solicitamos el género
+    let genero  = modulo.validarNum(prompt("Tipo de música:\n" +
+        "1. Rock\n" +
+        "2. Pop\n" +
+        "3. Punk\n" +
+        "4. Indie\n"), 1, 4);
+    switch (parseInt(genero)) {
+        case 1:
+            genero = "Rock";
+            break;
+        case 2:
+            genero = "Pop";
+            break;
+        case 3:
+            genero = "Punk";
+            break;
+        case 4:
+            genero = "Indie";
+            break;
+    }
+    
+    // Buscamos y añadimos los datos
     arrDiscos.forEach(elemento => {
-        document.getElementById("discos").innerHTML=elemento.mostrarDisco();
+        if (elemento.genero === genero) {
+            lista += elemento.mostrarDisco();
+            contador++;
+        }
     })
+
+    // Imprimimos
+    if (contador > 0) {
+        document.getElementById("discos").innerHTML = lista;
+    } else {
+        document.getElementById("discos").innerHTML = "No hay discos de este género";
+    }
+
+    // volver al menú o terminar programa
+    mostrarMenu();
 }
 
-let borrarDisco = () =>{}
-let prestarDisco = () =>{}
-let moverDisco = () =>{}
+let borrarDisco = () =>{
+    let opcion = modulo.validarNum(prompt("Elige una opción: \n" + 
+        "1. Elegir\n" +
+        "2. Borrar del inicio\n" +
+        "3. Borrar del final"),1,3);
+    switch (parseInt(opcion)) {
+        case 1:
+            let disco = preguntaDisco("borrar");
+            // borramos el disco con splice para no dejar huecos vacíos
+            arrDiscos.splice(disco-1, 1);
+            break;
+        case 2:
+            arrDiscos.shift();
+        case 3:
+            arrDiscos.pop();
+    }
 
+    // volver al menú o terminar programa
+    mostrarMenu();
+}
+
+let prestarDisco = () =>{
+    let disco = preguntaDisco("prestar");
+    arrDiscos[disco-1].cambiarEstado();
+    // volver al menú o terminar programa
+    mostrarMenu();
+}
+
+let moverDisco = () =>{
+    let disco = preguntaDisco("mover");
+    arrDiscos[disco-1].cambiarLoc();
+    // volver al menú o terminar programa
+    mostrarMenu();
+}
+
+/**
+ * Lista discos y solicita un dato mediante prompt
+ */
+let preguntaDisco = (accion) => {
+    // Lista con todos los discos
+    let lista = "";
+    if (arrDiscos.length > 0) {
+        for (let i = 0; i < arrDiscos.length; i++){
+            lista += `${i+1}. ${arrDiscos[i].nombre}, ${arrDiscos[i].autor} (${arrDiscos[i].fecha})\n`;
+        }
+    }
+    //  y pregunta el número del que quiere borrar
+    let disco = prompt(`Introduzca el número del disco que quiere ${accion}:\n` + lista);
+    return disco;
+}
 /**
  * Invoca a varias funciones según la opcion elegida
  */
-let menu = (opcion) => {
+let opcionMenu = (opcion) => {
     switch (parseInt(opcion)) {
         case 1:
             // añadir disco (principio o final)
@@ -144,6 +252,8 @@ let menu = (opcion) => {
             // cambiar un libro de estantería
             moverDisco();
             break;
+        default:
+            mostrarMenu();
     }
 }
 
@@ -152,33 +262,27 @@ let menu = (opcion) => {
  * y llama a la opción correspondiente mediante la función menu()
  */
 
-/* TODO: control de opción inexistente/inválida con bucle */
-let mostrarMenu = () => {
+let menu = () => {
     // Mensajes
-    let mensaje1 = "1. Añadir disco";
-    let mensaje2 = "2. Mostrar nº de discos";
-    let mensaje3 = "3. Lista de discos (por nombre)";
-    let mensaje4 = "4. Lista de discos (por año)";
-    let mensaje5 = "5. Lista de discos por intervalo (inicio-fin)";
-    let mensaje6 = "6. Lista de discos (por género)";
-    let mensaje7 = "7. Borrar un disco";
-    let mensaje8 = "8. Prestar un disco";
-    let mensaje9 = "9. Cambiar un disco de estantería";
-    let error = "El valor introducido no se corresponde con ninguna entrada del menú.";
+    let mensaje = "1. Añadir disco\n" +
+        "2. Mostrar nº de discos\n" +
+        "3. Lista de discos (por nombre)\n" +
+        "4. Lista de discos (por año)\n" + 
+        "5. Lista de discos por intervalo (inicio-fin)\n" +
+        "6. Lista de discos (por género)\n" +
+        "7. Borrar un disco\n" +
+        "8. Prestar un disco\n" + 
+        "9. Cambiar un disco de estantería\n";
 
-    let opcion = prompt("Selecciona una opción [1-9]:\n"
-        + mensaje1 + "\n"
-        + mensaje2 + "\n"
-        + mensaje3 + "\n"
-        + mensaje4 + "\n"
-        + mensaje5 + "\n"
-        + mensaje6 + "\n"
-        + mensaje7 + "\n"
-        + mensaje8 + "\n"
-        + mensaje9 + "\n"
-    ); 
-
-    menu(opcion);
+    let opcion = modulo.validarNum(prompt("Selecciona una opción [1-9]:\n\n" + mensaje + "\n"), 1, 9); 
+    opcionMenu(opcion);
 }
 
-mostrarMenu();
+// controla si vuelve a aparecer el menú
+let mostrarMenu = () => {
+    let mostrar = confirm("¿Volver al menú?");
+    mostrar ? menu() : alert("Hasta luego");
+}
+
+// script
+menu();
