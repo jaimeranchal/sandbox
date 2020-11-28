@@ -99,6 +99,7 @@ nav a {
 
 section.titulo_seccion {}
 section.catalogo {}
+
 section#principal {
     margin: auto;
     display: flex;
