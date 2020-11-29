@@ -1,44 +1,21 @@
 /* Importar tipografía de google font para encabezados */
 @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@500&display=swap');
 
-a.disabled {}
-article {}
-blockquote {
-    font-style: italic;
-    font-size: 1.5em;
-    text-align: center;
-}
-body {
-    min-height: 100vh;
-    width: 100%;
-    display: flex;
-    flex-flow: column wrap;
-    justify-content: space-between;
-    margin: 0;
-    /* Tipografías */
-    font-family: Roboto;
-}
-div#banner {}
-div.carrusel {
-    display: flex;
-    flex-direction: row;
-    flex-wrap: wrap;
-    justify-content: center;
-    align-items: flex-end;
-    align-self: flex-end;
-}
+/* DISPLAY */
 
 .grid {
     display: grid;
     grid-template-columns: 1fr 1fr 1fr;
     grid-template-rows: 1fr 1fr;
 }
+
 .grid-item-big {
     background: grey;
     margin: 5px;
     width: 400px;
     height: 400px;
 }
+
 .grid-item {
     background: lightgrey;
     margin: 5px;
@@ -52,6 +29,21 @@ div.carrusel {
     width: 250px;
     height: 250px;
 }
+
+/* imágenes */
+.cover {
+    max-width: 1368px;
+    object-fit: cover;
+}
+
+/* ELEMENTOS DE USO GENERAL */
+
+blockquote {
+    font-style: italic;
+    font-size: 1.5em;
+    text-align: center;
+}
+
 footer {
     display: flex;
     flex-direction: row;
@@ -66,20 +58,48 @@ h1, h2, h3, h4 {
 }
 
 h1.titulo {
+    color: #C0BABC;
     font-size: 3em;
 }
 
 h2.subtitulo {
+    color: #C0BABC;
     font-style: italic;
     font-size: 1.5em;
-    margin-top: -10px;
+    margin-top: -1.2em;
 }
+
+/* SECCIONES */
+
+body {
+    min-height: 100vh;
+    width: 100%;
+    display: flex;
+    flex-flow: column wrap;
+    justify-content: space-between;
+    margin: 0;
+    /* Tipografías */
+    font-family: Roboto;
+}
+div.carrusel {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: flex-end;
+    align-self: flex-end;
+}
+
+
 header {
-    background: #C0BABC;
+    background: #202020;
+}
+
+nav {
+    background: #5c595a;
 }
 
 nav * {
-    background: #5c595a;
     display: flex;
     flex-direction: row;
     flex-wrap: wrap;
@@ -97,10 +117,16 @@ nav a {
     font-family: Montserrat;
 }
 
-section.titulo_seccion {}
-section.catalogo {}
+nav a:hover{
+    color: white;
+}
 
-section#principal {
+nav.nav-secundario {
+    background: #2c292a; /* color no incluido en la guía */
+    margin-top: -20px;
+}
+
+section.contenido{
     margin: auto;
     display: flex;
     flex-direction:column;
