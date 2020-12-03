@@ -1,0 +1,53 @@
+/* Pantallas con menos de 600px: una columna */
+@media screen and (max-width:600px) {
+    #contenido {
+        display: block;
+        margin 1em;
+    }
+
+    ul {
+        list-style:none;
+    }
+
+}
+
+/* Pantallas entre 600px y 1200px: dos columnas */
+@media screen and (min-width:600px) and (max-width:1200px) {
+    /* Creamos una rejilla con dos columnas */
+    #contenido {
+        display: grid;
+        grid-template-columns: 30% 60%;
+        grid-column-gap: 2em;
+        grid-template-areas: "col1" "col2"
+                              "col1" "col2";
+    }
+    /* asignamos los datos personales a la columna izquierda */
+    div.personal {
+        grid-column-start:1;
+    }
+
+    /* asignamos el resto de bloques a la columna derecha */
+    div.otros {
+        grid-column-start:2;
+    }
+
+    .personal ul {
+        list-style:none;
+    }
+    /* Intento de añadir un salto de línea entre el campo y su valor...*/
+    .personal strong::before{
+        content: "<hr>";
+    }
+}
+
+/* Pantallas mayores de 1200px: tres columnas */
+@media screen and (min-width:1200px) {
+    #contenido {
+        display: flex;
+        flex-flow: row wrap;
+    }
+    
+    div {
+        padding-right: 5em;
+    }
+}
