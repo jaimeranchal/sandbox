@@ -15,33 +15,42 @@
 
     <?php
     // conexión a la bd
-    require_once('conexión.php');
+    require_once('conexion.php');
 
-    // definir variables, asociar con campos del formulario y validar
-    /* $usuario  = $_POST['usuario']; */
-    $titulo   = $_POST['titulo'];
-    $autor    = $_POST['autor'];
-    $fecha    = $_POST['fecha'];
-    $genero   = $_POST['genero'];
-    $idioma   = $_POST['idioma'];
-    /* $prestado = $_POST['prestado']; */
-    $formato  = $_POST['formato'];
+    /* asignar y filtrar variables del formulario */
+    
+    if (isset($_POST["submit"]) && $_SERVER["REQUEST_METHOD"] === "POST") {
+        echo("Se ha enviado el formulario");
 
-    // sentencia preparada
-    $sql = 'INSERT INTO libros values (null, 1, :titulo, :autor, :fecha, :genero, :idioma, false, :formato)';
+        // Array de errores
+        $errores = [];
 
-    $sth = $conn->prepare($sql);
-    // vinculamos parámetros con valores
-    /* $sth->bindParam(':usuario', $usuario); */
-    $sth->bindParam(':titulo', $titulo);
-    $sth->bindParam(':autor', $autor);
-    $sth->bindParam(':fecha', $fecha);
-    $sth->bindParam(':genero', $genero);
-    $sth->bindParam(':idioma', $idioma);
-    /* $sth->bindParam(':prestado', $prestado); */
-    $sth->bindParam(':formato', $formato);
-    // ejecutamos la sentencia
-    $sth->execute();
+        /* Validar autor (vacío => "anónimo") */
+        $autor = (empty($_POST["autor"])) ? "Anónimo" : filter_var($_POST["autor"], FILTER_SANITIZE_STRING);
+
+        /* Validar fecha (año 1450-hoy) */
+        $fecha   = filter_var($_POST["fecha"], FILTER_SANITIZE_NUMBER_INT);
+        $current_year = date("Y");
+        if ($fecha < 1450 || $fecha > $current_year) {
+            $errores["fecha"] = `ERROR: formato inválido` .
+                `La fecha debe ser un número entre 1450 y ${current_year}`;
+        }
+
+        /* Filtramos y asignamos los que no necesiten validación */
+
+        $titulo  = filter_var($_POST["titulo"], FILTER_SANITIZE_STRING);
+        // tipo radio
+        $idioma = (isset($_POST["idioma"])) ? filter_var($_POST["idioma"], FILTER_SANITIZE_STRING) : "No especificado";
+
+        // tipo checkbox (array)
+        if (isset($_POST["genero"])) {
+            $genero  = filter_var((implode(", ", $_POST["genero"])), FILTER_SANITIZE_STRING);
+        }
+        if (isset($_POST["formato"])) {
+            $formato  = filter_var((implode(", ", $_POST["formato"])), FILTER_SANITIZE_STRING);
+        }
+    } 
+
     ?>
 
     <body>
@@ -67,12 +76,46 @@
         </nav>
         <!-- cabecera -->
         <header class="header">
-          <div class="jumbotron text-center">
-            <h2 class="display-3">Añadir libros</h2>
-            <p class="lead">Revisa los datos introducidos</p>
-          </div>
+            <div class="jumbotron text-center">
+                <h2 class="display-3">Añadir libros</h2>
+                <p class="lead">Revisa los datos introducidos</p>
+            </div>
         </header>
-        <!-- menú de opciones (grid) -->
+        <body class="container">
+            <div class="container align-self-center p-4">
+                <ul>
+                    <li><b>Título: </b><?=$titulo ?></li>
+                    <li><b>Autor: </b><?=$autor ?></li>
+                    <li><b>Año: </b><?php echo( (isset($errores["fecha"]))? $errores["fecha"] : $fecha ); ?></li>
+                    <li><b>Género: </b><?php echo( (isset($errores["genero"]))? $errores["genero"] : $genero ); ?></li>
+                    <li><b>Idioma: </b><?php echo( (isset($errores["idioma"]))? $errores["idioma"] : $idioma ); ?></li>
+                    <li><b>Formato: </b><?php echo( (isset($errores["formato"]))? $errores["formato"] : $formato ); ?></li>
+                </ul>
+            </div>
+            <!-- Si hay errores, muestra un botón para volver al formulario -->
+            <?php if (count($errores) > 0) {?>
+            <a class="btn btn-primary" href="./add-form.html">Volver al formulario</a>
+            <?php } else {
+            /* Si todo está correcto insertamos datos en la base de datos */
+
+            // sentencia preparada
+            $sql = 'INSERT INTO libros values (null, 1, :titulo, :autor, :fecha, :genero, :idioma, false, :formato)';
+
+            $sth = $dbh->prepare($sql);
+            // vinculamos parámetros con valores
+            /* $sth->bindParam(':usuario', $usuario); */
+            $sth->bindParam(':titulo', $titulo);
+            $sth->bindParam(':autor', $autor);
+            $sth->bindParam(':fecha', $fecha);
+            $sth->bindParam(':genero', $genero);
+            $sth->bindParam(':idioma', $idioma);
+            $sth->bindParam(':formato', $formato);
+            // ejecutamos la sentencia
+            $sth->execute();
+            } ?>
+
+        </body>
+
         <!-- javascript libraries -->
         <!-- JQuery -->
         <script

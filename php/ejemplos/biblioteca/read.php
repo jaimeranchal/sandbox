@@ -18,7 +18,7 @@
 
     // sentencia preparada
     // Recogemos los datos relevantes
-    $sth = $conn->prepare('SELECT titulo, autor, fecha FROM libros');
+    $sth = $dbh->prepare('SELECT titulo, autor, fecha FROM libros');
     $sth->execute(array());
     $resultado = $sth->fetchAll();
     ?>

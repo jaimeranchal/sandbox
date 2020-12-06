@@ -44,21 +44,90 @@
         <!-- formulario -->
         <div class="container align-self-center p-4">
             <form class="shadow p-4" action="add.php" method="post">
-                <h2>Nuevo libro</h2>
-                <label for="titulo">Titulo</label>
-                <input type="text" class="form-control mb-3" name="titulo" id="titulo" />
-                <label for="autor">Autor</label>
-                <input type="text" class="form-control mb-3" name="autor" id="autor" />
-                <label for="fecha">Fecha</label>
-                <input type="text" class="form-control mb-3" name="fecha" id="fecha" />
-                <label for="genero">Género</label>
-                <input type="text" class="form-control mb-3" name="genero" id="genero" />
-                <label for="idioma">Idioma</label>
-                <input type="text" class="form-control mb-3" name="idioma" id="idioma" />
-                <label for="formato">Formato</label>
-                <input type="text" class="form-control mb-3" name="formato" id="formato" />
-                <button type="submit" class="btn btn-primary btn-block mb-3">Registrar</button>
-            </form></div>
+                <!-- Título -->
+                <div class="form-group row">
+                    <label for="titulo" class="col-sm-2 col-form-label">Titulo</label>
+                    <div class="col-sm-10">
+                        <input type="text" class="form-control" name="titulo" id="titulo" required/>
+                    </div>
+                </div>
+                <!-- Autor -->
+                <div class="form-group row">
+                    <label for="autor" class="col-sm-2 col-form-label">Autor</label>
+                    <div class="col-sm-10">
+                        <input type="text" class="form-control" name="autor" id="autor" />
+                    </div>
+                </div>
+                <!-- Fecha -->
+                <div class="form-group row">
+                    <label for="fecha" class="col-sm-2 col-form-label">Fecha</label>
+                    <div class="col-sm-10">
+                        <input type="text" class="form-control" name="fecha" id="fecha" required/>
+                    </div>
+                </div>
+                <!-- Checkbox -->
+                <fieldset class="form-group">
+                    <div class="row">
+                        <legend class="col-form-label col-sm-2 pt-0">Género</legend>
+                        <div class="col-sm-10">
+                            <div class="form-check">
+                                <input type="checkbox" class="form-check-input" name="genero[]" id="genero" value="novela" />
+                                <label for="genero" class="form-check-label">novela</label>
+                            </div>
+                            <div class="form-check">
+                                <input type="checkbox" class="form-check-input" name="genero[]" id="genero" value="biografía"/>
+                                <label for="genero" class="form-check-label">biografía</label>
+                            </div>
+                            <div class="form-check">
+                                <input type="checkbox" class="form-check-input" name="genero[]" id="genero" value="poesía"/>
+                                <label for="genero" class="form-check-label">poesía</label>
+                            </div>
+                        </div>
+                    </div>
+                </fieldset>
+                <!-- Radio button -->
+                <fieldset class="form-group">
+                    <div class="row">
+                        <legend class="col-form-label col-sm-2 pt-0">Idioma</legend>
+                        <div class="col-sm-10">
+                            <div class="form-check">
+                                <input type="radio" class="form-check-input" name="idioma" id="idioma" value="español" required/>
+                                <label for="idioma" class="form-check-label">español</label>
+                            </div>
+                            <div class="form-check">
+                                <input type="radio" class="form-check-input" name="idioma" id="idioma" value="inglés" required/>
+                                <label for="idioma" class="form-check-label">inglés</label>
+                            </div>
+                            <div class="form-check">
+                                <input type="radio" class="form-check-input" name="idioma" id="idioma" value="francés" required/>
+                                <label for="idioma" class="form-check-label">francés</label>
+                            </div>
+                        </div>
+                    </div>
+                </fieldset>
+                <!-- Checkbox -->
+                <fieldset class="form-group">
+                    <div class="row">
+                        <legend class="col-form-label col-sm-2 pt-0">Formato</legend>
+                        <div class="col-sm-10">
+                            <div class="form-check">
+                                <input type="checkbox" class="form-check-input" name="formato[]" id="formato" value="Tapa dura"/>
+                                <label for="formato" class="form-check-label">físico (tapa dura)</label>
+                            </div>
+                            <div class="form-check">
+                                <input type="checkbox" class="form-check-input" name="formato[]" id="formato" value="Tapa blanda"/>
+                                <label for="formato" class="form-check-label">físico (tapa blanda)</label>
+                            </div>
+                            <div class="form-check">
+                                <input type="checkbox" class="form-check-input" name="formato[]" id="formato" value="Digital"/>
+                                <label for="formato" class="form-check-label">digital</label>
+                            </div>
+                        </div>
+                    </div>
+                </fieldset>
+                <button type="submit" name="submit" class="btn btn-primary btn-block mb-3">Registrar</button>
+            </form>
+        </div>
         
 
         <!-- javascript libraries -->
