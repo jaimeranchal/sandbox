@@ -12,33 +12,6 @@
             crossorigin="anonymous"
         />
     </head>
-
-<?php
-// conexión a la bd
-require_once('conexion.php');
-
-// Array de errores
-$errores = [];
-
-// Comprobar si se ha definido el campo del formulario
-if (isset($_POST['submit']) && $_SERVER['REQUEST_METHOD'] === "POST" && isset($_POST['id'])) {
-    // filtrar y validar id
-    if (!filter_var($_POST['id'], FILTER_VALIDATE_INT)) {
-        $errores[] = "Error: el id proporcionado no es un entero";
-    } else {
-        $id  = $_POST['id'];
-        //sentencia preparada
-        $sql = 'SELECT * from libros WHERE id=?';
-        $sth = $dbh->prepare($sql);
-        $sth->execute(array($id));
-        $resultado = $sth->fetch();
-
-        // si no encuentra nada, guardamos el error
-        if ($resultado == null) { $errores[] ="No hay items con ese id"; } 
-    }
-}
-?>
-
     <body>
         <!-- Navegación -->
         <nav class="navbar navbar-expand-lg navbar-dark flex-column flex-md-row justify-content-center bg-dark">
@@ -63,32 +36,20 @@ if (isset($_POST['submit']) && $_SERVER['REQUEST_METHOD'] === "POST" && isset($_
         <!-- cabecera -->
         <header class="header">
           <div class="jumbotron text-center">
-            <h2 class="display-3">Eliminar libros</h2>
-            <p class="lead">Revisa que el libro haya sido eliminado correctamente</p>
+            <h2 class="display-3">Editar</h2>
+            <p class="lead">Edita la información de un libro</p>
           </div>
         </header>
-
+        
         <div class="container align-self-center p-4">
-            <!-- si el id es válido y devuelve un elemento de la bd, lo borra
-            muestra un mensaje; si no, retry -->
-            <?php if (count($errores) > 0) {?>
-            <div class="jumbotron text-center">
-                <h2 class="display-5">Error</h2>
-                <p><?=implode(", ", $errores)?></p>
-                <a class="btn btn-primary" href="./delete-form.html">Volver al formulario</a>
-            </div>
-            <?php } else {
-            // sentencia preparada
-            $sql = 'DELETE FROM libros WHERE id=?';
-            $sth = $dbh->prepare($sql);
-            $sth->execute(array($id));
-            ?>
-            <div class="jumbotron text-center">
-                <h2 class="display-5">Libro eliminado</h2>
-                <p>Puede eliminar otro con el botón de abajo o hacer otra cosa</p>
-                <a class="btn btn-primary" href="./delete-form.html">Volver al formulario</a>
-            </div>
-            <?php } ?>
+            <!-- solicitar id -->
+            <form class="shadow p-4" action="update-check.php" method="post">
+                <div class="form-group">
+                    <label for="id">Id. del libro</label>
+                    <input type="text" class="form-control" name="id" id="id" placeholder="Número de identificación del libro (0,1...)">
+                </div>
+                <button type="submit" name="submit" class="btn btn-primary mb-3">Comprobar</button>
+            </form>
         </div>
 
         <!-- javascript libraries -->
@@ -112,3 +73,4 @@ if (isset($_POST['submit']) && $_SERVER['REQUEST_METHOD'] === "POST" && isset($_
         </script>
     </body>
 </html>
+

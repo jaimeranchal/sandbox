@@ -18,14 +18,14 @@
 
     // sentencia preparada
     // Recogemos los datos relevantes
-    $sth = $dbh->prepare('SELECT titulo, autor, fecha FROM libros');
+    $sth = $dbh->prepare('SELECT id, titulo, autor, fecha FROM libros');
     $sth->execute(array());
     $resultado = $sth->fetchAll();
     ?>
     <body>
         <!-- Navegación -->
         <nav class="navbar navbar-expand-lg navbar-dark flex-column flex-md-row justify-content-center bg-dark">
-            <a class="navbar-brand" href="#">Inicio</a>
+            <a class="navbar-brand" href="./index.html">Inicio</a>
             <div class="navbar-nav-scroll">
                 <ul class="navbar-nav flex-row">
                     <li class="nav-item">
@@ -54,11 +54,12 @@
             <!-- lista o tabla html -->
             <table class="table">
                 <thead class="thead-dark">
-                    <tr><th>Título</th><th>Autor</th><th>Fecha</th></tr>
+                    <tr><th>Id</th><th>Título</th><th>Autor</th><th>Fecha</th></tr>
                 </thead>
                 <?php foreach ($resultado as $fila) { ?>
                 <!-- elemento de lista o fila con formato -->
                 <tr>
+                    <td><?= $fila['id'] ?></td>
                     <td><?= $fila['titulo'] ?></td>
                     <td><?= $fila['autor'] ?></td>
                     <td><?= $fila['fecha'] ?></td>

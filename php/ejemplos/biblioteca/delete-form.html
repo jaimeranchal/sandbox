@@ -40,7 +40,18 @@
             <p class="lead">Introduce el código del libro para eliminarlo</p>
           </div>
         </header>
-        <!-- menú de opciones (grid) -->
+
+        <div class="container align-self-center p-4">
+            <!-- solicitar id -->
+            <form class="shadow p-4" action="delete.php" method="post">
+                <div class="form-group">
+                    <label for="id">Id. del libro</label>
+                    <input type="text" class="form-control" name="id" id="id" placeholder="Número de identificación del libro (0,1...)">
+                </div>
+                <button type="submit" class="btn btn-primary mb-3">Comprobar</button>
+            </form>
+        </div>
+
         <!-- javascript libraries -->
         <!-- JQuery -->
         <script

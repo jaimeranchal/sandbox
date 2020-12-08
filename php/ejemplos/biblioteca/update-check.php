@@ -1,3 +1,30 @@
+<?php
+// conexión a la bd
+require_once('conexion.php');
+
+// Array de errores
+$errores = [];
+
+// Comprobar si se ha definido el campo del formulario
+if (isset($_POST['submit']) && $_SERVER['REQUEST_METHOD'] === "POST" && isset($_POST['id'])) {
+    // filtrar y validar id
+    if (!filter_var($_POST['id'], FILTER_VALIDATE_INT)) {
+        $errores[] = "Error: el id proporcionado no es un entero";
+    } else {
+        $id  = $_POST['id'];
+        //sentencia preparada
+        $sql = 'SELECT * from libros WHERE id=?';
+        $sth = $dbh->prepare($sql);
+        $sth->execute(array($id));
+        // Recuperamos los datos del objeto a editar para mostrarlos
+        $resultado = $sth->fetch();
+        print_r($resultado);
+
+        // si no encuentra nada, guardamos el error
+        if ($resultado == null) { $errores[] ="No hay items con ese id"; } 
+    }
+}
+?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN"
 "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
 <html lang="es" xmlns="http://www.w3.org/1999/xhtml">
@@ -37,38 +64,41 @@
         <header class="header">
           <div class="jumbotron text-center">
             <h2 class="display-3">Editar</h2>
-            <p class="lead">Edita la información de un libro</p>
+            <p class="lead">Revisa los cambios introducidos</p>
           </div>
         </header>
-        
+
         <div class="container align-self-center p-4">
+            <!-- si el id es válido y devuelve un elemento de la bd, lo borra
+            muestra un mensaje; si no, retry -->
+            <?php if (count($errores) > 0) {?>
+            <div class="jumbotron text-center">
+                <h2 class="display-5">Error</h2>
+                <p><?=implode(", ", $errores)?></p>
+                <a class="btn btn-primary" href="./update-form.html">Volver al formulario</a>
+            </div>
+            <?php } else {  ?>
+            <!-- Formulario con nuevos datos -->
             <form class="shadow p-4" action="update.php" method="post">
-                <!-- solicitar id -->
-                <div class="form-group">
-                    <p class="lead">Número de identificación del libro</p>
-                    <input type="text" class="form-control" name="id" id="id" placeholder="0" required>
-                </div>
-                <!-- solicitar nuevos datos -->
-                <p class="lead">Introduce los nuevos datos (en blanco para no cambiar)</p>
                 <!-- Título -->
                 <div class="form-group row">
                     <label for="titulo" class="col-sm-2 col-form-label">Titulo</label>
                     <div class="col-sm-10">
-                        <input type="text" class="form-control" name="titulo" id="titulo" />
+                    <input type="text" class="form-control" name="titulo" id="titulo" placeholder="<?=$resultado['titulo']?>"/>
                     </div>
                 </div>
                 <!-- Autor -->
                 <div class="form-group row">
                     <label for="autor" class="col-sm-2 col-form-label">Autor</label>
                     <div class="col-sm-10">
-                        <input type="text" class="form-control" name="autor" id="autor" />
+                        <input type="text" class="form-control" name="autor" id="autor" placeholder="<?=$resultado['autor']?>" />
                     </div>
                 </div>
                 <!-- Fecha -->
                 <div class="form-group row">
                     <label for="fecha" class="col-sm-2 col-form-label">Fecha</label>
                     <div class="col-sm-10">
-                        <input type="text" class="form-control" name="fecha" id="fecha" />
+                        <input type="text" class="form-control" name="fecha" id="fecha" placeholder="<?=$resultado['fecha']?>" />
                     </div>
                 </div>
                 <!-- Checkbox -->
@@ -131,10 +161,38 @@
                         </div>
                     </div>
                 </fieldset>
-                <button type="submit" name="submit" class="btn btn-primary btn-block mb-3">Modificar</button>
+                <button type="submit" name="submit" class="btn btn-primary btn-block mb-3">Actualizar</button>
             </form>
+            <?php } ?>
         </div>
 
+        <?php
+        // definir variables, asociar con campos del formulario y validar
+        /* A diferencia de add, aquí incluimos el id para poder buscar el dato a editar */
+        /* $id       = $_POST['id']; */
+        /* $usuario  = $_POST['usuario']; */
+        /* $titulo   = $_POST['titulo']; */
+        /* $autor    = $_POST['autor']; */
+        /* $fecha    = $_POST['fecha']; */
+        /* $genero   = $_POST['genero']; */
+        /* $idioma   = $_POST['idioma']; */
+        /* $prestado = $_POST['prestado']; */
+        /* $formato  = $_POST['formato']; */
+
+        // sentencia preparada
+        /* También se podría dividir en 3 strings concatenados:
+         * 1. UPDATE into tabla 
+         * 2. SET campo1=:campo1... 
+         * 3. WHERE id=:id
+         * */
+        /* $sql = 'UPDATE INTO libros '. */
+        /*     'SET id=?, usuario=?, titulo=?, autor=?, fecha=?, genero=?, idioma=?, prestado=?prestado, formato=?'. */
+        /*     'WHERE id=:id'; */
+
+        /* $sth = $conn->prepare($sql); */
+        /* // ejecutamos la sentencia */
+        /* $sth->execute(array($id, $titulo, $autor, $fecha, $genero, $idioma, $prestado, $formato)); */
+        ?>
         <!-- javascript libraries -->
         <!-- JQuery -->
         <script
@@ -156,4 +214,3 @@
         </script>
     </body>
 </html>
-
