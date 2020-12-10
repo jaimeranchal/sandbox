@@ -51,54 +51,45 @@ session_start();
 
         <!-- cuerpo de la página -->
 
-        <!-- Si es un alumno: -->
-        <?php if (isset($_SESSION['usuario']) === true && $_SESSION['rol'] === 'a') { ?>
-        <div class="jumbotron text-center">
-            <h2 class="display-4 text-center">¡Hola!</h2>
-            <p class="lead">Has iniciado sesión como <b><?=$_SESSION['nombre']?></b></p>
-            <p class="lead">Usa el enlace del menú superior para acceder al test.</p>
-        </div>
         <!-- Si es un profesor: -->
-        <?php } elseif (isset($_SESSION['usuario']) === true && $_SESSION['rol'] === 'p') {  ?>
+        <?php if (isset($_SESSION['usuario']) === true && $_SESSION['rol'] === 'p') {  
+
+        //recupero datos de alumnos de la base de datos
+        $sql = "SELECT * FROM usuarios WHERE rol='a'";
+        $sth = $dbh->prepare($sql);
+        $sth->execute();
+        $resultado = $sth->fetchAll();
+
+        ?>
         <div class="jumbotron text-center">
-            <h2 class="display-4 text-center">Bienvenido</h2>
-            <p class="lead">Has iniciado sesión como <b><?=$_SESSION['nombre']?></b></p>
-            <p class="lead">Usa el enlace del menú superior para acceder al portal del profesor.</p>
+            <h2 class="display-4 text-center">Portal del profesor</h2>
+            <p class="lead">Aquí puedes consultar las notas de los alumnos, o generar un informe</p>
+            <button class="btn btn-primary ml-3">
+                <span class="fas fa-chart-bar"></span>
+                <a class="text-light" href="./profesor_informe.php"> Informe</a>
+            </button>
         </div>
-        
-        <!-- Formulario de login -->
+        <!-- tabla con las notas de los alumnos -->
+        <div class="container shadow p-4">
+            <table class="table">
+                <thead class="thead-dark">
+                    <tr><th>Alumno</th><th>Nº de intentos</th><th>Nota más alta</th></tr>
+                </thead>
+                <?php foreach ($resultado as $fila) { ?>
+                <!-- elemento de lista o fila con formato -->
+                <tr>
+                    <td><?= $fila['nombre'] ?></td>
+                    <td><?= -($fila['intentos']-3) ?></td>
+                    <td><?= max($fila['nota_1'], $fila['nota_2'], $fila['nota_3']) ?></td>
+                </tr>
+                <?php } ?>
+            </table>
+        </div>
+        <!-- Si es un alumno o no ha iniciado sesión -->
         <?php } else { ?>
-        <div class="container d-flex min-vh-100">
-            <div class="container align-self-center p-4 mt-n5 shadow" style="max-width: 500px;">
-                <h2 class="display-4 text-center">Inicia sesión</h2>
-                <p class="lead text-center">Introduce tus datos para continuar</p>
-                <form action="login.php" method="POST">
-
-                    <div class="form-group">
-                        <div class="input-group mr-sm-2">
-                            <label class="sr-only" for="usuario">Usuario</label>
-                            <div class="input-group-prepend">
-                                <div class="input-group-text">@</div>
-                            </div>
-                            <input type="text" name="usuario" class="form-control" id="usuario" placeholder="usuario" required>
-                        </div>
-                    </div>
-
-                    <div class="form-group">
-                        <label class="sr-only" for="pass">Contraseña</label>
-                        <div class="input-group mr-sm-2">
-                            <div class="input-group-prepend">
-                                <div class="input-group-text">
-                                    <span class="fas fa-key"></span>
-                                </div>
-                            </div>
-                            <input type="password" name="pass" class="form-control" id="pass" placeholder="*******" required>
-                        </div>
-                    </div>
-
-                    <button type="submit" class="btn btn-primary" name="submit"><span class="fas fa-sign-in-alt"></span> Login</button>
-                </form>
-            </div>
+        <div class="jumbotron text-center">
+            <h2 class="display-4 text-center">Acceso prohibido</h2>
+            <p class="lead">Debes iniciar sesión como <b>profesor</b>para poder ver el contenido</p>
         </div>
         <?php } ?>
 
@@ -125,4 +116,5 @@ session_start();
         </script>
     </body>
 </html>
+
 

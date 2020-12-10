@@ -40,11 +40,6 @@ session_start();
                     <span class="fas fa-sign-out-alt"></span>
                     <a class="text-light" href="./logout.php"> Cerrar sesión</a>
                 </button>
-                <?php } else { ?>
-                <button class="btn btn-primary ml-3">
-                    <span class="fas fa-address-card"></span>
-                    <a class="text-light" href="./signin-form.html"> Nuevo usuario</a>
-                </button>
                 <?php } ?>
             </div>
         </nav>
@@ -52,53 +47,87 @@ session_start();
         <!-- cuerpo de la página -->
 
         <!-- Si es un alumno: -->
-        <?php if (isset($_SESSION['usuario']) === true && $_SESSION['rol'] === 'a') { ?>
+<?php 
+if (isset($_SESSION['usuario']) === true && $_SESSION['rol'] === 'a') { 
+    if($_SESSION['intentos'] > 0){
+?>
+        <!-- Hero -->
         <div class="jumbotron text-center">
-            <h2 class="display-4 text-center">¡Hola!</h2>
-            <p class="lead">Has iniciado sesión como <b><?=$_SESSION['nombre']?></b></p>
-            <p class="lead">Usa el enlace del menú superior para acceder al test.</p>
+            <h2 class="display-4">Test PHP</h2>
+            <p class="lead">Contesta a las preguntas lo mejor que puedas, tienes <b><?=$_SESSION['intentos']?> intentos</b></p>
         </div>
+        <!-- Test -->
+        <div class="container align-self-center p-4 shadow">
+            <form action="test_result.php" method="POST">
+            <!-- por cada pregunta imprime su texto -->
+<?php
+
+    // recuperamos los datos de la base de datos
+    $sql = "SELECT * FROM preguntas";
+    $sth = $dbh->prepare($sql);
+    $sth->execute();
+    $preguntas = $sth->fetchAll();
+
+    // dejo preparada una sentencia para ejecutarla en bucle con cada pregunta
+    $sql2 = "SELECT * FROM opciones WHERE pregunta=?";
+    $sth2 = $dbh->prepare($sql2);
+
+    // Imprime en bucle el texto de las preguntas
+    foreach ($preguntas as $pregunta) {    
+
+?>
+            <div class="form-group">
+            <legend class="form-label">Pregunta <?=$pregunta['id']?></legend>
+            <p class="lead"><?=$pregunta['texto']?></p>
+
+<?php 
+
+        $id_pregunta = $pregunta['id'];
+
+        $sth2->execute(array($id_pregunta));
+        $opciones = $sth2->fetchAll();
+
+        /* bucle foreach que imprime todas las opciones con FK = pregunta */
+        foreach ($opciones as $opcion) {
+?>
+                <div class="form-check">
+                    <input type="radio" class="form-check-input" name="<?=$id_pregunta?>" value="<?=$opcion['id']?>"></input> 
+                    <label for="<?=$id_pregunta?>" class="form-check-label"><?=$opcion['texto']?></label>
+                </div>
+<?php } ?>
+            </div>
+            <hr>
+<?php } ?>
+
+            <button type="submit" name="submit" class="btn btn-primary btn-block mb-3 text-center">Enviar respuestas</button>
+            </form>
+        </div>
+
         <!-- Si es un profesor: -->
-        <?php } elseif (isset($_SESSION['usuario']) === true && $_SESSION['rol'] === 'p') {  ?>
+<?php 
+    } else {
+?>
+        <!-- Hero -->
         <div class="jumbotron text-center">
-            <h2 class="display-4 text-center">Bienvenido</h2>
-            <p class="lead">Has iniciado sesión como <b><?=$_SESSION['nombre']?></b></p>
+            <h2 class="display-4">Test PHP</h2>
+            <p class="lead">Has agotados todos tus intentos</p>
+        </div>
+
+<?php
+    } 
+} elseif (isset($_SESSION['usuario']) === true && $_SESSION['rol'] === 'p') {  ?>
+
+        <div class="jumbotron text-center">
+            <h2 class="display-4 text-center">Test PHP (vista del profesor)</h2>
+            <p class="lead">Este es el test para <b>alumnos</b></p>
             <p class="lead">Usa el enlace del menú superior para acceder al portal del profesor.</p>
         </div>
         
-        <!-- Formulario de login -->
+        <!-- Mensaje de advertencia -->
         <?php } else { ?>
-        <div class="container d-flex min-vh-100">
-            <div class="container align-self-center p-4 mt-n5 shadow" style="max-width: 500px;">
-                <h2 class="display-4 text-center">Inicia sesión</h2>
-                <p class="lead text-center">Introduce tus datos para continuar</p>
-                <form action="login.php" method="POST">
-
-                    <div class="form-group">
-                        <div class="input-group mr-sm-2">
-                            <label class="sr-only" for="usuario">Usuario</label>
-                            <div class="input-group-prepend">
-                                <div class="input-group-text">@</div>
-                            </div>
-                            <input type="text" name="usuario" class="form-control" id="usuario" placeholder="usuario" required>
-                        </div>
-                    </div>
-
-                    <div class="form-group">
-                        <label class="sr-only" for="pass">Contraseña</label>
-                        <div class="input-group mr-sm-2">
-                            <div class="input-group-prepend">
-                                <div class="input-group-text">
-                                    <span class="fas fa-key"></span>
-                                </div>
-                            </div>
-                            <input type="password" name="pass" class="form-control" id="pass" placeholder="*******" required>
-                        </div>
-                    </div>
-
-                    <button type="submit" class="btn btn-primary" name="submit"><span class="fas fa-sign-in-alt"></span> Login</button>
-                </form>
-            </div>
+        <div class="jumbotron text-center">
+            <h2 class="display-4 text-center">Acceso prohibido</h2>
+            <p class="lead">Debes iniciar sesión para poder ver el contenido</p>
         </div>
         <?php } ?>
 
@@ -125,4 +154,5 @@ session_start();
         </script>
     </body>
 </html>
+
 

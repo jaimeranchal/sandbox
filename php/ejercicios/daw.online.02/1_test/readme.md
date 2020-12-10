@@ -1,4 +1,27 @@
-# Modelo de datos
+# 1. Sistema de test online
+
+## Acceso alumno
+El usuario iniciará sesión y realizará una prueba online tipo test sobre PHP 
+
+- mínimo 10 preguntas
+- El test tendrá un máximo de 3 intentos.
+- Tiene que haber preguntas con respuestas únicas (radio) o múltiples (checkbox).
+
+### Acceso profesor 
+El profesor, con rol administrador, iniciará sesión y podrá 
+
+- comprobar las respuestas y la nota de cada alumno 
+- generar un informe. Dicho informe mostrará 
+    - las notas de cada alumno 
+    - estadísticas como 
+        - nota media,
+        - moda,
+        - varianza, 
+        - desviación típica,
+        - pregunta con más aciertos,
+        - pregunta con más fallos, etc.
+
+## Modelo de datos
 
 Tablas:
 
