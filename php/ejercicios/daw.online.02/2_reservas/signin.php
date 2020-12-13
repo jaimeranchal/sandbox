@@ -3,7 +3,7 @@
     <head>
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
-        <title>Aplicación 1: test PHP</title>
+        <title>Aplicación 2: reserva tu coche</title>
         <!-- Bootstrap stylesheet -->
         <link
             rel="stylesheet"
@@ -11,24 +11,27 @@
             integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh"
             crossorigin="anonymous"
         />
+        <!-- custom css -->
+        <link rel="stylesheet" href="./css/main.css" type="text/css" media="screen" charset="utf-8">
     </head>
 <?php
 require_once("./conexion.php");
 ?>
     <body>
         <!-- Navegación con login (barra superior / necesita FontAWS)-->
-        <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+        <nav class="navbar navbar-expand-lg navbar-light bg-warning">
             <div class="container-fluid">
                 <div class="navbar-header">
-                    <a class="navbar-brand" href="#">Academia PHP</a>
+                    <span class="favicon fas fa-shipping-fast"> </span>
+                    <a class="navbar-brand" href="#">RentACarro</a>
                 </div>
                 <ul class="navbar-nav mr-auto">
                     <li class="nav-item active"><a class="nav-link" href="./index.php">Inicio</a></li>
                     <li class="nav-item">
-                        <a class="nav-link" href="./test.php">Test</a>
+                        <a class="nav-link" href="./reservas-form.php">Reservas</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="./profesor.php">Profesores</a>
+                        <a class="nav-link" href="./admin.php">Administración</a>
                     </li>
                 </ul>
 
@@ -36,6 +39,7 @@ require_once("./conexion.php");
         </nav>
 
         <!-- cuerpo de la página -->
+
 <?php
 // Filtrar y validar datos del formulario
 if (isset($_POST['submit']) && $_SERVER['REQUEST_METHOD'] === "POST") {
@@ -101,13 +105,13 @@ if (isset($_POST['submit']) && $_SERVER['REQUEST_METHOD'] === "POST") {
 
         $sql = 'INSERT into usuarios(id, nombre, pass, email, rol) VALUES(?,?,?,?,?)';
         $sth = $dbh->prepare($sql);
-        $exito = $sth->execute(array($id, $nombre, $pass, $email, 'c'));
+        $exito = $sth->execute(array($id, $nombre, $pass, $email, 'a'));
 
 ?>
         <div class="jumbotron text-center m-4">
             <h2 class="display-3">Genial!</h2>
-            <p class="lead">Tu usuario ha sido creado con éxito. Inicia sesión para acceder a los contenidos.<p>
-            <button class="btn btn-primary mt-3">
+            <p class="lead">Tu usuario ha sido creado con éxito. Inicia sesión y empieza a reservar.<p>
+            <button class="btn-lg btn-dark mt-3">
                 <span class="fas fa-sign-in-alt"></span>
                 <a class="text-light" href="./index.php"> Iniciar sesión</a>
             </button>
@@ -124,13 +128,12 @@ if (isset($_POST['submit']) && $_SERVER['REQUEST_METHOD'] === "POST") {
             <li class="list-group-item"> <?=$error?></li>    
 <?php } ?>
             </ul>
-            <button class="btn btn-primary mt-3">
+            <button class="btn-lg btn-dark mt-3">
                 <span class="fas fa-undo"></span>
                 <a class="text-light" href="./signin-form.html"> Volver al formulario</a>
             </button>
         </div>
 <?php } } ?>
-
 
         <!-- Librerías JavaScript -->
         <!-- Font Awesome JS -->
@@ -155,5 +158,6 @@ if (isset($_POST['submit']) && $_SERVER['REQUEST_METHOD'] === "POST") {
         </script>
     </body>
 </html>
+
 
 

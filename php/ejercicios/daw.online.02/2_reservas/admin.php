@@ -54,57 +54,50 @@ session_start();
 
         <!-- cuerpo de la página -->
 
-        <!-- Si es un cliente: -->
-        <?php if (isset($_SESSION['usuario']) === true && $_SESSION['rol'] === 'c') { ?>
+        <!-- Si es un empresario: -->
+<?php if (isset($_SESSION['usuario']) === true && $_SESSION['rol'] === 'e') { 
+
+    // recupero datos de las reservas
+    //sentencia preparada
+    $sql = 'SELECT i.modelo, r.inicio, r.fin from inventario as i, reservas as r '.
+        'WHERE i.id = r.modelo';
+    $sth = $dbh->prepare($sql);
+    $sth->execute(array());
+    // Recuperamos los datos 
+    $resultado = $sth->fetchAll();
+
+?>
         <div class="jumbotron bg-dark text-light text-center">
-            <h2 class="display-4 text-center">¡Hola!</h2>
-            <p class="lead">Has iniciado sesión como <b><?=$_SESSION['nombre']?></b><br>
-            Usa el enlace del menú superior para realizar una reserva.</p>
+            <h2 class="display-4 text-center">Panel de administración</h2>
+            <p class="lead">Aquí puedes consultar información sobre las últimas reservas o generar un informe</p>
+            <button class="btn-lg btn-warning">
+                <span class="fas fa-chart-bar"></span>
+                <a class="text-dark" href="./informe.php"> Informe</a>
+            </button>
         </div>
-        <!-- Si es un profesor: -->
-        <?php } elseif (isset($_SESSION['usuario']) === true && $_SESSION['rol'] === 'e') {  ?>
-        <div class="jumbotron bg-dark text-light text-center">
-            <h2 class="display-4 text-center">Bienvenido</h2>
-            <p class="lead opacity-5">Has iniciado sesión como <b><?=$_SESSION['nombre']?></b><br>
-            Usa el enlace del menú superior para acceder al panel de administración.</p>
+
+        <!-- Tabla con información de las reservas -->
+        <div class="container bg-light shadow p-4">
+            <table class="table">
+                <h2>Últimas reservas</h2>
+                <thead class="thead-dark">
+                    <tr><th>Vehículo</th><th>Desde</th><th>Hasta</th></tr>
+                </thead>
+                <?php foreach ($resultado as $fila) { ?>
+                <!-- elemento de lista o fila con formato -->
+                <tr>
+                    <td><?= $fila['modelo'] ?></td>
+                    <td><?= $fila['inicio'] ?></td>
+                    <td><?= $fila['fin'] ?></td>
+                </tr>
+                <?php } ?>
+            </table>
         </div>
-        
-        <!-- Formulario de login -->
         <?php } else { ?>
-        <div class="container d-flex min-vh-100">
-            <div class="container bg-warning align-self-center p-4 mt-n5 shadow text-center" style="max-width: 500px;">
-                <h2 class="display-4">Inicia sesión</h2>
-                <p class="lead">Introduce tus datos para continuar</p>
-                <form action="login.php" method="POST">
-
-                    <div class="form-group">
-                        <div class="input-group mr-sm-2">
-                            <label class="sr-only" for="usuario">Usuario</label>
-                            <div class="input-group-prepend">
-                                <div class="input-group-text">
-                                    <span class="fas fa-at"></span>
-                                </div>
-                            </div>
-                            <input type="text" name="usuario" class="form-control" id="usuario" placeholder="usuario" required>
-                        </div>
-                    </div>
-
-                    <div class="form-group">
-                        <label class="sr-only" for="pass">Contraseña</label>
-                        <div class="input-group mr-sm-2">
-                            <div class="input-group-prepend">
-                                <div class="input-group-text">
-                                    <span class="fas fa-key"></span>
-                                </div>
-                            </div>
-                            <input type="password" name="pass" class="form-control" id="pass" placeholder="*******" required>
-                        </div>
-                    </div>
-
-                    <button type="submit" class="btn-lg btn-dark" name="submit"><span class="fas fa-sign-in-alt"></span> Login</button>
-                </form>
-            </div>
-        </div>
+         <div class="jumbotron bg-dark text-light text-center">
+            <h2 class="display-4 text-center">Acceso prohibido</h2>
+            <p class="lead opacity-5">Esta es zona es sólo para administradores.</p>
+        </div>       
         <?php } ?>
 
         <!-- Librerías JavaScript -->
@@ -130,5 +123,6 @@ session_start();
         </script>
     </body>
 </html>
+
 
 

@@ -14,10 +14,7 @@
         <!-- custom css -->
         <link rel="stylesheet" href="./css/main.css" type="text/css" media="screen" charset="utf-8">
     </head>
-<?php
-require_once("./conexion.php");
-session_start();
-?>
+
     <body>
         <!-- Navegación con login (barra superior / necesita FontAWS)-->
         <nav class="navbar navbar-expand-lg navbar-light bg-warning">
@@ -35,77 +32,72 @@ session_start();
                         <a class="nav-link" href="./admin.php">Administración</a>
                     </li>
                 </ul>
-
-                <!-- Formulario de login o bienvenida a usuario -->
-                <?php if (isset($_SESSION['usuario'])) { ?>
-                <span class="navbar-text"><span class="fas fa-user"></span> <?=$_SESSION['nombre']?></span>
-                <button class="btn btn-danger ml-3">
-                    <span class="fas fa-sign-out-alt"></span>
-                    <a class="text-light" href="./logout.php"> Cerrar sesión</a>
-                </button>
-                <?php } else { ?>
-                <button class="btn btn-dark ml-3">
-                    <span class="fas fa-address-card"></span>
-                    <a class="text-light" href="./signin-form.html"> Nuevo usuario</a>
-                </button>
-                <?php } ?>
             </div>
         </nav>
 
         <!-- cuerpo de la página -->
-
-        <!-- Si es un cliente: -->
-        <?php if (isset($_SESSION['usuario']) === true && $_SESSION['rol'] === 'c') { ?>
-        <div class="jumbotron bg-dark text-light text-center">
-            <h2 class="display-4 text-center">¡Hola!</h2>
-            <p class="lead">Has iniciado sesión como <b><?=$_SESSION['nombre']?></b><br>
-            Usa el enlace del menú superior para realizar una reserva.</p>
-        </div>
-        <!-- Si es un profesor: -->
-        <?php } elseif (isset($_SESSION['usuario']) === true && $_SESSION['rol'] === 'e') {  ?>
-        <div class="jumbotron bg-dark text-light text-center">
-            <h2 class="display-4 text-center">Bienvenido</h2>
-            <p class="lead opacity-5">Has iniciado sesión como <b><?=$_SESSION['nombre']?></b><br>
-            Usa el enlace del menú superior para acceder al panel de administración.</p>
-        </div>
-        
-        <!-- Formulario de login -->
-        <?php } else { ?>
         <div class="container d-flex min-vh-100">
-            <div class="container bg-warning align-self-center p-4 mt-n5 shadow text-center" style="max-width: 500px;">
-                <h2 class="display-4">Inicia sesión</h2>
-                <p class="lead">Introduce tus datos para continuar</p>
-                <form action="login.php" method="POST">
+            <!-- Formulario de registro de nuevo usuario -->
+            <div class="container align-self-center p-4 mt-n5 bg-white shadow" style="max-width: 500px;">
+                <h2 class="display-4 text-center">Nuevo usuario</h2>
+                <p class="lead text-center">Introduce tus datos</p>
+                <form action="signin.php" method="POST">
 
                     <div class="form-group">
+                        <label  for="nombre">Nombre y apellidos</label>
                         <div class="input-group mr-sm-2">
-                            <label class="sr-only" for="usuario">Usuario</label>
                             <div class="input-group-prepend">
                                 <div class="input-group-text">
-                                    <span class="fas fa-at"></span>
+                                    <span class="fas fa-user"></span>
                                 </div>
                             </div>
-                            <input type="text" name="usuario" class="form-control" id="usuario" placeholder="usuario" required>
+                            <input type="text" name="nombre" class="form-control" id="nombre" placeholder="Alicia Gómez" required>
                         </div>
+                        
+                    </div>
+                    <div class="form-group">
+                        <label for="id">Alias</label>
+                        <div class="input-group mr-sm-2">
+                            <div class="input-group-prepend">
+                                <div class="input-group-text">@</div>
+                            </div>
+                            <input type="text" name="id" class="form-control" id="id" placeholder="aligom" aria-describedby="aliasHelp" required>
+                        </div>
+                        <small id="aliasHelp" class="form-text text-muted">
+                            Entre 4 y 8 caracteres, sin números ni símbolos
+                        </small>
                     </div>
 
                     <div class="form-group">
-                        <label class="sr-only" for="pass">Contraseña</label>
+                        <label for="pass">Contraseña</label>
                         <div class="input-group mr-sm-2">
                             <div class="input-group-prepend">
                                 <div class="input-group-text">
                                     <span class="fas fa-key"></span>
                                 </div>
                             </div>
-                            <input type="password" name="pass" class="form-control" id="pass" placeholder="*******" required>
+                            <input type="password" name="pass" class="form-control" id="pass" placeholder="*******" aria-describedby="passHelp" required>
+                        </div>
+                        <small id="passHelp" class="form-text text-muted">
+                            Entre 8 y 12 caracteres o símbolos (<code>!@#$%</code>). Debe tener al menos un número y una letra.
+                        </small>
+                    </div>
+                    <div class="form-group">
+                        <label for="email">Email</label>
+                        <div class="input-group mr-sm-2">
+                            <div class="input-group-prepend">
+                                <div class="input-group-text">
+                                    <span class="fas fa-envelope"></span>
+                                </div>
+                            </div>
+                            <input type="email" name="email" class="form-control" id="email" placeholder="aligom@ejemplo.es" required>
                         </div>
                     </div>
 
-                    <button type="submit" class="btn-lg btn-dark" name="submit"><span class="fas fa-sign-in-alt"></span> Login</button>
+                    <button type="submit" class="btn btn-block btn-dark" name="submit"><span class="fas fa-sign-in-alt"></span> Registrarse</button>
                 </form>
             </div>
         </div>
-        <?php } ?>
 
         <!-- Librerías JavaScript -->
         <!-- Font Awesome JS -->
@@ -130,5 +122,6 @@ session_start();
         </script>
     </body>
 </html>
+
 
 
