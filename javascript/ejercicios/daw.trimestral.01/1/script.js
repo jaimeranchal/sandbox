@@ -7,6 +7,8 @@ import * as modulo from "./encuesta.mjs";
 /**
  * Ordena las encuestas descendentemente por sexo
  */
+// NOTE: Debería haber usado localecompare
+
 let ordenar = () => {
     arrEncuestas.sort(function(a,b){ return b.sexo - a.sexo });
 }

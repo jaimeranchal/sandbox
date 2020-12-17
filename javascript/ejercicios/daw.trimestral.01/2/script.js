@@ -64,6 +64,10 @@ let mostrar = (titulo, vector) => {
     document.write(datos);
 }
 
+//la matriz "transversal" (con las columnas y filas invertidas
+//con respecto al anterior) se consigue invirtiendo los bucles
+//for del ejercicio anterior
+
 // script
 let dimension = validarDimension(); 
 let arrNumeros = generarMatriz(dimension);
