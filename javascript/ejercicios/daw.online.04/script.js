@@ -1,5 +1,17 @@
 "use strict"
 
+/* FUNCIONES AUXILIARES */
+
+let validaFormatoFecha = (id) => {
+    let mensaje = "";
+    let patron = /\d{2}\/\d{2}\/\d{4}/;
+    let cadena = document.getElementById(id).value;
+    !patron.test(cadena) ? mensaje += "Formato incorrecto" : mensaje += "Correcto!";
+    document.getElementById(`error${id}`).innerHTML = mensaje;
+}
+
+let bloqueaTeclas = (teclas) => {}
+
 /* 2.Inserta una reCaptcha */
 
 /* 3.Cookies */
@@ -62,7 +74,11 @@ let validarEmail = () => {
 
 /* 6.Valida el teléfono (keypress) */
 // sólo muestra números y espacios
-let validarTfno = () => {
+let validarTfno = (e) => {
+    let tecla = e.charCode;
+    if (tecla != 32 && (tecla < 48 || tecla > 57)){
+        e.preventDefault();
+    }
 }
 
 /* 7.Valida fecha llegada (regex) */
@@ -70,11 +86,7 @@ let validarTfno = () => {
 // Bloquear el foco hasta que sea una fecha correcta
 // Si error: mensaje en span#errorfechaReserva
 let validarFechaReserva = () => {
-    let mensaje = "";
-    let patron = /\d{2}\/\d{2}\/\d{4}/;
-    let cadena = document.getElementById('fechaReserva').value;
-    !patron.test(cadena) ? mensaje += "Formato incorrecto" : mensaje += "Correcto!";
-    document.getElementById("errorfechaReserva").innerHTML = mensaje;
+    validaFormatoFecha("fechaReserva");
 }
 
 /* 8.Valida fechaSalida (keypress) */
@@ -82,7 +94,14 @@ let validarFechaReserva = () => {
 // formato 'dd/mm/aaaa'
 // Bloquear el foco hasta que sea una fecha correcta
 // Si error: mensaje en span#errorfechaSalida
-let validarFechaSalida = () => {}
+let validarFechaSalida = (e) => {
+    // Controla números y `/`
+    let tecla = e.charCode;
+    console.log(tecla);
+    if (tecla < 47 || tecla > 57){
+        e.preventDefault();
+    }
+}
 
 /* 9.Comprobar datos requeridos no están vacíos (exc. observaciones) */
 // bucle elements[]
@@ -95,5 +114,11 @@ let comprobarRequeridos = () => {}
 /* EVENTOS */
 document.getElementsByTagName("input")[0].addEventListener('change', convertirMayusculas);
 document.getElementById("email").addEventListener('change', validarEmail);
-document.getElementById("tlfno").addEventListener('keypress', validarTfno);
+document.getElementById("tlfno").addEventListener('keypress', function(event){
+    validarTfno(event);
+});
 document.getElementById("fechaReserva").addEventListener('change', validarFechaReserva);
+document.getElementById("fechaSalida").addEventListener('keypress', function(event){
+    validarFechaSalida(event)
+});
+document.getElementById("fechaSalida").addEventListener("change", validaFormatoFecha("fechaSalida"));
