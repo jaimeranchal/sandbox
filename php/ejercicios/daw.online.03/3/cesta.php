@@ -1,13 +1,36 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN"
 "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
 <?php
-// contador inicializado a 0
-$contador_productos = 0;
-// Si existe una cookie con datos de la compra
-if (isset($_COOKIE['cesta'])){
-    // leemos los datos
-    print_r($_COOKIE['cesta']);
-} 
+if (isset($_POST['submit']) && $_SERVER['REQUEST_METHOD'] === "POST"){
+    $contador_productos = 0;
+    // array multidimensional vacío para guardar productos
+    // luego se guardará en una cookie
+    $productos = [];
+    // guarda en un array los checkbox seleccionados
+    if (isset($_POST['fruta'])) {
+        foreach($_POST['fruta'] as $item){
+            $frutas[] = $item;
+            $contador_productos++;
+        }
+        //guardamos las frutas en un array para la cookie
+        $productos[] = $frutas;
+    }
+    if (isset($_POST['verdura'])) {
+        foreach($_POST['verdura'] as $item2){
+            $verduras[] = $item2;
+            $contador_productos++;
+        }
+        //guardamos las verduras en un array para la cookie
+        $productos[] = $verduras;
+    }
+    print_r($contador_productos);
+    // añadimos el número de productos
+    $productos[] = `cantidad=>$contador_productos`;
+    print_r($productos);
+    // convertimos el array en json
+    $json = json_encode($productos);
+    // guardamos el número de productos y los productos en la cookie
+    setcookie('cesta', $json, strtotime('+1 hour'));
 ?>
 <html lang="es" xmlns="http://www.w3.org/1999/xhtml">
     <head>
@@ -25,7 +48,7 @@ if (isset($_COOKIE['cesta'])){
 
     <body class="d-flex flex-column min-vh-100">
 
-         <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <nav class="navbar navbar-expand-lg navbar-light bg-light">
             <div class="container-fluid">
                 <div class="navbar-brand">
                     <a title="volver al menú de aplicaciones" href="../inicio.html">
@@ -47,45 +70,35 @@ if (isset($_COOKIE['cesta'])){
         </div>
 
         <div class="container">
-            <div id="productos" class="container w-70 shadow">
-                <form id="frutas" action="cesta.php" method="POST">
-                    <!-- Frutas -->
-                    <h2>Productos</h2>
-                    <h3>Fruta</h3>
-                    <fieldset>
-                        <input type="checkbox" value="manzanas" name="fruta[]" id="manzanas"/>
-                        <label for="manzanas">manzanas</label>
-                        <input type="checkbox" value="peras" name="fruta[]" id="peras"/>
-                        <label for="peras">peras</label>
-                        <input type="checkbox" value="uvas" name="fruta[]" id="uvas"/>
-                        <label for="uvas">uvas</label>
-                        <input type="checkbox" value="naranjas" name="fruta[]" id="naranjas"/>
-                        <label for="naranjas">naranjas</label>
-                        <input type="checkbox" value="platanos" name="fruta[]" id="platanos"/>
-                        <label for="platanos">platanos</label>
-                    </fieldset>
-                    <!-- Verduras -->
-                    <h3>Verduras</h3>
-                    <fieldset>
-                        <input type="checkbox" value="patatas" name="verdura[]" id="patatas"/>
-                        <label for="patatas">patatas</label>
-                        <input type="checkbox" value="pimientos" name="verdura[]" id="pimientos"/>
-                        <label for="pimientos">pimientos</label>
-                        <input type="checkbox" value="tomates" name="verdura[]" id="tomates"/>
-                        <label for="tomates">tomates</label>
-                        <input type="checkbox" value="pepinos" name="verdura[]" id="pepinos"/>
-                        <label for="pepinos">pepinos</label>
-                        <input type="checkbox" value="cebollas" name="verdura[]" id="cebollas"/>
-                        <label for="cebollas">cebollas</label>
-                        <input type="checkbox" value="ajos" name="verdura[]" id="ajos"/>
-                        <label for="ajos">ajos</label>
-                    </fieldset>
-                    <input type="submit" name="submit" id="submit" value="Añadir">
-                </form>
+            <!-- Lista de tus productos -->
+            <div id="tucesta" class="container w-70 shadow">
+                <h2>Tu cesta</h2>
+                <p>Estos son los productos que has seleccionado</p>
+                <ul>
+<?php
+    if (!empty($frutas)) {
+        foreach ($frutas as $fruta) {
+?>
+                <li><?=$fruta?></li>
+<?php
+    }}
+    if (!empty($verduras)){
+        foreach ($verduras as $verdura) {
+?>
+                <li><?=$verdura?></li>
+<?php
+    }}
+?>
+            </ul>
+<?php
+} else {
+?>
+            <p>Todavía no has añadido ningún producto</p>
+<?php 
+} 
+?>
             </div>
-
         </div>
-        
         <footer class="footer mt-auto">
             <div class="container-fluid mt-3 mb-n1 py-3 bg-dark text-light text-center">
                 <p><span class="fas fa-copyright"></span> Jaime Ranchal Beato &mdash; 
@@ -119,7 +132,4 @@ if (isset($_COOKIE['cesta'])){
  
     </body>
 </html>
-
-
-
 
