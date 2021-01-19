@@ -24,22 +24,42 @@ $usuarios = array(
     'invitado' => generate_hash('1234')
 );
 
+echo("USUARIOS:");
+print_r($usuarios);
+echo("<br>");
+echo("PETICIÓN:");
+print_r($_REQUEST);
+echo("<br>");
+echo("SERVER:");
+print_r($_SERVER['PHP_AUTH_DIGEST']);
+echo("<br>");
+
 // Comprobamos la cabecera HTTP
 if (empty($_SERVER['PHP_AUTH_DIGEST'])) {
+    //Manda un mensaje con código de error a la cabecera
     header('HTTP/1.1 401 Unauthorized');
     header('WWW-Authenticate: Digest realm="'.$realm.
-        '",qop="auth",nonce="'.uniqid().'",opaque="'.md5($realm).'"');
+        '",qop="auth",nonce="'.uniqid().'",opaque="'.generate_hash($realm).'"');
     // Si error
     die("No puedes ver el contenido si no inicias sesión");
 }
 
+echo("SERVER después del login:");
+print_r($_SERVER['PHP_AUTH_DIGEST']);
+
+echo("<br>");
 // Analiza la variable PHP_AUTH_DIGEST
 if (!($data = http_digest_parse($_SERVER['PHP_AUTH_DIGEST'])) ||
     !isset($usuarios[$data['username']])){
-    die("Datos incorrectos");
+    print_r($_REQUEST);
+    echo("Datos incorrectos");
 } else {
     // analizamos la respuesta
-    $A1 = md5($data['username'].':'.$realm.':'.$users[$data['username']]);
+    $qop = $data['qop'];
+    $uri = $data['uri'];
+
+
+    $A1 = md5($data['username'].':'.$realm.':'.$usuarios[$data['username']]);
     if($qop == 'auth-int'){
         $A2 = md5($_SERVER['REQUEST_METHOD'] . ":$uri:" . md5($respBody));
     } else {
@@ -47,13 +67,17 @@ if (!($data = http_digest_parse($_SERVER['PHP_AUTH_DIGEST'])) ||
     }
     $respuesta_valida = md5($A1.':'.$data['nonce'].':'.$data['nc'].':'.$data['cnonce'].':'.$data['qop'].':'.$A2);
 
+    var_dump($respuesta_valida);
     // Si el hash de responde coincide con el hash generado, OK
     if($data['response'] != $respuesta_valida){
         die("Datos incorrectos");
     } else {
         $usuario = $data['username'];
+        var_dump($qop);
+        echo("Esto debería verse");
     }
 }
+
 
 /* FUNCIONES */
 
@@ -128,10 +152,6 @@ function http_digest_parse($txt){
     return $partes_necesarias ? false : $data;
 }
 
-
-?>
-<?php
-var_dump($_SERVER['PHP_AUTH_DIGEST']);
 ?>
     <body class="d-flex flex-column min-vh-100">
 
@@ -147,7 +167,7 @@ var_dump($_SERVER['PHP_AUTH_DIGEST']);
                 </div>
                 <!-- <span class="navbar-text">Inicio de sesión correcto</span> -->
                 <span class="navbar-text">
-                    <span class="fas fa-user"></span> <?=$usuario?>
+                    <span class="fas fa-user"></span> <?=$usuario;?>
                 </span>
             </div>
         </nav>     
