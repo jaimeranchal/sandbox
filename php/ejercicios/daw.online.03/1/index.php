@@ -32,9 +32,11 @@ if (!isset($_SERVER['PHP_AUTH_USER'])) {
             <div class="container-fluid">
 
                 <div class="navbar-brand">
-                    <a title="volver al menú de aplicaciones" href="../inicio.html">
+                    <a class= "btn btn-primary" title="volver al menú de aplicaciones" href="../inicio.html">
                         <span class="fas fa-chevron-circle-left"></span>
+                         Menú
                     </a>
+                    
                 </div>
 
                 <span class="navbar-text">

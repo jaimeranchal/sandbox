@@ -1,12 +1,25 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN"
 "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
 <?php
+
+/* TODO: 
+ * 1.Evitar duplicados
+ * 2.Botón borrar datos (+ borrar cookie)
+ * 3.(opcional) añadir botones para sumar kilos, o
+ *  - Cada vez que mandamos el formulario añadimos 1kg del mismo producto
+ */
+
 // contador inicializado a 0
 $contador_productos = 0;
+$cesta = [];
+$mensaje = "Todavía no has añadido ningún producto";
 // Si existe una cookie con datos de la compra
 if (isset($_COOKIE['cesta'])){
     // leemos los datos
-    print_r($_COOKIE['cesta']);
+    $cookie[] = json_decode($_COOKIE['cesta']);
+    $cesta = $cookie[0];
+    $contador_productos = $cesta -> cantidad;
+    $mensaje = `Has guardado ${contador_productos} productos en tu cesta`;
 } 
 ?>
 <html lang="es" xmlns="http://www.w3.org/1999/xhtml">
@@ -23,17 +36,20 @@ if (isset($_COOKIE['cesta'])){
         />
     </head>
 
+    
     <body class="d-flex flex-column min-vh-100">
 
-         <nav class="navbar navbar-expand-lg navbar-light bg-light">
+         <nav class="navbar navbar-expand-lg navbar-light bg-light sticky-top">
             <div class="container-fluid">
                 <div class="navbar-brand">
-                    <a title="volver al menú de aplicaciones" href="../inicio.html">
+                    <a class= "btn btn-primary" title="volver al menú de aplicaciones" href="../inicio.html">
                         <span class="fas fa-chevron-circle-left"></span>
+                         Menú
                     </a>
                 </div>
                 <!-- <span class="navbar-text">Inicio de sesión correcto</span> -->
                 <span class="navbar-text">
+                En tu cesta 
                 <span class="fas fa-shopping-basket"></span> (<?=$contador_productos?>)
                 </span>
             </div>
@@ -47,7 +63,7 @@ if (isset($_COOKIE['cesta'])){
         </div>
 
         <div class="container">
-            <div id="productos" class="container w-70 shadow">
+            <div id="productos" class="container w-70 m-3 p-3 shadow">
                 <form id="frutas" action="cesta.php" method="POST">
                     <!-- Frutas -->
                     <h2>Productos</h2>
@@ -84,8 +100,22 @@ if (isset($_COOKIE['cesta'])){
                 </form>
             </div>
 
+            <div class="container w-70 m-3 p-3 shadow" id="tucesta">
+                <h2>Tu cesta</h2>
+                <p class="lead"><?=$mensaje?></p>            
+<?php if (!empty($cesta)){ ?>
+                <ul>
+<?php foreach ($cesta->frutas as $fruta) { ?>
+                    <li><?=$fruta?></li> 
+<?php } ?>
+<?php foreach ($cesta->verduras as $verdura) { ?>
+                    <li><?=$verdura?></li> 
+<?php } ?>
+                </ul>
+<?php } ?>
+            </div>
         </div>
-        
+            
         <footer class="footer mt-auto">
             <div class="container-fluid mt-3 mb-n1 py-3 bg-dark text-light text-center">
                 <p><span class="fas fa-copyright"></span> Jaime Ranchal Beato &mdash; 

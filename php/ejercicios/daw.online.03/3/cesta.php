@@ -1,11 +1,33 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN"
 "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
 <?php
+
+/* TODO: 
+ * 1.Evitar duplicados
+ * 2.Botón borrar datos (+ borrar cookie)
+ * 3.(opcional) añadir botones para sumar kilos, o
+ *  - Cada vez que mandamos el formulario añadimos 1kg del mismo producto
+ */
+
 if (isset($_POST['submit']) && $_SERVER['REQUEST_METHOD'] === "POST"){
-    $contador_productos = 0;
-    // array multidimensional vacío para guardar productos
-    // luego se guardará en una cookie
-    $productos = [];
+    
+    // comprobamos que exista una cookie
+    if (isset($_COOKIE['cesta'])){
+        
+        // leemos los datos
+        $cookie[] = json_decode($_COOKIE['cesta']);
+        $cesta = $cookie[0];
+        $contador_productos = $cesta -> cantidad;
+        $frutas = $cesta->frutas;
+        $verduras = $cesta->verduras;
+    } else {
+        // Creo dos arrays vacíos que se irán llenando (o no)
+        $contador_productos = 0;
+        $frutas = [];
+        $verduras = [];
+    }
+    
+    // Si no existe la cookie creamos los datos desde cero
     // guarda en un array los checkbox seleccionados
     if (isset($_POST['fruta'])) {
         foreach($_POST['fruta'] as $item){
@@ -13,7 +35,7 @@ if (isset($_POST['submit']) && $_SERVER['REQUEST_METHOD'] === "POST"){
             $contador_productos++;
         }
         //guardamos las frutas en un array para la cookie
-        $productos[] = $frutas;
+        /* $productos[] = $frutas; */
     }
     if (isset($_POST['verdura'])) {
         foreach($_POST['verdura'] as $item2){
@@ -21,12 +43,14 @@ if (isset($_POST['submit']) && $_SERVER['REQUEST_METHOD'] === "POST"){
             $contador_productos++;
         }
         //guardamos las verduras en un array para la cookie
-        $productos[] = $verduras;
+        /* $productos[] = $verduras; */
     }
-    print_r($contador_productos);
+
+    // Añadimos las frutas y verduras que corresponda a un array general
+    $productos = ['frutas' => $frutas, 'verduras' => $verduras];
     // añadimos el número de productos
-    $productos[] = `cantidad=>$contador_productos`;
-    print_r($productos);
+    $productos['cantidad'] = $contador_productos;
+
     // convertimos el array en json
     $json = json_encode($productos);
     // guardamos el número de productos y los productos en la cookie
@@ -48,15 +72,17 @@ if (isset($_POST['submit']) && $_SERVER['REQUEST_METHOD'] === "POST"){
 
     <body class="d-flex flex-column min-vh-100">
 
-        <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <nav class="navbar navbar-expand-lg navbar-light bg-light sticky-top">
             <div class="container-fluid">
                 <div class="navbar-brand">
-                    <a title="volver al menú de aplicaciones" href="../inicio.html">
+                    <a class= "btn btn-primary" title="volver al menú de aplicaciones" href="../inicio.html">
                         <span class="fas fa-chevron-circle-left"></span>
+                         Menú
                     </a>
                 </div>
                 <!-- <span class="navbar-text">Inicio de sesión correcto</span> -->
                 <span class="navbar-text">
+                En tu cesta 
                 <span class="fas fa-shopping-basket"></span> (<?=$contador_productos?>)
                 </span>
             </div>
@@ -71,8 +97,10 @@ if (isset($_POST['submit']) && $_SERVER['REQUEST_METHOD'] === "POST"){
 
         <div class="container">
             <!-- Lista de tus productos -->
-            <div id="tucesta" class="container w-70 shadow">
-                <h2>Tu cesta</h2>
+            <div id="tucesta" class="container w-70 m-3 p-3 shadow">
+                <h2>Tu cesta
+                <span class="fas fa-shopping-basket"></span> (<?=$contador_productos?>)
+                </h2>
                 <p>Estos son los productos que has seleccionado</p>
                 <ul>
 <?php
@@ -90,6 +118,7 @@ if (isset($_POST['submit']) && $_SERVER['REQUEST_METHOD'] === "POST"){
     }}
 ?>
             </ul>
+            <a class="btn btn-primary" title="Añadir más" href="./index.php">Añadir más</a>
 <?php
 } else {
 ?>
@@ -99,6 +128,13 @@ if (isset($_POST['submit']) && $_SERVER['REQUEST_METHOD'] === "POST"){
 ?>
             </div>
         </div>
+        <pre>
+<?php
+    var_dump($productos);
+    echo("<br>");
+    var_dump($_COOKIE['cesta']);
+?>
+        </pre>    
         <footer class="footer mt-auto">
             <div class="container-fluid mt-3 mb-n1 py-3 bg-dark text-light text-center">
                 <p><span class="fas fa-copyright"></span> Jaime Ranchal Beato &mdash; 

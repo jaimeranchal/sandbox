@@ -19,9 +19,92 @@
 $realm = "Acceso restringido";
 // Usuarios y contraseñas (porque es un ejemplo)
 // TODO: Creo las contraseñas con password_hash($pass, PASSWORD_BCRYPT)
-$usuarios = array('admin' => '123oraora', 'invitado' => '1234');
+$usuarios = array(
+    'admin' => generate_hash('123oraora'),
+    'invitado' => generate_hash('1234')
+);
 
-/* Funciones */
+// Comprobamos la cabecera HTTP
+if (empty($_SERVER['PHP_AUTH_DIGEST'])) {
+    header('HTTP/1.1 401 Unauthorized');
+    header('WWW-Authenticate: Digest realm="'.$realm.
+        '",qop="auth",nonce="'.uniqid().'",opaque="'.md5($realm).'"');
+    // Si error
+    die("No puedes ver el contenido si no inicias sesión");
+}
+
+// Analiza la variable PHP_AUTH_DIGEST
+if (!($data = http_digest_parse($_SERVER['PHP_AUTH_DIGEST'])) ||
+    !isset($usuarios[$data['username']])){
+    die("Datos incorrectos");
+} else {
+    // analizamos la respuesta
+    $A1 = md5($data['username'].':'.$realm.':'.$users[$data['username']]);
+    if($qop == 'auth-int'){
+        $A2 = md5($_SERVER['REQUEST_METHOD'] . ":$uri:" . md5($respBody));
+    } else {
+        $A2 = md5($_SERVER['REQUEST_METHOD'] . ":$uri");
+    }
+    $respuesta_valida = md5($A1.':'.$data['nonce'].':'.$data['nc'].':'.$data['cnonce'].':'.$data['qop'].':'.$A2);
+
+    // Si el hash de responde coincide con el hash generado, OK
+    if($data['response'] != $respuesta_valida){
+        die("Datos incorrectos");
+    } else {
+        $usuario = $data['username'];
+    }
+}
+
+/* FUNCIONES */
+
+/*
+ * Genera un hash seguro para una contraseña dada.
+ * El coste se pasa al algoritmo blowfish
+ * (Consulta el manual php de crypt para más info sobre el coste)
+*/
+function generate_hash($password, $cost=11){
+
+        /* Para generar la salt, primero genera suficientes bytes aleatorios
+         * En base64 se devuelve un caracter por cada 6 bits, de modo que
+         * necesitamos al menos 22*6/8=16.5 bytes; generamos 17.
+         * A continuación obtenemos los primeros 22 caracteres en base64
+         */
+        $salt=substr(base64_encode(openssl_random_pseudo_bytes(17)),0,22);
+
+        /* Como blowfish usa una salt con los caracteres del alfabeto (./A-Za-z0-9)
+         * hay que reemplazar todos los '+' en la cadena en base64 con '.'
+         * Los signos '=' no se tocan
+         */
+        $salt=str_replace("+",".",$salt);
+
+        /* Ahora creamos una cadena con las opciones para la función crypt
+         * separadas por signos de dólar
+         */
+        $param='$'.implode('$',array(
+                "2y", //selecciona la versión más segura de blowfish (>=PHP 5.3.7)
+                str_pad($cost,2,"0",STR_PAD_LEFT), //añade el coste en dos dígitos
+                $salt //añade la salt
+        ));
+      
+        //codifica el hash
+        return crypt($password,$param);
+}
+
+/*
+ * Comprueba que la contraseña coincide con un hash generado por la función generate_hash
+ * @param password: una contraseña encriptada con hash
+ * @param entrada: la contraseña tal y como la introduce el usuario
+*/
+function validate_pw($password, $entrada){
+        /* Recrear la contraseña con el hash disponible como parámetro de opciones
+         * debería producir el mismo hash que la contraseña que se le pasa
+         */
+        //return crypt($password, $hash)==$hash;
+
+        // Usar la función hash_equals() es más seguro
+        return hash_equals($password, crypt($entrada, $password));
+}
+
 function http_digest_parse($txt){
     // protección en caso de que falten datos
     $partes_necesarias = array('nonce'=>1, 
@@ -45,31 +128,10 @@ function http_digest_parse($txt){
     return $partes_necesarias ? false : $data;
 }
 
-/* Código */
-// cabecera HTTP
-if (empty($_SERVER['PHP_AUTH_DIGEST'])) {
-    header('HTTP/1.1 401 Unauthorized');
-    header('WWW-Authenticate: Digest realm="'.$realm.
-        '",qop="auth",nonce="'.uniqid().'",opaque="'.md5($realm).'"');
-    // Si error
-    die("No puedes ver el contenido si no inicias sesión");
-}
-
-// Analiza la variable PHP_AUTH_DIGEST
-if (!($data = http_digest_parse($_SERVER['PHP_AUTH_DIGEST'])) ||
-    !isset($usuarios[$data['username']])){
-    die("Datos incorrectos");
-}
-
-// Si el usuario es válido
-// TODO: Comparo la contraseña con password_verify()
-// Si coincide, asigno usuario y entra
-// Si no, error
-
-$usuario = $data['username'];
 
 ?>
 <?php
+var_dump($_SERVER['PHP_AUTH_DIGEST']);
 ?>
     <body class="d-flex flex-column min-vh-100">
 
