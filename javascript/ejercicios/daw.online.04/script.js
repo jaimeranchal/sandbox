@@ -1,6 +1,19 @@
 "use strict"
 
 /* FUNCIONES AUXILIARES */
+/* TODO: 
+ * 1. agrupar las llamadas a eventos en una sola
+ *
+ * window.addEventListener('load', ()=>{
+ *  // variables que recojan los elementos
+ *  let input1=document.getElementById("usuario");
+ *  let input2...
+ *
+ *  // establecer eventos
+ *  input1.addEventListener('tipo_evento', funcion);
+ *  ...
+ * })
+ */
 
 let validaFormatoFecha = (id) => {
     let mensaje = "";

@@ -17,5 +17,32 @@ window.addEventListener('load', ()=>{
 
     // establecer eventos
     usuario.addEventListener('keypress', validarUser);
-    usuario.addEventListener('keypress', validarEdad);
+    edad.addEventListener('keypress', validarEdad);
 })
+
+/**
+ * Impide que se escriban números
+ */
+let validarUser = (e) => {
+    // la palabra clave "event" está en desuso
+    // pero se incluye para navegadores antiguos
+    let evento=e || event;
+
+    if(evento.which >= 48 && evento.which <= 57){
+        //anular la pulsación
+        evento.preventDefault();
+    }
+}
+
+/**
+ * Impide que se escriban letras, sólo números
+ */
+let validarEdad = (e) => {
+
+    let evento=e || event;
+
+    if(evento.which < 48 || evento.which > 57){
+        //anular la pulsación
+        evento.preventDefault();
+    }
+}
