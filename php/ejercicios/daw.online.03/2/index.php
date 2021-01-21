@@ -15,35 +15,17 @@
     </head>
 
 <?php
+
+/* Funciones */
+require_once("./funciones.php");
+
 /* variables necesarias */
 $realm = "Acceso restringido";
 // Usuarios y contraseñas (porque es un ejemplo)
-// TODO: Creo las contraseñas con password_hash($pass, PASSWORD_BCRYPT)
-$usuarios = array('admin' => '123oraora', 'invitado' => '1234');
+$pass_1 = password_hash('123oraora', PASSWORD_BCRYPT);
+$pass_2 = password_hash('1234', PASSWORD_BCRYPT);
+$usuarios = array('admin' => $pass_1, 'invitado' => $pass_2);
 
-/* Funciones */
-function http_digest_parse($txt){
-    // protección en caso de que falten datos
-    $partes_necesarias = array('nonce'=>1, 
-        'nc'=>1, 
-        'cnonce'=>1, 
-        'qop'=>1, 
-        'username'=>1, 
-        'uri'=>1, 
-        'response'=>1, 
-    );
-    $data = array();
-    $keys = implode('|', array_keys($partes_necesarias));
-
-    preg_match_all('@('.$keys.')=(?:([\'"])([^\2]+?)\2|([^\s,]+))@', $txt, $coincidencias, PREG_SET_ORDER);
-
-    foreach ($coincidencias as $c) {
-        $data[$c[1]] = $c[3] ? $c[3] : $c[4];
-        unset($partes_necesarias[$c[1]]);
-    }
-
-    return $partes_necesarias ? false : $data;
-}
 
 /* Código */
 // cabecera HTTP
@@ -53,20 +35,33 @@ if (empty($_SERVER['PHP_AUTH_DIGEST'])) {
         '",qop="auth",nonce="'.uniqid().'",opaque="'.md5($realm).'"');
     // Si error
     die("No puedes ver el contenido si no inicias sesión");
+    // borramos la variable global para que vuelva a pedir login
+    // al recargar la página
+    unset($_SERVER['PHP_AUTH_DIGEST']);
 }
 
 // Analiza la variable PHP_AUTH_DIGEST
-if (!($data = http_digest_parse($_SERVER['PHP_AUTH_DIGEST'])) ||
-    !isset($usuarios[$data['username']])){
+$datos = http_digest_parse($_SERVER['PHP_AUTH_DIGEST']);
+if (!$datos ||
+    !isset($usuarios[$datos['username']])){
     die("Datos incorrectos");
 }
 
-// Si el usuario es válido
-// TODO: Comparo la contraseña con password_verify()
-// Si coincide, asigno usuario y entra
-// Si no, error
+/* NOTE: no creo que la response coincida nunca si uso password_hash() porque
+ * cuando el cliente envía la contraseña usa md5 y por lo tanto el response
+ * generado será diferente
+ */
+// Generamos una respuesta válida
+$A1 = md5($datos['username'] . ':' . $realm . ':' . $usuarios[$datos['username']]);
+$A2 = md5($_SERVER['REQUEST_METHOD'].':'.$datos['uri']);
+$respuesta_valida = md5($A1.':'.$datos['nonce'].':'.$datos['nc'].':'.$datos['cnonce'].':'.$datos['qop'].':'.$A2);
 
-$usuario = $data['username'];
+if($datos['response'] != $respuesta_valida){
+    die("Credenciales incorrectas");
+} else {
+    // Si el usuario es válido
+    $usuario = $data['username'];
+}
 
 ?>
 <?php
@@ -75,13 +70,11 @@ $usuario = $data['username'];
 
          <nav class="navbar navbar-expand-lg navbar-light bg-light">
             <div class="container-fluid">
-
                 <div class="navbar-brand">
                     <a class= "btn btn-primary" title="volver al menú de aplicaciones" href="../inicio.html">
                         <span class="fas fa-chevron-circle-left"></span>
                          Menú
                     </a>
-                    
                 </div>
                 <!-- <span class="navbar-text">Inicio de sesión correcto</span> -->
                 <span class="navbar-text">

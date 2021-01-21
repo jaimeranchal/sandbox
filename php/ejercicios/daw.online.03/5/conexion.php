@@ -4,7 +4,7 @@
 
 /* Datos de la conexión */
 $host = 'localhost';
-$db = 'ud3_balance';
+$db = 'ud3_app_web';
 $user = 'root';
 $pass = '';
 $excepcion = '';

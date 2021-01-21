@@ -12,13 +12,13 @@
             integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh"
             crossorigin="anonymous"
         />
+        <link rel="stylesheet" href="../src/css/main.css" type="text/css" media="screen" title="no title" charset="utf-8"/>
     </head>
 
 <?php
-/* variables necesarias */
-$usuario = "Ejemplo";
-?>
-<?php
+// conexión a bbdd
+require_once("./conexion.php");
+session_start();
 ?>
     <body class="d-flex flex-column min-vh-100">
 
@@ -34,7 +34,18 @@ $usuario = "Ejemplo";
                 </div>
                 <!-- <span class="navbar-text">Inicio de sesión correcto</span> -->
                 <span class="navbar-text">
-                    <span class="fas fa-user"></span> <?=$usuario?>
+                    <?php if(isset($_SESSION['usuario'])){ ?>
+                    <span class="fas fa-user"></span> <?=$_SESSION['nombre']?>
+                    <button class="btn btn-dark ml-3">
+                        <span class="fas fa-sign-out-alt"></span>
+                        <a class="text-light" href="./logout.php"> Cerrar sesión</a>
+                    </button>
+                    <?php } else { ?>
+                    <button class="btn btn-dark ml-3">
+                        <span class="fas fa-address-card"></span>
+                        <a class="text-light" href="./signin-form.html"> Nuevo usuario</a>
+                    </button>
+                    <?php } ?>
                 </span>
             </div>
         </nav>     
@@ -46,7 +57,106 @@ $usuario = "Ejemplo";
             <p class="lead">Aplicación simple para controlar tus gastos e ingresos</p> 
         </div>
 
-        <div class="container"></div>
+        <div class="container d-flex">
+        <?php if(isset($_SESSION['usuario'])){?>
+            <!-- Formulario de gastos e ingresos -->
+            <div class="container align-self-start w-80 p-4 mt-2 text-center">
+                <form class="shadow p-4 bg-white" action="informe.php" method="post">
+                    <h2>Ingresos</h2>
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th>Fecha</th>
+                                <th>Concepto</th>
+                                <th>Cantidad</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td><input class="form-control" type="date" name="ing-fecha1" id="ing-fecha1" value=""></td>
+                                <td><input class="form-control" type="text" name="ing-desc1" id="ing-desc1" value=""></td>
+                                <td><input class="form-control" type="number" name="ing-cant1" id="ing-cant1" value=""></td>
+                            </tr>
+                            <tr>
+                                <td><input class="form-control" type="date" name="ing-fecha2" id="ing-fecha2" value=""></td>
+                                <td><input class="form-control" type="text" name="ing-desc2" id="ing-desc2" value=""></td>
+                                <td><input class="form-control" type="number" name="ing-cant2" id="ing-cant2" value=""></td>
+                            </tr>
+                            <tr>
+                                <td><input class="form-control" type="date" name="ing-fecha3" id="ing-fecha3" value=""></td>
+                                <td><input class="form-control" type="text" name="ing-desc3" id="ing-desc3" value=""></td>
+                                <td><input class="form-control" type="number" name="ing-cant3" id="ing-cant3" value=""></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <h2>Gastos</h2>
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th>Fecha</th>
+                                <th>Concepto</th>
+                                <th>Cantidad</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td><input class="form-control" type="date" name="gas-fecha1" id="gas-fecha1" value=""></td>
+                                <td><input class="form-control" type="text" name="gas-desc1" id="gas-desc1" value=""></td>
+                                <td><input class="form-control" type="number" name="gas-cant1" id="gas-cant1" value=""></td>
+                            </tr>
+                            <tr>
+                                <td><input class="form-control" type="date" name="gas-fecha2" id="gas-fecha2" value=""></td>
+                                <td><input class="form-control" type="text" name="gas-desc2" id="gas-desc2" value=""></td>
+                                <td><input class="form-control" type="number" name="gas-cant2" id="gas-cant2" value=""></td>
+                            </tr>
+                            <tr>
+                                <td><input class="form-control" type="date" name="gas-fecha3" id="gas-fecha3" value=""></td>
+                                <td><input class="form-control" type="text" name="gas-desc3" id="gas-desc3" value=""></td>
+                                <td><input class="form-control" type="number" name="gas-cant3" id="gas-cant3" value=""></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <button type="submit" class="btn btn-success btn-block mb-3">Enviar</button>
+                </form>
+            </div>
+        <?php } else { ?>
+            <!-- Formulario de login -->
+            <div class="container bg-light align-self-start w-50 p-4 mt-2 shadow text-center">
+                <h2 class="display-4">Inicia sesión</h2>
+                <p class="lead">Introduce tus datos para continuar</p>
+                <form action="login.php" method="POST">
+
+                    <div class="form-group">
+                        <div class="input-group mr-sm-2">
+                            <label class="sr-only" for="usuario">Usuario</label>
+                            <div class="input-group-prepend">
+                                <div class="input-group-text">
+                                    <span class="fas fa-at"></span>
+                                </div>
+                            </div>
+                            <input type="text" name="usuario" class="form-control" id="usuario" placeholder="usuario" required>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="sr-only" for="pass">Contraseña</label>
+                        <div class="input-group mr-sm-2">
+                            <div class="input-group-prepend">
+                                <div class="input-group-text">
+                                    <span class="fas fa-key"></span>
+                                </div>
+                            </div>
+                            <input type="password" name="pass" class="form-control" id="pass" placeholder="*******" required>
+                        </div>
+                    </div>
+
+                    <button type="submit" class="btn-lg btn-dark" name="submit">
+                        <span class="fas fa-sign-in-alt"></span> Login
+                    </button>
+                </form>
+            </div>
+        <?php } ?>
+        </div>
         
         <footer class="footer mt-auto">
             <div class="container-fluid mt-3 mb-n1 py-3 bg-dark text-light text-center">
