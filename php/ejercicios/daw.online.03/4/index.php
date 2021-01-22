@@ -60,63 +60,33 @@ session_start();
         <div class="container d-flex">
         <?php if(isset($_SESSION['usuario'])){?>
             <!-- Formulario de gastos e ingresos -->
-            <div class="container align-self-start w-80 p-4 mt-2 text-center">
-                <form class="shadow p-4 bg-white" action="informe.php" method="post">
-                    <h2>Ingresos</h2>
-                    <table class="table">
-                        <thead>
-                            <tr>
-                                <th>Fecha</th>
-                                <th>Concepto</th>
-                                <th>Cantidad</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr>
-                                <td><input class="form-control" type="date" name="ing-fecha1" id="ing-fecha1" value=""></td>
-                                <td><input class="form-control" type="text" name="ing-desc1" id="ing-desc1" value=""></td>
-                                <td><input class="form-control" type="number" name="ing-cant1" id="ing-cant1" value=""></td>
-                            </tr>
-                            <tr>
-                                <td><input class="form-control" type="date" name="ing-fecha2" id="ing-fecha2" value=""></td>
-                                <td><input class="form-control" type="text" name="ing-desc2" id="ing-desc2" value=""></td>
-                                <td><input class="form-control" type="number" name="ing-cant2" id="ing-cant2" value=""></td>
-                            </tr>
-                            <tr>
-                                <td><input class="form-control" type="date" name="ing-fecha3" id="ing-fecha3" value=""></td>
-                                <td><input class="form-control" type="text" name="ing-desc3" id="ing-desc3" value=""></td>
-                                <td><input class="form-control" type="number" name="ing-cant3" id="ing-cant3" value=""></td>
-                            </tr>
-                        </tbody>
-                    </table>
-                    <h2>Gastos</h2>
-                    <table class="table">
-                        <thead>
-                            <tr>
-                                <th>Fecha</th>
-                                <th>Concepto</th>
-                                <th>Cantidad</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr>
-                                <td><input class="form-control" type="date" name="gas-fecha1" id="gas-fecha1" value=""></td>
-                                <td><input class="form-control" type="text" name="gas-desc1" id="gas-desc1" value=""></td>
-                                <td><input class="form-control" type="number" name="gas-cant1" id="gas-cant1" value=""></td>
-                            </tr>
-                            <tr>
-                                <td><input class="form-control" type="date" name="gas-fecha2" id="gas-fecha2" value=""></td>
-                                <td><input class="form-control" type="text" name="gas-desc2" id="gas-desc2" value=""></td>
-                                <td><input class="form-control" type="number" name="gas-cant2" id="gas-cant2" value=""></td>
-                            </tr>
-                            <tr>
-                                <td><input class="form-control" type="date" name="gas-fecha3" id="gas-fecha3" value=""></td>
-                                <td><input class="form-control" type="text" name="gas-desc3" id="gas-desc3" value=""></td>
-                                <td><input class="form-control" type="number" name="gas-cant3" id="gas-cant3" value=""></td>
-                            </tr>
-                        </tbody>
-                    </table>
-                    <button type="submit" class="btn btn-success btn-block mb-3">Enviar</button>
+            <div class="container align-self-start p-4 mt-2">
+                <form class="shadow p-4 bg-white" action="balance.php" method="POST">
+                    <h2>Introduce tus datos</h2>
+                    <p class="lead">No olvides indicar si es un <b>ingreso</b> o un <b>gasto</b></p>
+                    <div class="form-row">
+                        <div class="form-group col">
+                            <label for="fecha">Fecha</label>
+                            <input class="form-control" type="date" name="fecha" id="fecha">
+                        </div>
+                        <div class="form-group col">
+                            <label for="cantidad">Cantidad</label>
+                            <input class="form-control" type="number" name="cantidad" id="cantidad" placeholder="150">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="descripcion">Concepto</label>
+                        <input class="form-control" type="text" name="descripcion" id="descripcion" placeholder="Regalo de reyes">
+                    </div>
+                    <div class="form-check">
+                        <input class="form-check-input" type="radio" name="tipo" id="tipo" value="ingresos" required>
+                        <label class="form-check-label" for="ingreso">Ingreso</label>
+                    </div>
+                    <div class="form-check">
+                        <input class="form-check-input" type="radio" name="tipo" id="tipo" value="gastos" required>
+                        <label class="form-check-label" for="gasto">Gasto</label>
+                    </div>
+                    <button type="submit" name="submit" class="btn btn-primary mb-3">Enviar</button>
                 </form>
             </div>
         <?php } else { ?>
