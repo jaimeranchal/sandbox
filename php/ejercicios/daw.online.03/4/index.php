@@ -86,7 +86,7 @@ session_start();
                         <input class="form-check-input" type="radio" name="tipo" id="tipo" value="gastos" required>
                         <label class="form-check-label" for="gasto">Gasto</label>
                     </div>
-                    <button type="submit" name="submit" class="btn btn-primary mb-3">Enviar</button>
+                    <button type="submit" name="submit" class="btn btn-primary mt-3">Generar</button>
                 </form>
             </div>
         <?php } else { ?>

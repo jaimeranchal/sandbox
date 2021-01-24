@@ -20,6 +20,12 @@
 require_once("./conexion.php");
 session_start();
 
+// Cargamos el pdf composer de mpdf
+require_once("../vendor/autoload.php");
+// Creamos una instancia de la clase
+$mpdf = new \Mpdf\Mpdf();
+// inicio un búfer para capturar la página
+ob_start();
 ?>
     <body class="d-flex flex-column min-vh-100">
 
@@ -140,14 +146,14 @@ if (isset($_POST['submit']) && $_SERVER['REQUEST_METHOD'] === "POST") :
 
             // Recuperamos la información actualizada del ingresos y gastos
             // Ingresos
-            $sql = 'SELECT * from ingresos WHERE usuario=? ORDER BY fecha';
+            $sql = 'SELECT DISTINCT * from ingresos WHERE usuario=? ORDER BY fecha';
             $sth = $dbh->prepare($sql);
             $sth->execute(array($_SESSION['usuario']));
             // Recuperamos los datos 
             $ingresos = $sth->fetchAll();
             
             // Gastos
-            $sql = 'SELECT * from gastos WHERE usuario=?';
+            $sql = 'SELECT DISTINCT * from gastos WHERE usuario=? ORDER BY fecha';
             $sth = $dbh->prepare($sql);
             $sth->execute(array($_SESSION['usuario']));
             // Recuperamos los datos 
@@ -178,13 +184,41 @@ if (isset($_POST['submit']) && $_SERVER['REQUEST_METHOD'] === "POST") :
                         $total_ingresos += $ingreso['cantidad']; ?>
                         <tr>
                             <td><?=$ingreso['fecha']?></td>
-                            <td><?=$ingreso['descripcion']?></td>
-                            <td><?=$ingreso['cantidad']?></td>
+                            <td class="text-left"><?=$ingreso['descripcion']?></td>
+                            <td class="text-right"><?=$ingreso['cantidad']?> €</td>
                         </tr>
                         <?php } ?>
                         <tr>
-                            <td colspan="2"><b>Total de ingresos</b></td>
-                            <td><?=$total_ingresos?> €</td>
+                            <td class="text-left" colspan="2"><b>Total de ingresos</b></td>
+                            <td class="text-right"><?=$total_ingresos?> €</td>
+                        </tr>
+                    </tbody>
+                    <thead>
+                        <tr>
+                            <td colspan="3">GASTOS</td>
+                        </tr>
+                        <tr>
+                            <th>Fecha</th>
+                            <th>Concepto</th>
+                            <th>Cantidad</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <?php foreach ($gastos as $gasto) { 
+                        $total_gastos += $gasto['cantidad']; ?>
+                        <tr>
+                            <td><?=$gasto['fecha']?></td>
+                            <td class="text-left"><?=$gasto['descripcion']?></td>
+                            <td class="text-right"><?=$gasto['cantidad']?> €</td>
+                        </tr>
+                        <?php } ?>
+                        <tr>
+                            <td class="text-right" colspan="2"><b>Total de gastos</b></td>
+                            <td class="text-right"><?=$total_gastos?> €</td>
+                        </tr>
+                            <td class="text-right" colspan="2"><b>Balance</b></td>
+                            <td class="text-right"><?=$total_ingresos - $total_gastos?> €</td>
+                        <tr>
                         </tr>
                     </tbody>
                 </table>
@@ -245,6 +279,14 @@ endif;
           integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
           crossorigin="anonymous">
         </script>
+<?php
+$html = ob_get_contents();
+ob_end_clean();
+// Escribe el búfer capturado en el pdf
+$mpdf->WriteHTML($html);
+// Muestra el pdf
+$mpdf->Output();
+?>
     </body>
 </html>
 
