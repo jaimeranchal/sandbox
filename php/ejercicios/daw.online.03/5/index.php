@@ -34,8 +34,8 @@ session_start();
                 <!-- <span class="navbar-text site-title">Gulami's Pizza</span> -->
                 <span class="navbar-text">
                     <?php if(isset($_SESSION['usuario'])): ?>
-                    Hola <b><?=$_SESSION['nombre']?></b> <span class="fas fa-user"></span>
-                    <a class="text-dark m-2 bermejo" href="./logout.php" title="Cierra sesión"> Salir</a>
+                    Hola <b><?=$_SESSION['nombre']?></b> <span class="fas fa-user-circle"></span>
+                    <a class="font-weight-bold m-2" href="./logout.php" title="Cierra sesión"> Salir</a>
                     <?php else: ?>
                     <a class="text-dark m-2" href="./login-form.php" title="Inicia sesión"> Área de Usuarios</a>
                     <button class="btn bg-bermejo">

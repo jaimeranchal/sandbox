@@ -30,7 +30,7 @@ require_once("./conexion.php");
             <div class="container-fluid">
 
                 <div class="navbar-brand">
-                    <a class= "text-dark" title="volver al menú de aplicaciones" href="../inicio.html">Menú</a>
+                    <a class= "text-dark" title="Volver a la página principal" href="./index.php">Inicio</a>
                 </div>
                 <span class="navbar-text site-title brand">Gulami's Pizza</span> 
                 <span class="navbar-text">
@@ -44,18 +44,24 @@ require_once("./conexion.php");
         <div class="d-flex flex-row justify-content-center mt-auto">
 <?php
 //recuperamos datos del formulario, filtramos y validamos 
-if (isset($_POST['submit']) && $_SERVER['REQUEST_METHOD'] === "POST"):
-    if (isset($_POST['tfno'])) {
-        $usuario = filter_var($_POST['usuario'], FILTER_SANITIZE_STRING);
-    }
-    if (isset($_POST['pass'])) {
-        $password = filter_var($_POST['pass'], FILTER_SANITIZE_STRING);
-    }
+require_once("./validacion.php");
 
+if (isset($_POST['submit']) && $_SERVER['REQUEST_METHOD'] === "POST"):
+    // compruebo que haya errores; si el campo no está definido, pongo a 0 
+    $tfno =isset($_POST['tfno'])? validarNumero($_POST['tfno']) : 0;
+    $password = isset($_POST['pass'])? filter_var($_POST['pass'], FILTER_SANITIZE_STRING) : 0;
+
+    if (hayErrores() || $tfno == 0 || $password == 0):
+?>
+            <div class="dialog p-4 m-5 bg-white">
+                <h2 class="display-5">Ups</h2>
+                <p class="lead">Ha habido algún error al rellenar el formulario</p> 
+            </div>
+<?php else: 
     //comprobamos que existe el usuario en la base de datos
     $sql = 'select * from usuarios where tfno=?';
     $sth = $dbh->prepare($sql);
-    $sth->execute(array($usuario));
+    $sth->execute(array($tfno));
     $resultado = $sth->fetch();
     $hash = empty($resultado) ? "" : $resultado['password'];
 
@@ -94,12 +100,7 @@ if (isset($_POST['submit']) && $_SERVER['REQUEST_METHOD'] === "POST"):
             </div>
 <?php endif; ?>
 <?php endif; ?>
-            <div id="hero">
-                <img src="./img/repartidor-hero.svg" alt="Repartidor en moto sobre un planeta"/>
-            </div>
-            <!-- mensajes de éxito o fallo del login -->
-            <div class="dialog p-4 m-5 bg-white">
-            </div>
+<?php endif; ?>
         </div>
         <!-- Footer -->
         <footer class="footer mt-auto">
