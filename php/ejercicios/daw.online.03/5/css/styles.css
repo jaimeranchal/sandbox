@@ -30,6 +30,10 @@ nav div.navbar-brand a {
 .site-title {
     font-family: 'Courgette', cursive;
 }
+.brand {
+    font-weight: bold;
+    font-size: 1.5em;
+}
 .site-subtitle {
     font-size: 1.5em;
     text-align: right;

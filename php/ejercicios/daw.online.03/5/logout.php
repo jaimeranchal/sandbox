@@ -28,7 +28,7 @@
                 <div class="navbar-brand">
                     <a class= "text-dark" title="volver al menú de aplicaciones" href="../inicio.html">Menú</a>
                 </div>
-                <!-- <span class="navbar-text site-title">Gulami's Pizza</span> -->
+                <span class="navbar-text site-title brand">Gulami's Pizza</span> 
                 <span class="navbar-text">
                     <a class="text-dark m-2" href="./signin-form.html"> Clientes</a>
                     <button class="btn bg-bermejo">

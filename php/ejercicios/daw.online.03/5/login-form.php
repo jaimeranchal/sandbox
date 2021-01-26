@@ -28,7 +28,7 @@
                 <div class="navbar-brand">
                     <a class= "text-dark" title="Volver a la página principal" href="./index.php">Inicio</a>
                 </div>
-                <!-- <span class="navbar-text site-title">Gulami's Pizza</span> -->
+                <span class="navbar-text site-title brand">Gulami's Pizza</span> 
                 <span class="navbar-text">
                     <button class="btn bg-bermejo">
                         <a class="text-light m-2" href="./signin-form.html" title="¿No tienes cuenta? Crea una"> Regístrate</a>
