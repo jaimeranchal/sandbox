@@ -16,11 +16,6 @@ body {
     font-family: 'Inter', sans-serif;
     font-weight: 200;
 }
-/* div#hero { */
-/*     background-image: url("../img/repartidor-hero.svg"); */
-/*     background-repeat: no-repeat; */
-/*     background-origin: content-box; */
-/* } */
 body .dialog {
     padding-left: 6em;
 }

@@ -20,6 +20,9 @@
         <link href="https://fonts.googleapis.com/css2?family=Courgette&display=swap" rel="stylesheet">
     </head>
 
+<?php
+session_start();
+?>
     <body class="d-flex flex-column min-vh-100">
         <!-- Navegación -->
          <nav class="navbar navbar-expand-lg navbar-light bg-transparent sticky-top">
@@ -30,10 +33,15 @@
                 </div>
                 <!-- <span class="navbar-text site-title">Gulami's Pizza</span> -->
                 <span class="navbar-text">
-                    <a class="text-dark m-2" href="./signin-form.html"> Clientes</a>
+                    <?php if(isset($_SESSION['usuario'])): ?>
+                    Hola <b><?=$_SESSION['nombre']?></b> <span class="fas fa-user"></span>
+                    <a class="text-dark m-2 bermejo" href="./logout.php" title="Cierra sesión"> Salir</a>
+                    <?php else: ?>
+                    <a class="text-dark m-2" href="./login-form.php" title="Inicia sesión"> Área de Usuarios</a>
                     <button class="btn bg-bermejo">
-                        <a class="text-light m-2" href="./signin-form.html"> Regístrate</a>
+                        <a class="text-light m-2" href="./signin-form.html" title="¿No tienes cuenta? Crea una"> Regístrate</a>
                     </button>
+                    <?php endif; ?>
                 </span>
             </div>
         </nav>     
@@ -45,27 +53,15 @@
             <div class="dialog p-4 m-5 bg-white">
                 <h2 class="display-4 site-title">Gulami's Pizza</h2>
                 <p class="lead site-subtitle">¿Te apetece comer algo?</p>
-                <form action="login.php" method="POST">
-
-                    <div class="w-75 ml-auto">
-                        <div class="form-group">
-                            <label class="sr-only" for="tfno">Teléfono</label>
-                            <input type="text" name="tfno" class="form-control border-top-0 border-right-0 border-left-0" id="tfno" placeholder="tfno" required>
-
-                        </div>
-
-                        <div class="form-group">
-                            <label class="sr-only" for="pass">Contraseña</label>
-                            <input type="password" name="pass" class="form-control border-top-0 border-right-0 border-left-0" id="pass" placeholder="*******" required>
-                        </div>
-                    </div>
-
-                    <div class="text-right">
-                        <button type="submit" class="btn btn-lg btn-link font-weight-bold huevo" name="submit">
-                            Haz un pedido
-                        </button>
-                    </div>
-                </form>
+                <?php if(isset($_SESSION['usuario'])): ?>
+                <div class="text-right">
+                    <a class="m-2 font-weight-bold bermejo site-subtitle" href="./pedido.php" title="Empieza a pedir"> Haz un pedido</a>
+                </div>
+                <?php else: ?>
+                <div class="text-right">
+                    <a class="m-2 font-weight-bold huevo site-subtitle" href="./login-form.php" title="Inicia sesión y empieza a pedir"> Haz un pedido</a>
+                </div>
+                <?php endif; ?>
             </div>
 
         </div>

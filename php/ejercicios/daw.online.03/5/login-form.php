@@ -30,61 +30,36 @@
                 </div>
                 <!-- <span class="navbar-text site-title">Gulami's Pizza</span> -->
                 <span class="navbar-text">
-                    <a class="text-dark m-2" href="./signin-form.html"> Clientes</a>
+                    <button class="btn bg-bermejo">
+                        <a class="text-light m-2" href="./signin-form.html" title="¿No tienes cuenta? Crea una"> Regístrate</a>
+                    </button>
                 </span>
             </div>
         </nav>     
         <!-- Cuerpo -->
         <div class="d-flex flex-row justify-content-end w-75 mt-auto">
             <div id="hero">
-                <img src="./img/signin.svg" alt="Repartidor en moto sobre un planeta"/>
+                <img src="./img/login.svg" alt="Repartidor en moto sobre un planeta"/>
             </div>
             <div class="dialog p-4 m-5 bg-white">
-                <h2 class="display-4 site-title">Nuevo cliente</h2>
-                <p class="lead site-subtitle">Cuéntanos un poco de ti</p>
+                <h2 class="display-4 site-title text-center">Inicia sesión</h2>
+                <p class="lead site-subtitle">Usa tu tfno y contraseña para entrar</p>
                 <form action="login.php" method="POST">
 
                     <div class="w-75 ml-auto">
-                        <!-- Nombre -->
                         <div class="form-group">
-                            <div class="text-right mb-n3">
-                                <label class="form-label" for="nombre">Nombre</label>
-                            </div>
-                            <input type="text" name="nombre" class="form-control border-top-0 border-right-0 border-left-0" id="nombre" placeholder="Flynt Taggart" required>
+                            <label class="sr-only" for="tfno">Teléfono</label>
+                            <input type="text" name="tfno" class="form-control border-top-0 border-right-0 border-left-0 text-center" id="tfno" placeholder="Tfno: 666 558 899" required>
                         </div>
-                        <!-- email -->
                         <div class="form-group">
-                            <div class="text-right mb-n3">
-                                <label class="form-label" for="email">Email</label>
-                            </div>
-                            <input type="email" name="email" class="form-control border-top-0 border-right-0 border-left-0" id="email" placeholder="hungry-slayer@id.com" required>
-                        </div>
-                        <!-- Teléfono -->
-                        <div class="form-group">
-                            <div class="text-right mb-n3">
-                                <label class="form-label ml-n3" for="tfno">Teléfono</label>
-                            </div>
-                            <input type="text" name="tfno" class="form-control border-top-0 border-right-0 border-left-0" id="tfno" placeholder="666 666 666" required>
-                        </div>
-                        <!-- password -->
-                        <div class="form-group">
-                            <div class="text-right mb-n3">
-                                <label class="form-label ml-n3" for="pass">Contraseña</label>
-                            </div>
-                            <input type="password" name="pass" class="form-control border-top-0 border-right-0 border-left-0" id="pass" placeholder="*******" required>
-                        </div>
-                        <!-- password - confirm -->
-                        <div class="form-group">
-                            <div class="text-right mb-n3">
-                                <label class="form-label ml-n3" for="pass-confirm">Repite la contraseña</label>
-                            </div>
-                            <input type="password" name="pass-confirm" class="form-control border-top-0 border-right-0 border-left-0" id="pass" placeholder="*******" required>
+                            <label class="sr-only" for="pass">Contraseña</label>
+                            <input type="password" name="pass" class="form-control border-top-0 border-right-0 border-left-0 text-center" id="pass" placeholder="*******" required>
                         </div>
                     </div>
 
                     <div class="text-right">
                         <button type="submit" class="btn btn-lg btn-link font-weight-bold huevo" name="submit">
-                            Ve precalentando!
+                            ¡Tengo hambre!
                         </button>
                     </div>
                 </form>
