@@ -20,9 +20,13 @@
         <link href="https://fonts.googleapis.com/css2?family=Courgette&display=swap" rel="stylesheet">
     </head>
 
+<?php
+// conexión a bbdd
+require_once("./conexion.php");
+?>
     <body class="d-flex flex-column min-vh-100">
         <!-- Navegación -->
-         <nav class="navbar navbar-expand-lg navbar-light bg-transparent sticky-top">
+         <nav class="navbar navbar-expand-lg navbar-light bg-white sticky-top">
             <div class="container-fluid">
 
                 <div class="navbar-brand">
@@ -30,48 +34,76 @@
                 </div>
                 <span class="navbar-text site-title brand">Gulami's Pizza</span> 
                 <span class="navbar-text">
-                    <a class="text-dark m-2" href="./signin-form.html"> Clientes</a>
                     <button class="btn bg-bermejo">
-                        <a class="text-light m-2" href="./signin-form.html"> Regístrate</a>
+                        <a class="text-light m-2" href="./signin-form.html" title="¿No tienes cuenta? Crea una"> Regístrate</a>
                     </button>
                 </span>
             </div>
         </nav>     
         <!-- Cuerpo -->
-        <div class="d-flex flex-row justify-content-end w-75 mt-auto">
+        <div class="d-flex flex-row justify-content-center mt-auto">
+<?php
+//recuperamos datos del formulario, filtramos y validamos 
+if (isset($_POST['submit']) && $_SERVER['REQUEST_METHOD'] === "POST"):
+    if (isset($_POST['tfno'])) {
+        $usuario = filter_var($_POST['usuario'], FILTER_SANITIZE_STRING);
+    }
+    if (isset($_POST['pass'])) {
+        $password = filter_var($_POST['pass'], FILTER_SANITIZE_STRING);
+    }
+
+    //comprobamos que existe el usuario en la base de datos
+    $sql = 'select * from usuarios where tfno=?';
+    $sth = $dbh->prepare($sql);
+    $sth->execute(array($usuario));
+    $resultado = $sth->fetch();
+    $hash = empty($resultado) ? "" : $resultado['password'];
+
+    // Si no existe o los hash no coinciden
+    if (empty($resultado)):  
+?>
             <div id="hero">
                 <img src="./img/repartidor-hero.svg" alt="Repartidor en moto sobre un planeta"/>
             </div>
+            <!-- mensajes de éxito o fallo del login -->
             <div class="dialog p-4 m-5 bg-white">
-                <h2 class="display-4 site-title">Gulami's Pizza</h2>
-                <p class="lead site-subtitle">¿Te apetece comer algo?</p>
-                <form action="login.php" method="POST">
-
-                    <div class="w-75 ml-auto">
-                        <div class="form-group">
-                            <label class="sr-only" for="tfno">Teléfono</label>
-                            <input type="text" name="tfno" class="form-control border-top-0 border-right-0 border-left-0" id="tfno" placeholder="tfno" required>
-
-                        </div>
-
-                        <div class="form-group">
-                            <label class="sr-only" for="pass">Contraseña</label>
-                            <input type="password" name="pass" class="form-control border-top-0 border-right-0 border-left-0" id="pass" placeholder="*******" required>
-                        </div>
-                    </div>
-
-                    <div class="text-right">
-                        <button type="submit" class="btn btn-lg btn-link font-weight-bold huevo" name="submit">
-                            Haz un pedido
-                        </button>
-                    </div>
-                </form>
+                <h2 class="display-5">Ups</h2>
+                <p class="lead">Usuario no encontrado</p> 
             </div>
-
+<?php elseif (!password_verify($password, $hash)): ?>
+            <div id="hero">
+                <img src="./img/repartidor-hero.svg" alt="Repartidor en moto sobre un planeta"/>
+            </div>
+            <!-- mensajes de éxito o fallo del login -->
+            <div class="dialog p-4 m-5 bg-white">
+                <h2 class="display-5">Ups</h2>
+                <p class="lead">Contraseña incorrecta</p> 
+            </div>
+<?php else: 
+    session_start();
+    $_SESSION['usuario'] = $resultado['id'];
+    $_SESSION['nombre'] = $resultado['nombre'];
+?>
+            <div id="hero">
+                <img src="./img/repartidor-hero.svg" alt="Repartidor en moto sobre un planeta"/>
+            </div>
+            <!-- mensajes de éxito o fallo del login -->
+            <div class="dialog p-4 m-5 bg-white">
+            <h2 class="display-5">¡Hola <?=$_SESSION['nombre']?>!</h2>
+                <p class="lead">El genio del horno está esperando tus deseos</p> 
+            </div>
+<?php endif; ?>
+<?php endif; ?>
+            <div id="hero">
+                <img src="./img/repartidor-hero.svg" alt="Repartidor en moto sobre un planeta"/>
+            </div>
+            <!-- mensajes de éxito o fallo del login -->
+            <div class="dialog p-4 m-5 bg-white">
+            </div>
         </div>
         <!-- Footer -->
         <footer class="footer mt-auto">
-            <div class="container-fluid mt-3 mb-n1 py-3 bg-transparent text-dark text-center">
+            <div class="container-fluid mt-3 mb-n1 py-3 bg-white text-dark text-center">
                 <p><span class="fas fa-copyright"></span> Jaime Ranchal Beato</p>
             </div>
         </footer>

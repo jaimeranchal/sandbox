@@ -25,7 +25,7 @@ session_start();
 ?>
     <body class="d-flex flex-column min-vh-100">
         <!-- Navegación -->
-         <nav class="navbar navbar-expand-lg navbar-light bg-transparent sticky-top">
+         <nav class="navbar navbar-expand-lg navbar-light bg-white sticky-top">
             <div class="container-fluid">
 
                 <div class="navbar-brand">
@@ -46,7 +46,7 @@ session_start();
             </div>
         </nav>     
         <!-- Cuerpo -->
-        <div class="d-flex flex-row justify-content-end w-75 mt-auto">
+        <div class="d-flex flex-row justify-content-center mt-auto">
             <div id="hero">
                 <img src="./img/repartidor-hero.svg" alt="Repartidor en moto sobre un planeta"/>
             </div>
@@ -67,7 +67,7 @@ session_start();
         </div>
         <!-- Footer -->
         <footer class="footer mt-auto">
-            <div class="container-fluid mt-3 mb-n1 py-3 bg-transparent text-dark text-center">
+            <div class="container-fluid mt-3 mb-n1 py-3 bg-white text-dark text-center">
                 <p><span class="fas fa-copyright"></span> Jaime Ranchal Beato</p>
             </div>
         </footer>

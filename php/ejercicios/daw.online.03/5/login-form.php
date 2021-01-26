@@ -37,7 +37,7 @@
             </div>
         </nav>     
         <!-- Cuerpo -->
-        <div class="d-flex flex-row justify-content-end w-75 mt-auto">
+        <div class="d-flex flex-row justify-content-center mt-auto">
             <div id="hero">
                 <img src="./img/login.svg" alt="Repartidor en moto sobre un planeta"/>
             </div>
