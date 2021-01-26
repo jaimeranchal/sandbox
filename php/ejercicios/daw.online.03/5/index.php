@@ -17,7 +17,9 @@
         <!-- Google Fonts -->
         <link rel="preconnect" href="https://fonts.gstatic.com">
         <link href="https://fonts.googleapis.com/css2?family=Inter:wght@200;400;700&display=swap" rel="stylesheet">
+        <link href="https://fonts.googleapis.com/css2?family=Courgette&display=swap" rel="stylesheet">
     </head>
+
     <body class="d-flex flex-column min-vh-100">
         <!-- Navegación -->
          <nav class="navbar navbar-expand-lg navbar-light bg-transparent sticky-top">
@@ -26,34 +28,41 @@
                 <div class="navbar-brand">
                     <a class= "text-dark" title="volver al menú de aplicaciones" href="../inicio.html">Menú</a>
                 </div>
-                <!-- <span class="navbar-text">Inicio de sesión correcto</span> -->
+                <!-- <span class="navbar-text site-title">Gulami's Pizza</span> -->
                 <span class="navbar-text">
                     <a class="text-dark m-2" href="./signin-form.html"> Clientes</a>
-                    <a class="text-dark m-2" href="./signin-form.html"> Regístrate</a>
+                    <button class="btn bg-bermejo">
+                        <a class="text-light m-2" href="./signin-form.html"> Regístrate</a>
+                    </button>
                 </span>
             </div>
         </nav>     
         <!-- Cuerpo -->
         <div class="d-flex flex-row justify-content-end w-75 mt-auto">
-            
-            <div class="dialog border rounded p-4 m-5">
-                <h2 class="display-4">¿Ya eres cliente?</h2>
+            <div id="hero">
+                <img src="./img/repartidor-hero.svg" alt="Repartidor en moto sobre un planeta"/>
+            </div>
+            <div class="dialog p-4 m-5 bg-white">
+                <h2 class="display-4 site-title">Gulami's Pizza</h2>
+                <p class="lead site-subtitle">¿Te apetece comer algo?</p>
                 <form action="login.php" method="POST">
 
-                    <div class="form-group">
-                        <label class="sr-only" for="usuario">Usuario</label>
-                        <input type="text" name="usuario" class="form-control border-top-0 border-right-0 border-left-0" id="usuario" placeholder="usuario" required>
-                        
-                    </div>
+                    <div class="w-75 ml-auto">
+                        <div class="form-group">
+                            <label class="sr-only" for="tfno">Teléfono</label>
+                            <input type="text" name="tfno" class="form-control border-top-0 border-right-0 border-left-0" id="tfno" placeholder="tfno" required>
 
-                    <div class="form-group">
-                        <label class="sr-only" for="pass">Contraseña</label>
-                        <input type="password" name="pass" class="form-control border-top-0 border-right-0 border-left-0" id="pass" placeholder="*******" required>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="sr-only" for="pass">Contraseña</label>
+                            <input type="password" name="pass" class="form-control border-top-0 border-right-0 border-left-0" id="pass" placeholder="*******" required>
+                        </div>
                     </div>
 
                     <div class="text-right">
-                        <button type="submit" class="btn btn-lg btn-link" name="submit">
-                            Empieza a pedir
+                        <button type="submit" class="btn btn-lg btn-link font-weight-bold huevo" name="submit">
+                            Haz un pedido
                         </button>
                     </div>
                 </form>

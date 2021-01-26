@@ -163,6 +163,7 @@ USE ud3_app_web;
 CREATE TABLE usuarios(
     id int AUTO_INCREMENT PRIMARY KEY,
     nombre VARCHAR(50) NOT NULL,
+    tfno int(9) NOT NULL UNIQUE,
     email VARCHAR(50) NOT NULL,
     password VARCHAR(255) NOT NULL,
     tipo char(1) not null -- c 'cliente', a 'admin'
@@ -223,14 +224,16 @@ CREATE TABLE ingredientes_pizza(
 -- Insertamos datos
 
 -- Los password son siempre 1234nombre (en minúscula), p.e: 1234jaime 
-INSERT INTO usuarios (nombre, email, password, tipo) VALUES (
+INSERT INTO usuarios (nombre, tfno, email, password, tipo) VALUES (
     'Jaime Ranchal',
+    657334455,
     'jaime@ejemplo.com',
     '$2y$10$oaAuy3rLzzZ.O5FVr2W83ui1P0b5IZq0TvW/5YlTbG3.NMd.TCr56',
     'c'
 ),
 (
     'Nacho Gómez',
+    773112244,
     'nacho@ejemplo.com',
     '$2y$10$PGzlMQKqCbHCG3bN54xllu45vKRuQjKqoNEjsjfwKENhlxNj5Z4ea',
     'a'
