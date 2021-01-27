@@ -89,6 +89,7 @@ if (isset($_POST['submit']) && $_SERVER['REQUEST_METHOD'] === "POST"):
     session_start();
     $_SESSION['usuario'] = $resultado['id'];
     $_SESSION['nombre'] = $resultado['nombre'];
+    $_SESSION['tipo'] = $resultado['tipo'];
 ?>
             <div class="figure p-4 mt-5 mr-5 mb-5">
                 <img src="./img/repartidor-hero.svg" alt="Repartidor en moto sobre un planeta"/>

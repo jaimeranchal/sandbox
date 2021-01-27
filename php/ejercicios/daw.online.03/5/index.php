@@ -21,12 +21,28 @@
     </head>
 
 <?php
+// conexión a bbdd
+require_once("./conexion.php");
 session_start();
+
+// Recuperamos datos de especialidades para mostrar
+//sentencia preparada
+$sql = 'SELECT * FROM especialidades';
+$sth = $dbh->prepare($sql);
+$sth->execute();
+// Recuperamos los datos 
+$especialidades = $sth->fetchAll();
+
+// Dejo preparada una sentencia para recuperar los datos
+// de cada pizza
+// SELECT DISTINCT * from especialidades AS e LEFT JOIN (ingredientes_esp as b, ingredientes as i) ON (e.id = b.especialidad AND b.ingrediente = i.id)
+$sql2 = 'SELECT DISTINCT i.nombre from especialidades AS e LEFT JOIN (ingredientes_esp as b, ingredientes as i) ON (e.id = b.especialidad AND b.ingrediente = i.id) WHERE e.id=?';
+$sth2 = $dbh->prepare($sql2);
 ?>
     <body class="d-flex flex-column min-vh-100 my-auto">
         <!-- Navegación -->
          <nav class="navbar navbar-expand-lg navbar-light bg-white sticky-top">
-            <div class="container-fluid">
+            <div class="container-fluid mq-xxl">
 
                 <div class="navbar-brand">
                     <a class= "text-dark" title="volver al menú de aplicaciones" href="../inicio.html">Menú</a>
@@ -35,6 +51,11 @@ session_start();
                 <span class="navbar-text">
                     <?php if(isset($_SESSION['usuario'])): ?>
                     Hola <b><?=$_SESSION['nombre']?></b> <span class="fas fa-user-circle"></span>
+                    <?php if ($_SESSION['tipo'] == 'c'): ?>
+                    <a class="font-weight-bold m-2" href="./cesta.php" title="Revisa tu pedido"> Cesta <span class="fas fa-circle-notch"></span></a>
+                    <?php else: ?>
+                    <a class="font-weight-bold m-2" href="./admin.php" title="Panel de administración"> Administración <span class="fas fa-cog"></span></a>
+                    <?php endif; ?>
                     <a class="font-weight-bold m-2" href="./logout.php" title="Cierra sesión"> Salir</a>
                     <?php else: ?>
                     <a class="text-dark m-2" href="./login-form.php" title="Inicia sesión"> Área de Usuarios</a>
@@ -59,11 +80,38 @@ session_start();
                 </div>
                 <?php else: ?>
                 <div class="text-right">
-                    <a class="m-2 font-weight-bold huevo site-subtitle" href="./login-form.php" title="Inicia sesión y empieza a pedir"> Haz un pedido</a>
+                    <a class="m-2 font-weight-bold huevo site-subtitle" href="./login-form.php" title="Inicia sesión y empieza a pedir"> Inicia sesión</a>
                 </div>
                 <?php endif; ?>
             </div>
-
+        </div>
+        <!-- Productos -->
+        <div class="d-flex bg-dark text-light">
+            <div class="container-fluid mq-xxl my-5">
+                <h2 class="display-4 site-title text-center">Nuestras especialidades</h2>
+                <div class="d-flex flex-row flex-wrap justify-content-center mx-4">
+                <?php foreach ($especialidades as $especialidad) { 
+                    $sth2->execute(array($especialidad['id']));
+                    $ingredientes = $sth2->fetchAll();
+                ?>
+                    <!-- producto -->
+                    <div class="producto d-flex flex-row bg-dark m-3 px-4 py-2 rounded-lg">
+                        <div class="producto-img m-2 p-2">
+                            <img class="figure rounded-circle h-100" src="./img/pizza<?=$especialidad['id']?>.png" alt="item">
+                        </div>
+                        <div class="m-2 p-2 text-right">
+                            <h3 class="font-weight-bold"><?=$especialidad['nombre']?></h3>
+                            <div class="pt-4 mt-4">
+                                <?php foreach ($ingredientes as $ingrediente) { ?>
+                                <p class="mt-n3"><?=$ingrediente['nombre']?></p>
+                                <?php } ?>
+                            </div>
+                            <h2 class="display-4"><?=$especialidad['precio']?>€</h2>
+                        </div>
+                    </div>
+                <?php } ?>
+                </div>
+            </div>
         </div>
         <!-- Footer -->
         <footer class="footer mt-auto">

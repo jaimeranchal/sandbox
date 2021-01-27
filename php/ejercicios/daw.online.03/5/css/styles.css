@@ -11,6 +11,29 @@
 .bermejo {
     color: #ed2482;
 }
+/* Clases auxiliares */
+.brand {
+    font-weight: bold;
+    font-size: 1.5em;
+}
+.mq-xxl {
+    max-width: 1440px;
+}
+.producto {
+    max-width: 500px;
+}
+.producto-img {
+    max-height: 250px;
+    max-width: 250px;
+}
+.site-title {
+    font-family: 'Courgette', cursive;
+}
+.site-subtitle {
+    font-size: 1.5em;
+    text-align: right;
+}
+/* Elementos */
 body {
     font-size: 16px;
     font-family: 'Inter', sans-serif;
@@ -19,28 +42,13 @@ body {
 body .dialog {
     padding-left: 6em;
 }
-
 nav a, footer {
     font-weight: 400;
-}
-nav div.container-fluid {
-    max-width: 1440px;
 }
 nav div.navbar-brand a {
     font-weight: 700;
 }
 
-.site-title {
-    font-family: 'Courgette', cursive;
-}
-.brand {
-    font-weight: bold;
-    font-size: 1.5em;
-}
-.site-subtitle {
-    font-size: 1.5em;
-    text-align: right;
-}
 footer {
     font-size: 0.8em;
 }
