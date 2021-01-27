@@ -23,6 +23,9 @@ body .dialog {
 nav a, footer {
     font-weight: 400;
 }
+nav div.container-fluid {
+    max-width: 1440px;
+}
 nav div.navbar-brand a {
     font-weight: 700;
 }

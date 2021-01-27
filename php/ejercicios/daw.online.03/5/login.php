@@ -53,7 +53,7 @@ if (isset($_POST['submit']) && $_SERVER['REQUEST_METHOD'] === "POST"):
 
     if (hayErrores() || $tfno == 0 || $password == 0):
 ?>
-            <div class="dialog p-4 m-5 bg-white">
+            <div class="dialog p-4 mt-5 ml-5 mb-5 bg-white">
                 <h2 class="display-5">Ups</h2>
                 <p class="lead">Ha habido algún error al rellenar el formulario</p> 
             </div>
@@ -68,20 +68,20 @@ if (isset($_POST['submit']) && $_SERVER['REQUEST_METHOD'] === "POST"):
     // Si no existe o los hash no coinciden
     if (empty($resultado)):  
 ?>
-            <div id="hero">
+            <div class="figure p-4 mt-5 mr-5 mb-5">
                 <img src="./img/repartidor-hero.svg" alt="Repartidor en moto sobre un planeta"/>
             </div>
             <!-- mensajes de éxito o fallo del login -->
-            <div class="dialog p-4 m-5 bg-white">
+            <div class="dialog p-4 mt-5 ml-5 mb-5 bg-white">
                 <h2 class="display-5">Ups</h2>
                 <p class="lead">Usuario no encontrado</p> 
             </div>
 <?php elseif (!password_verify($password, $hash)): ?>
-            <div id="hero">
+            <div class="figure p-4 mt-5 mr-5 mb-5">
                 <img src="./img/repartidor-hero.svg" alt="Repartidor en moto sobre un planeta"/>
             </div>
             <!-- mensajes de éxito o fallo del login -->
-            <div class="dialog p-4 m-5 bg-white">
+            <div class="dialog p-4 mt-5 ml-5 mb-5 bg-white">
                 <h2 class="display-5">Ups</h2>
                 <p class="lead">Contraseña incorrecta</p> 
             </div>
@@ -90,11 +90,11 @@ if (isset($_POST['submit']) && $_SERVER['REQUEST_METHOD'] === "POST"):
     $_SESSION['usuario'] = $resultado['id'];
     $_SESSION['nombre'] = $resultado['nombre'];
 ?>
-            <div id="hero">
+            <div class="figure p-4 mt-5 mr-5 mb-5">
                 <img src="./img/repartidor-hero.svg" alt="Repartidor en moto sobre un planeta"/>
             </div>
             <!-- mensajes de éxito o fallo del login -->
-            <div class="dialog p-4 m-5 bg-white">
+            <div class="dialog p-4 mt-5 ml-5 mb-5 bg-white">
             <h2 class="display-5">¡Hola <?=$_SESSION['nombre']?>!</h2>
                 <p class="lead">El genio del horno está esperando tus deseos</p> 
             </div>

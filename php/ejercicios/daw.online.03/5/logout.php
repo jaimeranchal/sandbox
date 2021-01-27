@@ -20,9 +20,14 @@
         <link href="https://fonts.googleapis.com/css2?family=Courgette&display=swap" rel="stylesheet">
     </head>
 
+<?php
+session_start();
+$_SESSION = array();
+session_destroy();
+?>
     <body class="d-flex flex-column min-vh-100">
         <!-- Navegación -->
-         <nav class="navbar navbar-expand-lg navbar-light bg-transparent sticky-top">
+         <nav class="navbar navbar-expand-lg navbar-light bg-white sticky-top">
             <div class="container-fluid">
 
                 <div class="navbar-brand">
@@ -31,44 +36,25 @@
                 <span class="navbar-text site-title brand">Gulami's Pizza</span> 
                 <span class="navbar-text">
                     <button class="btn bg-bermejo">
-                        <a class="text-light m-2" href="./signin-form.html" title="¿No tienes cuenta? Crea una"> Regístrate</a>
+                        <a class="text-light m-2" href="./login-form.php" title="Inicia sesión"> Inicia sesión</a>
                     </button>
                 </span>
             </div>
         </nav>     
+
         <!-- Cuerpo -->
         <div class="d-flex flex-row justify-content-center mt-auto">
-            <div class="figure p-4 mt-5 ml-5 mb-5"id="hero">
-                <img src="./img/login.svg" alt="Repartidor en moto sobre un planeta"/>
+            <div class="dialog p-4 mt-5 ml-5 mb-5 bg-white">
+            <h2 class="display-5">¡Hasta pronto!</h2>
+                <p class="lead">Vuelve cuando tengas hambre</p> 
             </div>
-            <div class="dialog p-4 mt-5 mr-5 mb-5 bg-white">
-                <h2 class="display-4 site-title text-center">Inicia sesión</h2>
-                <p class="lead site-subtitle">Usa tu tfno y contraseña para entrar</p>
-                <form action="login.php" method="POST">
-
-                    <div class="w-75 ml-auto">
-                        <div class="form-group">
-                            <label class="sr-only" for="tfno">Teléfono</label>
-                            <input type="text" name="tfno" class="form-control border-top-0 border-right-0 border-left-0 text-center" id="tfno" placeholder="Tfno: 666 558 899" required>
-                        </div>
-                        <div class="form-group">
-                            <label class="sr-only" for="pass">Contraseña</label>
-                            <input type="password" name="pass" class="form-control border-top-0 border-right-0 border-left-0 text-center" id="pass" placeholder="*******" required>
-                        </div>
-                    </div>
-
-                    <div class="text-right">
-                        <button type="submit" class="btn btn-lg btn-link font-weight-bold huevo" name="submit">
-                            ¡Tengo hambre!
-                        </button>
-                    </div>
-                </form>
+            <div class="figure p-4 mt-5 mr-5 mb-5">
+                <img src="./img/repartidor-hero.svg" alt="Repartidor en moto sobre un planeta"/>
             </div>
-
         </div>
         <!-- Footer -->
         <footer class="footer mt-auto">
-            <div class="container-fluid mt-3 mb-n1 py-3 bg-transparent text-dark text-center">
+            <div class="container-fluid mt-3 mb-n1 py-3 bg-white text-dark text-center">
                 <p><span class="fas fa-copyright"></span> Jaime Ranchal Beato</p>
             </div>
         </footer>
@@ -95,4 +81,5 @@
         </script>
     </body>
 </html>
+
 

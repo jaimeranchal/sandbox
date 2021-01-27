@@ -23,7 +23,7 @@
 <?php
 session_start();
 ?>
-    <body class="d-flex flex-column min-vh-100">
+    <body class="d-flex flex-column min-vh-100 my-auto">
         <!-- Navegación -->
          <nav class="navbar navbar-expand-lg navbar-light bg-white sticky-top">
             <div class="container-fluid">
@@ -47,10 +47,10 @@ session_start();
         </nav>     
         <!-- Cuerpo -->
         <div class="d-flex flex-row justify-content-center mt-auto">
-            <div id="hero">
+            <div class="figure p-4 mt-5 ml-5 mb-5"id="hero">
                 <img src="./img/repartidor-hero.svg" alt="Repartidor en moto sobre un planeta"/>
             </div>
-            <div class="dialog p-4 m-5 bg-white">
+            <div class="dialog p-4 mt-5 mr-5 mb-5 bg-white">
                 <h2 class="display-4 site-title">Gulami's Pizza</h2>
                 <p class="lead site-subtitle">¿Te apetece comer algo?</p>
                 <?php if(isset($_SESSION['usuario'])): ?>
