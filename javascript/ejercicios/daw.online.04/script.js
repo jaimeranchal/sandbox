@@ -77,6 +77,10 @@ let convertirMayusculas = () => {
 
 /* 5.Valida el email (regex) */
 // Si error: mensaje en span#errorEmail + no pierde foco
+/* 
+ * NOTE: blur() quita foco y focus() da el foco 
+ *  SOLUCIÓN: si hay error, devuelve el foco al campo 
+ */
 let validarEmail = () => {
     let mensaje = "";
     let patron = /^[0-9a-zA-Z-\.]*@[0-9a-zA-Z]*\.(com|es|org|net)$/;
