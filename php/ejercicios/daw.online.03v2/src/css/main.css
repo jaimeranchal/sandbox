@@ -1,0 +1,40 @@
+/* General */
+
+body {
+    background-color: #f7f7f7;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='36' height='72' viewBox='0 0 36 72'%3E%3Cg fill-rule='evenodd'%3E%3Cg fill='%23b9babc' fill-opacity='0.4'%3E%3Cpath d='M2 6h12L8 18 2 6zm18 36h12l-6 12-6-12z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+}
+
+div.menu {
+    background-color: #ab6cba;
+}
+
+/* MEDIA QUERIES */
+
+/* móviles */
+
+@media screen and (max-width: 990px){
+    /* Esconde el menú de navegación */
+    /* TODO: corregir posición y color */
+    nav ul {
+        width: 300px;
+        height: 100%;
+        background-color: #f7f7f7;
+        position:absolute;
+        -webkit-transform: translate(-300px, 0);
+        transform: translate(-300px, 0);
+        transition: transform 0.3s ease;
+    }
+    /* Expande el menú de navegación */
+    nav ul.open {
+        -webkit-transform: translate(0, 0);
+        transform: translate(0,0);
+    }
+}
+@media screen and (min-width: 990px){
+    /* esconde el botón de hamburguesa */
+    button#hamburger {
+        display: none;
+    }
+}
+
