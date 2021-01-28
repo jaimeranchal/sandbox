@@ -16,8 +16,6 @@
     </head>
 
 <?php
-// conexión a bbdd
-require_once("./conexion.php");
 session_start();
 $_SESSION = array();
 session_destroy();

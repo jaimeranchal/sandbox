@@ -20,55 +20,92 @@
         <link href="https://fonts.googleapis.com/css2?family=Courgette&display=swap" rel="stylesheet">
     </head>
 
-    <body class="d-flex flex-column min-vh-100">
+<?php
+// conexión a bbdd
+require_once("./conexion.php");
+?>
+    <body class="d-flex flex-column min-vh-100 my-auto">
         <!-- Navegación -->
-         <nav class="navbar navbar-expand-lg navbar-light bg-transparent sticky-top">
+         <nav class="navbar navbar-expand-lg navbar-light bg-white sticky-top">
             <div class="container-fluid">
 
                 <div class="navbar-brand">
-                    <a class= "text-dark" title="Volver a la página principal" href="./index.php">Inicio</a>
+                    <a class= "text-dark" title="volver al menú de aplicaciones" href="../inicio.html">Menú</a>
                 </div>
                 <span class="navbar-text site-title brand">Gulami's Pizza</span> 
                 <span class="navbar-text">
-                    <button class="btn bg-bermejo">
-                        <a class="text-light m-2" href="./signin-form.html" title="¿No tienes cuenta? Crea una"> Regístrate</a>
-                    </button>
+                    <a class="text-dark m-2" href="./login-form.php" title="Inicia sesión"> Área de Usuarios</a>
                 </span>
             </div>
         </nav>     
+
         <!-- Cuerpo -->
         <div class="d-flex flex-row justify-content-center mt-auto">
-            <div class="figure p-4 mt-5 ml-5 mb-5"id="hero">
-                <img src="./img/login.svg" alt="Repartidor en moto sobre un planeta"/>
-            </div>
-            <div class="dialog p-4 mt-5 mr-5 mb-5 bg-white">
-                <h2 class="display-4 site-title text-center">Inicia sesión</h2>
-                <p class="lead site-subtitle">Usa tu tfno y contraseña para entrar</p>
-                <form action="login.php" method="POST">
+<?php
+// Filtrar y validar datos del formulario
+if (isset($_POST['submit']) && $_SERVER['REQUEST_METHOD'] === "POST") :
+    // cargamos funciones de validación
+    require_once("./validacion.php");
 
-                    <div class="w-75 ml-auto">
-                        <div class="form-group">
-                            <label class="sr-only" for="tfno">Teléfono</label>
-                            <input type="text" name="tfno" class="form-control border-top-0 border-right-0 border-left-0 text-center" id="tfno" placeholder="Tfno: 666 558 899" required>
-                        </div>
-                        <div class="form-group">
-                            <label class="sr-only" for="pass">Contraseña</label>
-                            <input type="password" name="pass" class="form-control border-top-0 border-right-0 border-left-0 text-center" id="pass" placeholder="*******" required>
-                        </div>
-                    </div>
+    // patrón para nombre
+    $formatoNombre = "/^[a-zA-Z ]*$/";
+    $formatoTfno = "/^\d{9}$/";
 
-                    <div class="text-right">
-                        <button type="submit" class="btn btn-lg btn-link font-weight-bold huevo" name="submit">
-                            ¡Tengo hambre!
-                        </button>
-                    </div>
-                </form>
+    $nombre = isset($_POST['nombre']) ? validarCadena($formatoNombre, $_POST['nombre']) : 0;
+    $email = isset($_POST['email']) ? filter_var($_POST['email'], FILTER_VALIDATE_EMAIL) : 0;
+    $tfno = isset($_POST['tfno']) ? validarCadena($formatoTfno, $_POST['tfno']) : 0;
+    $password = isset($_POST['pass']) ? filter_var($_POST['pass'], FILTER_SANITIZE_STRING) : 0;
+
+    if ($nombre === 0 ||
+        $email === 0 ||
+        $tfno === 0 ||
+        $password === 0 ||
+        hayErrores()):
+?>
+            <div class="dialog p-4 mt-5 ml-5 mb-5 bg-white">
+                <h2 class="display-5">Ups</h2>
+                <p class="lead">Ha habido algún error al rellenar el formulario</p> 
+                <ul>
+                <?php foreach ($errores as $error) { ?>
+                    <li><?=$error?></li>
+                <?php } ?>
+                </ul>
             </div>
+    <?php else: 
+        //comprobamos que existe el usuario en la base de datos
+        $sql = 'select * from usuarios where tfno=?';
+        $sth = $dbh->prepare($sql);
+        $sth->execute(array($tfno));
+        $resultado = $sth->fetch();
+        $hash = empty($resultado) ? "" : $resultado['password'];
+        
+        // Si hay resultados (el usuario ya existe)
+        if (!empty($resultado)):  
+    ?>
+            <div class="dialog p-4 mt-5 ml-5 mb-5 bg-white">
+                <h2 class="display-5">Ups</h2>
+                <p class="lead">Ya existe un usuario registrado con ese número de teléfono</p> 
+            </div>
+        <?php else: 
+        // insertamos datos del nuevo usuario en la bbdd
+        $sql = "INSERT into usuarios(nombre, tfno, email, password, tipo) VALUES(?,?,?,?,?)";
+        $sth = $dbh->prepare($sql);
+        $exito = $sth->execute(array($nombre, $tfno, $email, password_hash($password, PASSWORD_BCRYPT), 'c'));
+        ?>
+            <div class="dialog p-4 mt-5 ml-5 mb-5 bg-white">
+                <h2 class="display-5">¡Listo!</h2>
+                <p class="lead">Ya eres uno de los nuestros. Inicia sesión y empieza a pedir!</p> 
+                <a class="text-dark m-2" href="./login-form.php" title="Inicia sesión"> Entrar</a>
+            </div>
+        <?php endif; ?>
+    <?php endif; ?>
+<?php else: ?>
+<?php endif; ?>
 
         </div>
         <!-- Footer -->
         <footer class="footer mt-auto">
-            <div class="container-fluid mt-3 mb-n1 py-3 bg-transparent text-dark text-center">
+            <div class="container-fluid mt-3 mb-n1 py-3 bg-white text-dark text-center">
                 <p><span class="fas fa-copyright"></span> Jaime Ranchal Beato</p>
             </div>
         </footer>
