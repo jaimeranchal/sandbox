@@ -21,39 +21,43 @@
         <div class="d-flex" id="wrapper">
 
             <!-- Sidebar -->
-            <div class="bg-dark text-light border-right" id="sidebar-wrapper">
-                <div class="sidebar-heading">
-                    <h2 class="display-4">DWES 3</h2>
-                </div>
-                <div class="list-group list-group-flush">
-                    <a href="#" class="list-group-item list-group-item-action bg-dark text-light">
-                        <span class="fas fa-home"></span>
-                        Inicio
-                    </a>
-                    <a href="#" class="list-group-item list-group-item-action bg-dark text-light">
-                        <span class="fas fa-thumbtack"></span>
-                        1.Auth Basic
-                    </a>
-                    <a href="#" class="list-group-item list-group-item-action bg-dark text-light">
-                        <span class="fas fa-thumbtack"></span>
-                        2.Auth Digest
-                    </a>
-                    <a href="#" class="list-group-item list-group-item-action bg-dark text-light">
-                        <span class="fas fa-thumbtack"></span>
-                        3.Cesta
-                    </a>
-                    <a href="#" class="list-group-item list-group-item-action bg-dark text-light">
-                        <span class="fas fa-thumbtack"></span>
-                        4.Balance
-                    </a>
-                    <a href="#" class="list-group-item list-group-item-action bg-dark text-light">
-                        <span class="fas fa-thumbtack"></span>
-                        5.Pizzeria
-                    </a>
+            <div class="d-flex flex-column justify-content-between bg-dark text-light " id="sidebar-wrapper">
+                <!-- sidebar top content -->
+                <div>
+                    <div class="sidebar-heading">
+                        <h2 class="display-4">DWES 3</h2>
+                    </div>
+                    <div class="list-group list-group-flush">
+                        <a href="#" class="list-group-item list-group-item-action bg-dark text-light">
+                            <span class="fas fa-home"></span>
+                            Inicio
+                        </a>
+                        <a href="#" class="list-group-item list-group-item-action bg-dark text-light">
+                            <span class="fas fa-thumbtack"></span>
+                            1.Auth Basic
+                        </a>
+                        <a href="#" class="list-group-item list-group-item-action bg-dark text-light">
+                            <span class="fas fa-thumbtack"></span>
+                            2.Auth Digest
+                        </a>
+                        <a href="#" class="list-group-item list-group-item-action bg-dark text-light">
+                            <span class="fas fa-thumbtack"></span>
+                            3.Cesta
+                        </a>
+                        <a href="#" class="list-group-item list-group-item-action bg-dark text-light">
+                            <span class="fas fa-thumbtack"></span>
+                            4.Balance
+                        </a>
+                        <a href="#" class="list-group-item list-group-item-action bg-dark text-light">
+                            <span class="fas fa-thumbtack"></span>
+                            5.Pizzeria
+                        </a>
+                    </div>
                 </div>
 
+                <!-- sidebar bottom content -->
                 <div class="sidebar-footer">
-                    <p><span class="fas fa-copyright"></span> Jaime Ranchal Beato</p>
+                    <p class="text-center"><span class="fas fa-copyright"></span> Jaime Ranchal Beato</p>
                 </div>
 
             </div>
@@ -64,9 +68,20 @@
 
                 <!-- Navegación -->
                 <nav class="navbar navbar-expand-lg navbar-light bg-light border-bottom">
-                    <button class="btn btn-light" id="menu-toggle"><span class="fas fa-bars"></span></button>
+                    <!-- hide sidebar -->
+                    <button class="btn btn-light" id="menu-toggle">
+                        <!-- <span class="fas fa-arrow-left"></span> -->
+                    </button>
 
-                    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                    <div class="app-title ml-2 mb-n1">
+                        <h2>Título</h2>
+                    </div>
+
+                    <!-- show top menu items on smaller screens -->
+                    <button class="navbar-toggler" type="button" 
+                        data-toggle="collapse" data-target="#navbarSupportedContent" 
+                        aria-controls="navbarSupportedContent" aria-expanded="false" 
+                        aria-label="Toggle navigation">
                         <span class="navbar-toggler-icon"></span>
                     </button>
 
@@ -95,7 +110,7 @@
 
                 <!-- Contenido -->
                 <div class="container-fluid">
-                    <div class="m-3">
+                    <div class="m-5">
                         <h1 class="mt-4">Aplicaciones</h1>
                         <p>The starting state of the menu will appear collapsed on smaller screens, and will appear non-collapsed on larger screens. When toggled using the button below, the menu will change.</p>
                         <p>Make sure to keep all page content within the <code>#page-content-wrapper</code>. The top navbar is optional, and just for demonstration. Just create an element with the <code>#menu-toggle</code> ID which will toggle the menu when clicked.</p>
@@ -119,12 +134,13 @@
         <!-- BootStrap -->
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
         <!-- Menu Toggle Script -->
-        <script>
-        $("#menu-toggle").click(function(e) {
-          e.preventDefault();
-          $("#wrapper").toggleClass("toggled");
-        });
-        </script>
+        <script src="./src/js/menu.js" charset="utf-8"></script>
+        <!-- <script> -->
+        <!-- $("#menu-toggle").click(function(e) { -->
+        <!--   e.preventDefault(); -->
+        <!--   $("#wrapper").toggleClass("toggled"); -->
+        <!-- }); -->
+        <!-- </script> -->
 
     </body>
 </html>
