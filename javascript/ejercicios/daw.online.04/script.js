@@ -1,29 +1,35 @@
 "use strict"
 
-/* FUNCIONES AUXILIARES */
-/* TODO: 
- * 1. agrupar las llamadas a eventos en una sola
- *
- * window.addEventListener('load', ()=>{
- *  // variables que recojan los elementos
- *  let input1=document.getElementById("usuario");
- *  let input2...
- *
- *  // establecer eventos
- *  input1.addEventListener('tipo_evento', funcion);
- *  ...
- * })
- */
+/* EVENTOS */
+// Llama a las funciones de validación nada más cargar
+// para cada campo del formulario
 
-let validaFormatoFecha = (id) => {
-    let mensaje = "";
-    let patron = /\d{2}\/\d{2}\/\d{4}/;
-    let cadena = document.getElementById(id).value;
-    !patron.test(cadena) ? mensaje += "Formato incorrecto" : mensaje += "Correcto!";
-    document.getElementById(`error${id}`).innerHTML = mensaje;
-}
+// variables que recojan los elementos
+let nombreApe=document.getElementsByTagName("input")[0];
+let correo=document.getElementById("email");
+let tfno=document.getElementById("tlfno");
+let fecha1=document.getElementById("fechaReserva");
+let fecha2=document.getElementById("fechaSalida");
+let enviar;
 
-let bloqueaTeclas = (teclas) => {}
+window.addEventListener('load', ()=>{
+
+    // Control de cookies
+    actualizaIntentos();
+    // establecer acciones para eventos
+    nombreApe.addEventListener('change', convertirMayusculas);
+    correo.addEventListener('change', validarEmail);
+    tfno.addEventListener('keypress', function(event){
+        validarTfno(event);
+    });
+    fecha1.addEventListener('change', validarFechaReserva);
+    fecha2.addEventListener('keypress', function(event){
+        validarFechaSalida(event)
+    });
+})
+
+
+/* FUNCIONES */
 
 /* 2.Inserta una reCaptcha */
 
@@ -71,21 +77,21 @@ let actualizaIntentos = () => {
 
 /* 4.Convierte Nombre y Apellidos a mayúsculas */
 let convertirMayusculas = () => {
-    let nomApe = document.getElementsByTagName('input')[0]; 
-    document.getElementsByTagName('input')[0].value = nomApe.value.toUpperCase();
+    document.getElementsByTagName('input')[0].value = nombreApe.value.toUpperCase();
 }
 
 /* 5.Valida el email (regex) */
 // Si error: mensaje en span#errorEmail + no pierde foco
-/* 
- * NOTE: blur() quita foco y focus() da el foco 
- *  SOLUCIÓN: si hay error, devuelve el foco al campo 
- */
 let validarEmail = () => {
     let mensaje = "";
     let patron = /^[0-9a-zA-Z-\.]*@[0-9a-zA-Z]*\.(com|es|org|net)$/;
     let cadena = document.getElementById('email').value;
-    !patron.test(cadena) ? mensaje += "Formato incorrecto" : mensaje += "Correcto!";
+    if (!patron.test(cadena)) {
+        mensaje += "Formato incorrecto";   
+
+    } else {
+        mensaje += "Correcto!";
+    }
     document.getElementById("errorEmail").innerHTML = mensaje;
 }
 
@@ -128,14 +134,10 @@ let comprobarRequeridos = () => {}
 /* 10. Muestra mensaje de confirmación de envío de formulario */
 
 
-/* EVENTOS */
-document.getElementsByTagName("input")[0].addEventListener('change', convertirMayusculas);
-document.getElementById("email").addEventListener('change', validarEmail);
-document.getElementById("tlfno").addEventListener('keypress', function(event){
-    validarTfno(event);
-});
-document.getElementById("fechaReserva").addEventListener('change', validarFechaReserva);
-document.getElementById("fechaSalida").addEventListener('keypress', function(event){
-    validarFechaSalida(event)
-});
-document.getElementById("fechaSalida").addEventListener("change", validaFormatoFecha("fechaSalida"));
+let validaFormatoFecha = (id) => {
+    let mensaje = "";
+    let patron = /\d{2}\/\d{2}\/\d{4}/;
+    let cadena = document.getElementById(id).value;
+    !patron.test(cadena) ? mensaje += "Formato incorrecto" : mensaje += "Correcto!";
+    document.getElementById(`error${id}`).innerHTML = mensaje;
+}

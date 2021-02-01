@@ -80,7 +80,22 @@ select {
 
 /* === Estilos de Validacion === */ 
 
+#errorNomApe, #errorTelefono, #errorEmail, #errorGenero, 
+#errorProvincia, #errorfechaSalida, #errorfechaReserva {
+    display: block;
+    font-size: 0.8em;
+    color: red;
+    margin-top: 1em;
+    margin-left: 8em;
+}
 
+.requerido {
+    border-color: red;
+}
+
+.valido {
+    border-color: green !important;
+}
 
 /* === Estilos del boton de Envio === */
 button.submit {
