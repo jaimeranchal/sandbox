@@ -21,6 +21,28 @@
         <link href="https://fonts.googleapis.com/css2?family=Courgette&display=swap" rel="stylesheet">
     </head>
 
+<?php
+
+/* TODO: 
+ * 1.Evitar duplicados
+ * 2.Botón borrar datos (+ borrar cookie)
+ * 3.(opcional) añadir botones para sumar kilos, o
+ *  - Cada vez que mandamos el formulario añadimos 1kg del mismo producto
+ */
+
+// contador inicializado a 0
+$contador_productos = 0;
+$cesta = [];
+$mensaje = "Todavía no has añadido ningún producto";
+// Si existe una cookie con datos de la compra
+if (isset($_COOKIE['cesta'])){
+    // leemos los datos
+    $cookie[] = json_decode($_COOKIE['cesta']);
+    $cesta = $cookie[0];
+    $contador_productos = $cesta -> cantidad;
+    $mensaje = `Has guardado ${contador_productos} productos en tu cesta`;
+} 
+?>
     <body>
         <div class="d-flex" id="wrapper">
 
@@ -78,48 +100,110 @@
                         <span class="fas fa-arrow-left"></span>
                     </button>
 
-                    <!-- <div class="app-title ml-2 mb-n1"> -->
-                    <!--     <h2>Tarea Online 3</h2> -->
-                    <!-- </div> -->
+                    <div class="app-title ml-2 mb-n1">
+                        <h2>3.3</h2>
+                    </div>
 
                     <!-- show top menu items on smaller screens -->
-                    <!-- <button class="navbar-toggler" type="button" --> 
-                    <!--     data-toggle="collapse" data-target="#navbarSupportedContent" --> 
-                    <!--     aria-controls="navbarSupportedContent" aria-expanded="false" --> 
-                    <!--     aria-label="Toggle navigation"> -->
-                    <!--     <span class="navbar-toggler-icon"></span> -->
-                    <!-- </button> -->
+                    <button class="navbar-toggler" type="button" 
+                        data-toggle="collapse" data-target="#navbarSupportedContent" 
+                        aria-controls="navbarSupportedContent" aria-expanded="false" 
+                        aria-label="Toggle navigation">
+                        <span class="navbar-toggler-icon"></span>
+                    </button>
 
-                    <!-- <div class="collapse navbar-collapse" id="navbarSupportedContent"> -->
-                    <!--     <ul class="navbar-nav ml-auto mt-2 mt-lg-0"> -->
-                    <!--         <li class="nav-item active"> -->
-                    <!--             <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a> -->
-                    <!--         </li> -->
-                    <!--         <li class="nav-item"> -->
-                    <!--             <a class="nav-link" href="#">Link</a> -->
-                    <!--         </li> -->
-                    <!--         <li class="nav-item dropdown"> -->
-                    <!--             <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> -->
-                    <!--                 Dropdown -->
-                    <!--             </a> -->
-                    <!--             <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown"> -->
-                    <!--                 <a class="dropdown-item" href="#">Action</a> -->
-                    <!--                 <a class="dropdown-item" href="#">Another action</a> -->
-                    <!--                 <div class="dropdown-divider"></div> -->
-                    <!--                 <a class="dropdown-item" href="#">Something else here</a> -->
-                    <!--             </div> -->
-                    <!--         </li> -->
-                    <!--     </ul> -->
-                    <!-- </div> -->
+                    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                        <span class="navbar-text ml-auto mr-3">
+                             En tu cesta: <?=$contador_productos?> <span class="fas fa-shopping-basket"></span>
+                        </span>
+                    </div>
                 </nav>
 
                 <!-- Contenido -->
-                <div class="container-fluid inter-200">
-                    <div class="mt-5 ml-5 mb-2">
+                <div class="container mt-5 ml-5 inter-200">
+                    <div class="mb-2">
                         <h1 class="display-3 mt-4 inter-700">Cesta</h1>
                         <p class="lead">Lista de la compra con persistencia de datos usando <i>cookies</i></p>
                     </div>
+                    <form class="py-3" id="frutas" action="cesta.php" method="POST">
+                        <!-- Frutas -->
+                        <h2 class="inter-700">Productos</h2>
+                        <div class="card-deck mb-3 pb-3">
+                            <div class="card">
+                                <div class="card-body">
+                                    <h3 class="card-title">Fruta</h3>
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="checkbox" value="manzanas" name="fruta[]" id="manzanas"/>
+                                        <label class="form-check-label" for="manzanas">manzanas</label>
+                                    </div>
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="checkbox" value="peras" name="fruta[]" id="peras"/>
+                                        <label class="form-check-label" for="peras">peras</label>
+                                    </div>
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="checkbox" value="uvas" name="fruta[]" id="uvas"/>
+                                        <label class="form-check-label" for="uvas">uvas</label>
+                                    </div>
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="checkbox" value="naranjas" name="fruta[]" id="naranjas"/>
+                                        <label class="form-check-label" for="naranjas">naranjas</label>
+                                    </div>
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="checkbox" value="platanos" name="fruta[]" id="platanos"/>
+                                        <label class="form-check-label" for="platanos">platanos</label>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- Verduras -->
+                            <div class="card">
+                                <div class="card-body">
+                                    <h3 class="card-title">Verduras</h3>
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="checkbox" value="patatas" name="verdura[]" id="patatas"/>
+                                        <label class="form-check-label" for="patatas">patatas</label>
+                                    </div>
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="checkbox" value="pimientos" name="verdura[]" id="pimientos"/>
+                                        <label class="form-check-label" for="pimientos">pimientos</label>
+                                    </div>
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="checkbox" value="tomates" name="verdura[]" id="tomates"/>
+                                        <label class="form-check-label" for="tomates">tomates</label>
+                                    </div>
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="checkbox" value="pepinos" name="verdura[]" id="pepinos"/>
+                                        <label class="form-check-label" for="pepinos">pepinos</label>
+                                    </div>
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="checkbox" value="cebollas" name="verdura[]" id="cebollas"/>
+                                        <label class="form-check-label" for="cebollas">cebollas</label>
+                                    </div>
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="checkbox" value="ajos" name="verdura[]" id="ajos"/>
+                                        <label class="form-check-label" for="ajos">ajos</label>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <button class="btn btn-lg bg-light1 text-white" type="submit" name="submit" id="submit" value="Añadir">Añadir</button>
+                    </form>
 
+                    <div class="pt-3" id="tucesta">
+                        <h2 class="inter-700">Adquirido</h2>
+                        <p class="lead mb-n1"><?=$mensaje?></p>            
+                        <?php if (!empty($cesta)): ?>
+                        <ul>
+                        <?php foreach ($cesta->frutas as $fruta) { ?>
+                            <li><?=$fruta?></li> 
+                        <?php } ?>
+                        <?php foreach ($cesta->verduras as $verdura) { ?>
+                            <li><?=$verdura?></li> 
+                        <?php } ?>
+                        </ul>
+                        <?php else: ?>
+                        <p class="small">Selecciona algún producto y pulsa <span class="fg-dark1 font-weight-bold">Añadir</span> para que aparezca aquí.
+                        <?php endif; ?>
+                    </div>
                 </div>
             </div>
             <!-- /#page-content-wrapper -->

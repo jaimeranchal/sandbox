@@ -19,62 +19,62 @@
         <link rel="preconnect" href="https://fonts.gstatic.com">
         <link href="https://fonts.googleapis.com/css2?family=Inter:wght@200;400;700&display=swap" rel="stylesheet">
         <link href="https://fonts.googleapis.com/css2?family=Courgette&display=swap" rel="stylesheet">
-        <!-- Highlight.js -->
-         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.5.0/styles/default.min.css">
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.5.0/highlight.min.js"></script>       
     </head>
 
 <?php
-
-/* Funciones */
-// NOTE: ahora mismo no se usa ninguna función de este script
-require_once("./funciones.php");
-
-/* variables necesarias */
-$realm = "Acceso restringido";
-// Usuarios y contraseñas (porque es un ejemplo)
-$pass_1 = password_hash('123oraora', PASSWORD_BCRYPT);
-$pass_2 = password_hash('1234', PASSWORD_BCRYPT);
-$usuarios = array('admin' => $pass_1, 'invitado' => $pass_2);
-
-
-/* Código */
-// cabecera HTTP
-if (empty($_SERVER['PHP_AUTH_DIGEST'])) {
-    header('HTTP/1.1 401 Unauthorized');
-    header('WWW-Authenticate: Digest realm="'.$realm.
-        '",qop="auth",nonce="'.uniqid().'",opaque="'.md5($realm).'"');
-    // Si error
-    die("No puedes ver el contenido si no inicias sesión");
-    // borramos la variable global para que vuelva a pedir login
-    // al recargar la página
-    unset($_SERVER['PHP_AUTH_DIGEST']);
-}
-
-// Analiza la variable PHP_AUTH_DIGEST
-$datos = http_digest_parse($_SERVER['PHP_AUTH_DIGEST']);
-if (!$datos ||
-    !isset($usuarios[$datos['username']])){
-    die("Datos incorrectos");
-}
-
-/* NOTE: no creo que la response coincida nunca si uso password_hash() porque
- * cuando el cliente envía la contraseña usa md5 y por lo tanto el response
- * generado será diferente
+/* TODO: 
+ * 1.Evitar duplicados
+ * 2.Botón borrar datos (+ borrar cookie)
+ * 3.(opcional) añadir botones para sumar kilos, o
+ *  - Cada vez que mandamos el formulario añadimos 1kg del mismo producto
  */
 
-// Generamos una respuesta válida
-$A1 = md5($datos['username'] . ':' . $realm . ':' . $usuarios[$datos['username']]);
-$A2 = md5($_SERVER['REQUEST_METHOD'].':'.$datos['uri']);
-$respuesta_valida = md5($A1.':'.$datos['nonce'].':'.$datos['nc'].':'.$datos['cnonce'].':'.$datos['qop'].':'.$A2);
+if (isset($_POST['submit']) && $_SERVER['REQUEST_METHOD'] === "POST"):
+    
+    // comprobamos que exista una cookie
+    if (isset($_COOKIE['cesta'])){
+        
+        // leemos los datos
+        $cookie[] = json_decode($_COOKIE['cesta']);
+        $cesta = $cookie[0];
+        $contador_productos = $cesta -> cantidad;
+        $frutas = $cesta->frutas;
+        $verduras = $cesta->verduras;
+    } else {
+        // Creo dos arrays vacíos que se irán llenando (o no)
+        $contador_productos = 0;
+        $frutas = [];
+        $verduras = [];
+    }
+    
+    // Si no existe la cookie creamos los datos desde cero
+    // guarda en un array los checkbox seleccionados
+    if (isset($_POST['fruta'])) {
+        foreach($_POST['fruta'] as $item){
+            $frutas[] = $item;
+            $contador_productos++;
+        }
+        //guardamos las frutas en un array para la cookie
+        /* $productos[] = $frutas; */
+    }
+    if (isset($_POST['verdura'])) {
+        foreach($_POST['verdura'] as $item2){
+            $verduras[] = $item2;
+            $contador_productos++;
+        }
+        //guardamos las verduras en un array para la cookie
+        /* $productos[] = $verduras; */
+    }
 
-if($datos['response'] != $respuesta_valida){
-    die("Credenciales incorrectas");
-} else {
-    // Si el usuario es válido
-    $usuario = $data['username'];
-}
+    // Añadimos las frutas y verduras que corresponda a un array general
+    $productos = ['frutas' => $frutas, 'verduras' => $verduras];
+    // añadimos el número de productos
+    $productos['cantidad'] = $contador_productos;
 
+    // convertimos el array en json
+    $json = json_encode($productos);
+    // guardamos el número de productos y los productos en la cookie
+    setcookie('cesta', $json, strtotime('+1 hour'));
 ?>
     <body>
         <div class="d-flex" id="wrapper">
@@ -134,7 +134,7 @@ if($datos['response'] != $respuesta_valida){
                     </button>
 
                     <div class="app-title ml-2 mb-n1">
-                        <h2>3.2</h2>
+                        <h2>3.3</h2>
                     </div>
 
                     <!-- show top menu items on smaller screens -->
@@ -147,7 +147,7 @@ if($datos['response'] != $respuesta_valida){
 
                     <div class="collapse navbar-collapse" id="navbarSupportedContent">
                         <span class="navbar-text ml-auto mr-3">
-                            Hola <span class="fg-dark1 font-weight-bold text-capitalize"><?=$usuario?></span>,
+                             En tu cesta: <?=$contador_productos?> <span class="fas fa-shopping-basket"></span>
                         </span>
                     </div>
                 </nav>
@@ -155,19 +155,41 @@ if($datos['response'] != $respuesta_valida){
                 <!-- Contenido -->
                 <div class="container mt-5 ml-5 inter-200">
                     <div class="mb-2">
-                        <h1 class="display-3 mt-4 inter-700">Seguridad (2)</h1>
-                        <p class="lead">Autenticación segura de usuario con el método <i>Digest</i></p>
+                        <h1 class="display-3 mt-4 inter-700">Cesta</h1>
+                        <p class="lead">Lista de la compra con persistencia de datos usando <i>cookies</i></p>
                     </div>
-                    <div>
-                        <h2>Las funciones <i>hash</i></h2>
+                    <h2 class="inter-700">Productos</h2>
+                    <p class="lead">Esta es tu lista hasta ahora: </p>
+                    <div class="card-deck mb-3 pb-3">
+                        <!-- Frutas -->
+                        <div class="card">
+                            <div class="card-body">
+                                <h3 class="card-title">Frutas</h3>
+                                <?php if (!empty($frutas)): ?>
+                                <ul class="unstyled">
+                                <?php foreach ($frutas as $fruta) { ?>
+                                    <li><?=$fruta?></li>
+                                <?php } ?>
+                                </ul>
+                                <?php endif; ?>
+                            </div>
+                        </div>
+                        <!-- Verduras -->
+                        <div class="card">
+                            <div class="card-body">
+                                <h3 class="card-title">Verduras</h3>
+                                <?php if (!empty($verduras)): ?>
+                                <ul class="unstyled">
+                                <?php foreach ($verduras as $verdura) { ?>
+                                    <li><?=$verdura?></li>
+                                <?php } ?>
+                                </ul>
+                                <?php endif; ?>
+                            </div>
+                        </div>
                     </div>
-                    <div>
-                        <h2>¿Por qué es importante la seguridad informática?</h2>
-                    </div>
-                    <div>
-                        <h2>¿Cuál es el método más seguro?</h2>
-                    </div>
-
+<?php endif; ?>
+                    <a class="btn fg-light1 font-weight-bold inter-700" href="./index.php"> Volver</a>
                 </div>
             </div>
             <!-- /#page-content-wrapper -->

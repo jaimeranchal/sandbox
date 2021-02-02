@@ -9,6 +9,21 @@
 
 /* -------- Colores --------*/
 
+.fg-dark1 {
+    /* background-color: #583D72; */
+    color: #D1ABAD;
+}
+.fg-dark2 {
+    /* color: #9f5f80; */
+    color: #e3b9bc;
+}
+.fg-light1 {
+    color: #ff8e71;
+}
+.fg-light2 {
+    color: #ffba93;
+}
+
 .bg-dark1 {
     /* background-color: #583D72; */
     background-color: #D1ABAD;
@@ -29,7 +44,7 @@ a.bg-dark1:hover {
     background-color: #af6e72;
     color: #f7f7f7 !important;
 }
-div.bg-light1:hover {
+button.bg-light1:hover, div.bg-light1:hover {
     background-color: #ff6c47;
     color: #f7f7f7 !important;
 }
