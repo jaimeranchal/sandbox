@@ -25,6 +25,12 @@ window.addEventListener('load', ()=>{
 
 /* Funciones */
 // 2.Recaptcha
+
+// clave sitio web
+// 6LdnYUcaAAAAAIuvnS3LcBwgBrVzV4ZkIovZTfKr
+// clave secreta
+// 6LdnYUcaAAAAAOwg6NVOBC8E52TkhUuv3VV27owZ
+
 // 3.Cookies
 let muestraIntentos = () => {
     

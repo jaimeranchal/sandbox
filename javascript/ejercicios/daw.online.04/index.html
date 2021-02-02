@@ -3,6 +3,8 @@
     <head>
         <meta charset="utf-8">
         <title>HTML5 Contact Form</title>
+        <!-- código del reCaptcha -->
+        <script src="https://www.google.com/recaptcha/api.js" async defer></script>
         <link rel="stylesheet" href="./hojaEstilo.css" type="text/css" media="screen" title="no title" charset="utf-8">        
     </head>
     <body>
@@ -55,6 +57,9 @@
                     <label for="Comentarios">Comentarios:</label>
                     <textarea id="comentarios" rows="5" cols="40"></textarea>
                 </li>
+                <div class="g-recaptcha" 
+                    data-sitekey="6LdnYUcaAAAAAIuvnS3LcBwgBrVzV4ZkIovZTfKr">
+                </div>
                 <li>
                     <button class="submit" type="submit">Enviar</button>
                     <button class="submit" type="reset">Cancelar</button>
