@@ -105,5 +105,3 @@ if (!isset($_SERVER['PHP_AUTH_USER'])) {
  
     </body>
 </html>
-
-

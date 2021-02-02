@@ -14,7 +14,7 @@
             crossorigin="anonymous"
             />
         <!-- custom css -->
-        <link rel="stylesheet" href="./src/css/main.css" type="text/css"/>
+        <link rel="stylesheet" href="../src/css/main.css" type="text/css"/>
         <!-- Google Fonts -->
         <link rel="preconnect" href="https://fonts.gstatic.com">
         <link href="https://fonts.googleapis.com/css2?family=Inter:wght@200;400;700&display=swap" rel="stylesheet">
@@ -33,27 +33,27 @@
                         <p class="lead courgette">D.W.E.S</p>
                     </div>
                     <div class="sidebar-menu list-group list-group-flush">
-                        <a href="#" class="list-group-item list-group-item-action bg-dark1 text-dark">
+                        <a href="../inicio.html" class="list-group-item list-group-item-action bg-dark1 text-dark">
                             <span class="fas fa-home"></span>
                             Inicio
                         </a>
-                        <a href="./1/index.php" class="list-group-item list-group-item-action bg-dark1 text-dark">
+                        <a href="../1/index.php" class="list-group-item list-group-item-action bg-dark1 text-dark">
                             <span class="fas fa-unlock"></span>
                             Auth Basic
                         </a>
-                        <a href="./2/index.php" class="list-group-item list-group-item-action bg-dark1 text-dark">
+                        <a href="../2/index.php" class="list-group-item list-group-item-action bg-dark1 text-dark">
                             <span class="fas fa-lock"></span>
                             Auth Digest
                         </a>
-                        <a href="./3/index.php" class="list-group-item list-group-item-action bg-dark1 text-dark">
+                        <a href="../3/index.php" class="list-group-item list-group-item-action bg-dark1 text-dark">
                             <span class="fas fa-shopping-basket"></span>
                             Cesta
                         </a>
-                        <a href="./4/index.php" class="list-group-item list-group-item-action bg-dark1 text-dark">
+                        <a href="../4/index.php" class="list-group-item list-group-item-action bg-dark1 text-dark">
                             <span class="fas fa-receipt"></span>
                             Balance
                         </a>
-                        <a href="./5/index.php" class="list-group-item list-group-item-action bg-dark1 text-dark">
+                        <a href="../5/index.php" class="list-group-item list-group-item-action bg-dark1 text-dark">
                             <span class="fas fa-pizza-slice"></span>
                             Pizzeria
                         </a>
@@ -116,82 +116,8 @@
                 <!-- Contenido -->
                 <div class="container-fluid inter-200">
                     <div class="mt-5 ml-5 mb-2">
-                        <h1 class="display-3 mt-4 inter-700">Tarea Online 3</h1>
-                        <p class="lead">Aplicaciones web con cookies y funciones <i>hash</i></p>
-                    </div>
-
-
-                    <div class="card-deck m-3 p-3">
-                        <div class="card justify-content-between">
-                            <div class="card-body bg-light2">
-                                <img class="card-img-top" src="./src/img/app1.png" alt="Card image cap">
-                            </div>
-                            <div class="card-body mt-auto">
-                                <h5 class="card-title">Autenticación <i>Basic</i></h5>
-                                <p class="card-text">Información sobre el método de autenticación HTTP <i>basic</i></p>
-                            </div>
-                            <div class="card-footer bg-light1">
-                                <a class="btn btn-block text-center text-white font-weight-bold" href="./1/index.php">
-                                    Ver contenido
-                                </a>
-                            </div>
-                        </div>
-                        <div class="card">
-                            <div class="card-body bg-light2">
-                                <img class="card-img-top" src="./src/img/app2.png" alt="Card image cap">
-                            </div>
-                            <div class="card-body">
-                                <h5 class="card-title">Autenticación <i>Digest</i></h5>
-                                <p class="card-text">Documentación sobre el método de autenticación HTTP <i>digest</i> y el uso de funciones hash para gestionar con seguridad las contraseñas de usuario</p>
-                            </div>
-                            <div class="card-footer bg-light1">
-                                <a class="btn btn-block text-center text-white font-weight-bold" href="./2/index.php">
-                                    Ver contenido
-                                </a>
-                            </div>
-                        </div>
-                        <div class="card">
-                            <div class="card-body bg-light2">
-                                <img class="card-img-top" src="./src/img/app3.png" alt="Card image cap">
-                            </div>
-                            <div class="card-body">
-                                <h5 class="card-title">Cesta de compra</h5>
-                                <p class="card-text">Un ejemplo de carrito de compra sencillo. Los datos se almacenan mediante <i>cookies</i> y se actualizan conforme se añaden o quitan productos.</p>
-                            </div>
-                            <div class="card-footer bg-light1">
-                                <a class="btn btn-block text-center text-white font-weight-bold" href="./3/index.php">
-                                    Ver contenido
-                                </a>
-                            </div>
-                        </div>
-                        <div class="card">
-                            <div class="card-body bg-light2">
-                                <img class="card-img-top" src="./src/img/app4.png" alt="Card image cap">
-                            </div>
-                            <div class="card-body">
-                                <h5 class="card-title">Finanzas personales</h5>
-                                <p class="card-text">Una aplicación básica para controlar tus finanzas. Permite introducir ingresos o gastos y ver el balance. El resultado se imprime en pdf mediante la extensión Mpdf.</p>
-                            </div>
-                            <div class="card-footer bg-light1">
-                                <a class="btn btn-block text-center text-white font-weight-bold" href="./4/index.php">
-                                    Ver contenido
-                                </a>
-                            </div>
-                        </div>
-                        <div class="card">
-                            <div class="card-body bg-light2">
-                                <img class="card-img-top" src="./src/img/app5.png" alt="Card image cap">
-                            </div>
-                            <div class="card-body">
-                                <h5 class="card-title">Pizzería</h5>
-                                <p class="card-text">Una muestra de negocio online básico, con gestión de usuarios y pedidos. Permite iniciar sesión como administrador para ver algunas estadísticas</p>
-                            </div>
-                            <div class="card-footer bg-light1">
-                                <a class="btn btn-block text-center text-white font-weight-bold" href="./5/index.php">
-                                    Ver contenido
-                                </a>
-                            </div>
-                        </div>
+                        <h1 class="display-3 mt-4 inter-700">Seguridad (2)</h1>
+                        <p class="lead">Autenticación segura de usuario con el método <i>Digest</i></p>
                     </div>
 
                 </div>
@@ -212,6 +138,7 @@
         <!-- BootStrap -->
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
         <!-- Menu Toggle Script -->
-        <script src="./src/js/menu.js" charset="utf-8"></script>
+        <script src="../src/js/menu.js" charset="utf-8"></script>
     </body>
 </html>
+
