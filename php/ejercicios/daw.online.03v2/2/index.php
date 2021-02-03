@@ -153,7 +153,7 @@ if($datos['response'] != $respuesta_valida){
                 </nav>
 
                 <!-- Contenido -->
-                <div class="container mt-5 ml-5 inter-200">
+                <div class="container inter-200">
                     <div class="mb-2">
                         <h1 class="display-3 mt-4 inter-700">Seguridad (2)</h1>
                         <p class="lead">Autenticación segura de usuario con el método <i>Digest</i></p>

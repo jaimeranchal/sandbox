@@ -1,5 +1,51 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN"
 "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
+<?php
+// Conectamos a la bbdd
+require_once("./conexion.php");
+// Procesar datos de login
+if (isset($_POST['submit']) && $_SERVER['REQUEST_METHOD'] === "POST") {
+    
+    //variable de control
+    $fallo = false;
+    // mensajes
+    $enlace= "Volver"; //texto del enlace (volver, comenzar...)
+
+    if (isset($_POST['usuario'])) {
+        $usuario = filter_var($_POST['usuario'], FILTER_SANITIZE_STRING);
+    }
+    if (isset($_POST['pass'])) {
+        $password = filter_var($_POST['pass'], FILTER_SANITIZE_STRING);
+    }
+
+    //comprobamos que existe el usuario en la base de datos
+    $sql = 'select * from usuarios where id=?';
+    $sth = $dbh->prepare($sql);
+    $sth->execute(array($usuario));
+    $resultado = $sth->fetch();
+    // guardamos el password introducido para después usarlo con password_verify
+    $hash = empty($resultado) ? "" : $resultado['password'];
+
+    if (empty($resultado)): // Si no existe o los hash no coinciden 
+        /* error - no hay usuarios con ese nombre */
+        $fallo = true;
+        $mensaje = "No hay usuarios con ese nombre";
+    elseif (!password_verify($password, $hash)): // Si las contraseñas no coinciden 
+        /* error */
+        $fallo = true;
+        $mensaje = "Algo en la contraseña no está bien";
+
+    else: // iniciamos sesión 
+        session_start();
+        $_SESSION['usuario'] = $resultado['id'];
+        $_SESSION['nombre'] = $resultado['nombre'];
+        /* mensaje de éxito */
+        $mensaje = "Has iniciado sesión con éxito";
+        $enlace = "Comenzar";
+    endif;
+}
+?>
+
 <html lang="es" xmlns="http://www.w3.org/1999/xhtml">
     <head>
         <meta charset="utf-8">
@@ -78,48 +124,46 @@
                         <span class="fas fa-arrow-left"></span>
                     </button>
 
-                    <!-- <div class="app-title ml-2 mb-n1"> -->
-                    <!--     <h2>Tarea Online 3</h2> -->
-                    <!-- </div> -->
+                    <div class="app-title ml-2 mb-n1">
+                        <h2>3.4 Mis finanzas</h2>
+                    </div>
 
                     <!-- show top menu items on smaller screens -->
-                    <!-- <button class="navbar-toggler" type="button" --> 
-                    <!--     data-toggle="collapse" data-target="#navbarSupportedContent" --> 
-                    <!--     aria-controls="navbarSupportedContent" aria-expanded="false" --> 
-                    <!--     aria-label="Toggle navigation"> -->
-                    <!--     <span class="navbar-toggler-icon"></span> -->
-                    <!-- </button> -->
+                    <button class="navbar-toggler" type="button" 
+                        data-toggle="collapse" data-target="#navbarSupportedContent" 
+                        aria-controls="navbarSupportedContent" aria-expanded="false" 
+                        aria-label="Toggle navigation">
+                        <span class="navbar-toggler-icon"></span>
+                    </button>
 
-                    <!-- <div class="collapse navbar-collapse" id="navbarSupportedContent"> -->
-                    <!--     <ul class="navbar-nav ml-auto mt-2 mt-lg-0"> -->
-                    <!--         <li class="nav-item active"> -->
-                    <!--             <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a> -->
-                    <!--         </li> -->
-                    <!--         <li class="nav-item"> -->
-                    <!--             <a class="nav-link" href="#">Link</a> -->
-                    <!--         </li> -->
-                    <!--         <li class="nav-item dropdown"> -->
-                    <!--             <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> -->
-                    <!--                 Dropdown -->
-                    <!--             </a> -->
-                    <!--             <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown"> -->
-                    <!--                 <a class="dropdown-item" href="#">Action</a> -->
-                    <!--                 <a class="dropdown-item" href="#">Another action</a> -->
-                    <!--                 <div class="dropdown-divider"></div> -->
-                    <!--                 <a class="dropdown-item" href="#">Something else here</a> -->
-                    <!--             </div> -->
-                    <!--         </li> -->
-                    <!--     </ul> -->
-                    <!-- </div> -->
+                    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                        <span class="navbar-text ml-auto">
+                            <?php if(isset($_SESSION['usuario'])): ?>
+                            Hola <span class="fg-dark1 font-weight-bold text-capitalize"><?=$_SESSION['nombre']?></span>
+                        </span>
+                        <span class="navbar-text mr-3">
+                            <a class="nav-link inter-700" href="./logout.php">Salir </a>
+                        </span>
+                            <?php else: ?>
+                        <span class="navbar-text mr-3">
+                            <a class="nav-link inter-700" href="./signin-form.html">Registrarse </a>
+                        </span>
+                            <?php endif; ?>
+                    </div>
                 </nav>
 
                 <!-- Contenido -->
                 <div class="container inter-200">
-                    <div class="mt-5 ml-5 mb-2">
-                        <h1 class="display-3 mt-4 inter-700">Pizzería Golami</h1>
-                        <p class="lead">La solución para los que tienen hambre ahora, en cualquier lugar</p>
-                    </div>
-
+                <?php if ($fallo): ?>
+                    <h1 class="display-3 mt-4 inter-700">Ups</h1>
+                    <p class="lead"><?= $mensaje ?></p>
+                <?php else: ?>
+                    <h1 class="display-3 mt-4 inter-700">Hola de nuevo!</h1>
+                    <p class="lead">Ya estás listo para darle caña.</p>
+                <?php endif; ?>
+                    <a class="fg-dark1 font-weight-bold" href="./index.php" title="volver a inicio">
+                        <?=$enlace?>
+                    </a>
                 </div>
             </div>
             <!-- /#page-content-wrapper -->

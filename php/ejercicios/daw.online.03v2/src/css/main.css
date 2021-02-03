@@ -130,6 +130,8 @@ button.bg-light1:hover, div.bg-light1:hover {
     
 }
 
+/*--------- MEDIA QUERIES ----------*/
+
 @media (min-width: 768px) {
     #sidebar-wrapper {
         margin-left: 0;
@@ -150,5 +152,11 @@ button.bg-light1:hover, div.bg-light1:hover {
     }
     #wrapper.toggled #page-content-wrapper {
         margin-left: 0;
+    }
+}
+
+@media (min-width: 995px){
+    form.login {
+        max-width: 50%;
     }
 }

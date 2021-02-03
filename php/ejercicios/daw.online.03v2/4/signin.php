@@ -1,5 +1,75 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN"
 "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
+<?php
+// Conectamos a la bbdd
+require_once("./conexion.php");
+// funciones propias de validación
+require_once("./validacion.php");
+
+// Procesar datos de login
+if (isset($_POST['submit']) && $_SERVER['REQUEST_METHOD'] === "POST") {
+    
+    // Array de errores
+    $errores = [];
+    // mensajes 
+    $errorBD = "el usuario ya existe en la base de datos";
+    $errorNombre = "el nombre está vacío.";
+    $errorAlias = "formato de alias inválido. Sólo puede contener hasta 8 letras; ni números ni símbolos.";
+    $errorPass = "formato de contraseña inválido.";
+    $errorEmail = "formato de email inválido.";
+    $enlace= "Volver"; //texto del enlace (volver, comenzar...)
+
+    // expr.regular con los requisitos
+    $formatoAlias = "/^[a-zA-Z]{4,8}$/";
+    $formatoPwd = "/^(?=.*\d)(?=.*[A-Za-z])[0-9A-Za-z!@#$%]{8,12}$/";
+
+    // validar alias
+    if (isset($_POST['id'])){
+        if (preg_match($formatoAlias, filter_var($_POST['id'], FILTER_SANITIZE_STRING)) > 0){
+
+            $id = filter_var($_POST['id'], FILTER_SANITIZE_STRING);
+
+            //recuperamos información de la base de datos para comprobar valores únicos
+            $sql = 'SELECT * from usuarios where id=?';
+            $sth = $dbh->prepare($sql);
+            $sth->execute(array($id));
+            $resultado = $sth->fetch();
+
+            // error si encuentra que ya existe el usuario
+            if (!empty($resultado)) $errores[] = "Error: ".$errorBD;
+
+        } else {
+            $errores[] = "Error: ".$errorAlias; 
+        }
+    } 
+
+    // validar nombre
+    if (isset($_POST['nombre'])) {
+        $nombre = filter_var($_POST['nombre'], FILTER_SANITIZE_STRING);
+    } else {
+        $errores[] = "Error: ".$errorNombre;
+    }
+
+    // validar password
+    if (isset($_POST['pass']) && preg_match($formatoPwd, $_POST['pass']) > 0) {
+        // codifico la contraseña con el algoritmo blowfish
+        $pass = password_hash($_POST['pass'], PASSWORD_BCRYPT);
+    } else {
+        $errores[] = "Error: ".$errorPass; 
+    }
+
+    // validar email
+    if (isset($_POST['email']) && filter_var($_POST['email'], FILTER_VALIDATE_EMAIL) !== false) {
+        $email = $_POST['email'];
+    } else {
+        $errores[] = "Error: ".$errorEmail; 
+    }
+
+    /* ------ Si hay errores ------- */
+    $fallo = count($errores) > 0 ? true : false;
+}
+?>
+
 <html lang="es" xmlns="http://www.w3.org/1999/xhtml">
     <head>
         <meta charset="utf-8">
@@ -78,48 +148,37 @@
                         <span class="fas fa-arrow-left"></span>
                     </button>
 
-                    <!-- <div class="app-title ml-2 mb-n1"> -->
-                    <!--     <h2>Tarea Online 3</h2> -->
-                    <!-- </div> -->
+                    <div class="app-title ml-2 mb-n1">
+                        <h2>3.4</h2>
+                    </div>
 
                     <!-- show top menu items on smaller screens -->
-                    <!-- <button class="navbar-toggler" type="button" --> 
-                    <!--     data-toggle="collapse" data-target="#navbarSupportedContent" --> 
-                    <!--     aria-controls="navbarSupportedContent" aria-expanded="false" --> 
-                    <!--     aria-label="Toggle navigation"> -->
-                    <!--     <span class="navbar-toggler-icon"></span> -->
-                    <!-- </button> -->
+                    <button class="navbar-toggler" type="button" 
+                        data-toggle="collapse" data-target="#navbarSupportedContent" 
+                        aria-controls="navbarSupportedContent" aria-expanded="false" 
+                        aria-label="Toggle navigation">
+                        <span class="navbar-toggler-icon"></span>
+                    </button>
 
-                    <!-- <div class="collapse navbar-collapse" id="navbarSupportedContent"> -->
-                    <!--     <ul class="navbar-nav ml-auto mt-2 mt-lg-0"> -->
-                    <!--         <li class="nav-item active"> -->
-                    <!--             <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a> -->
-                    <!--         </li> -->
-                    <!--         <li class="nav-item"> -->
-                    <!--             <a class="nav-link" href="#">Link</a> -->
-                    <!--         </li> -->
-                    <!--         <li class="nav-item dropdown"> -->
-                    <!--             <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> -->
-                    <!--                 Dropdown -->
-                    <!--             </a> -->
-                    <!--             <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown"> -->
-                    <!--                 <a class="dropdown-item" href="#">Action</a> -->
-                    <!--                 <a class="dropdown-item" href="#">Another action</a> -->
-                    <!--                 <div class="dropdown-divider"></div> -->
-                    <!--                 <a class="dropdown-item" href="#">Something else here</a> -->
-                    <!--             </div> -->
-                    <!--         </li> -->
-                    <!--     </ul> -->
-                    <!-- </div> -->
+                    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                        <span class="navbar-text mr-3">
+                            <a class="nav-link inter-700" href="./signin-form.html">Registrarse </a>
+                        </span>
+                    </div>
                 </nav>
 
                 <!-- Contenido -->
                 <div class="container inter-200">
-                    <div class="mt-5 ml-5 mb-2">
-                        <h1 class="display-3 mt-4 inter-700">Pizzería Golami</h1>
-                        <p class="lead">La solución para los que tienen hambre ahora, en cualquier lugar</p>
-                    </div>
-
+                <?php if ($fallo): ?>
+                    <h1 class="display-3 mt-4 inter-700">Ups</h1>
+                    <p class="lead"><?= $mensaje ?></p>
+                <?php else: ?>
+                    <h1 class="display-3 mt-4 inter-700">Hola de nuevo!</h1>
+                    <p class="lead">Ya estás listo para darle caña.</p>
+                <?php endif; ?>
+                    <a class="fg-dark1 font-weight-bold" href="./index.php" title="volver a inicio">
+                        <?=$enlace?>
+                    </a>
                 </div>
             </div>
             <!-- /#page-content-wrapper -->

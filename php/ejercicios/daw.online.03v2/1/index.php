@@ -113,7 +113,7 @@ if (!isset($_SERVER['PHP_AUTH_USER'])) {
                 </nav>
 
                 <!-- Contenido -->
-                <div class="container mt-5 mx-5 inter-200">
+                <div class="container inter-200">
                     <div class=" mb-2">
                         <h1 class="display-3 mt-4 inter-700">Seguridad (1)</h1>
                         <p class="lead">Autenticación de usuario con el método <i>Basic</i></p>

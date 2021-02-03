@@ -22,8 +22,6 @@
     </head>
 
 <?php
-// conexión a bbdd
-require_once("./conexion.php");
 session_start();
 ?>
 
@@ -106,81 +104,83 @@ session_start();
                         </span>
                             <?php else: ?>
                         <span class="navbar-text mr-3">
-                            <a class="nav-link inter-700" href="./signin.php">Registrarse </a>
+                            <a class="nav-link inter-700" href="./signin-form.html">Registrarse </a>
                         </span>
                             <?php endif; ?>
                     </div>
                 </nav>
 
                 <!-- Contenido -->
-                <div class="container-fluid inter-200">
-                    <div class="mt-5 ml-5 mb-2">
+                <div class="container inter-200">
+                    <div class="mb-2">
                         <h1 class="display-3 mt-4 inter-700">Mis finanzas</h1>
                         <p class="lead">Comprueba cómo evoluciona tu balance de ingresos y gastos</p>
                     </div>
 
                     <?php if(isset($_SESSION['usuario'])):?>
-                    <form class="shadow p-4 bg-white" action="balance.php" method="POST">
-                        <h2>Introduce tus datos</h2>
-                        <p class="lead">No olvides indicar si es un <b>ingreso</b> o un <b>gasto</b></p>
-                        <div class="form-row">
-                            <div class="form-group col">
-                                <label for="fecha">Fecha</label>
-                                <input class="form-control" type="date" name="fecha" id="fecha">
+                    <div>
+                        <form action="balance.php" method="POST">
+                            <h2 class="display-4">Datos</h2>
+                            <p class="lead">Introduce un concepto, la cantidad y una fecha. Pulsa <span class="text-dark inter-700">generar</span> para ver el balance</p>
+                            <p class="small">No olvides indicar si es un <b>ingreso</b> o un <b>gasto</b></p>
+                            <div class="form-group">
+                                <label for="descripcion">Concepto</label>
+                                <input class="form-control" type="text" name="descripcion" id="descripcion" placeholder="Nómina enero">
                             </div>
-                            <div class="form-group col">
-                                <label for="cantidad">Cantidad</label>
-                                <input class="form-control" type="number" name="cantidad" id="cantidad" placeholder="150">
+                            <div class="form-row">
+                                <div class="form-group col-md-6">
+                                    <label for="cantidad">Cantidad</label>
+                                    <input class="form-control" type="number" name="cantidad" id="cantidad" placeholder="1265">
+                                </div>
+                                <div class="form-group col-md-4">
+                                    <label for="inputState">Tipo</label>
+                                    <select id="inputState" name="tipo" class="form-control">
+                                        <option value="ingreso" selected>Ingreso</option>
+                                        <option value="gasto">Gasto</option>
+                                    </select>
+                                </div>
+                                <div class="form-group col-md-2">
+                                    <label for="fecha">Fecha</label>
+                                    <input class="form-control" type="date" name="fecha" id="fecha">
+                                </div>
                             </div>
-                        </div>
-                        <div class="form-group">
-                            <label for="descripcion">Concepto</label>
-                            <input class="form-control" type="text" name="descripcion" id="descripcion" placeholder="Regalo de reyes">
-                        </div>
-                        <div class="form-check">
-                            <input class="form-check-input" type="radio" name="tipo" id="tipo" value="ingresos" required>
-                            <label class="form-check-label" for="ingreso">Ingreso</label>
-                        </div>
-                        <div class="form-check">
-                            <input class="form-check-input" type="radio" name="tipo" id="tipo" value="gastos" required>
-                            <label class="form-check-label" for="gasto">Gasto</label>
-                        </div>
-                        <button type="submit" name="submit" class="btn btn-primary mt-3">Generar</button>
-                    </form>
+                            <button class="btn btn-lg mt-3 bg-light1 text-white" type="submit" name="submit" id="submit">Generar</button>
+                    </div>
                     <?php else: ?>
                     <!-- Formulario de login -->
                     <h2 class="display-4">Inicia sesión</h2>
-                    <p class="lead">Introduce tus datos para continuar</p>
-                    <form action="login.php" method="POST">
+                    <div>
+                        <form class="login" action="login.php" method="POST">
 
-                        <div class="form-group">
-                            <div class="input-group mr-sm-2">
-                                <label class="sr-only" for="usuario">Usuario</label>
-                                <div class="input-group-prepend">
-                                    <div class="input-group-text">
-                                        <span class="fas fa-at"></span>
+                            <div class="form-group">
+                                <label for="usuario">Usuario</label>
+                                <div class="input-group mr-sm-2">
+                                    <div class="input-group-prepend">
+                                        <div class="input-group-text">
+                                            <span class="fas fa-at"></span>
+                                        </div>
                                     </div>
+                                    <input type="text" name="usuario" class="form-control" id="usuario" placeholder="nacgom" required>
                                 </div>
-                                <input type="text" name="usuario" class="form-control" id="usuario" placeholder="usuario" required>
                             </div>
-                        </div>
 
-                        <div class="form-group">
-                            <label class="sr-only" for="pass">Contraseña</label>
-                            <div class="input-group mr-sm-2">
-                                <div class="input-group-prepend">
-                                    <div class="input-group-text">
-                                        <span class="fas fa-key"></span>
+                            <div class="form-group">
+                                <label for="pass">Contraseña</label>
+                                <div class="input-group mr-sm-2">
+                                    <div class="input-group-prepend">
+                                        <div class="input-group-text">
+                                            <span class="fas fa-key"></span>
+                                        </div>
                                     </div>
+                                    <input type="password" name="pass" class="form-control" id="pass" placeholder="*******" aria-describedby="passHelp" required>
                                 </div>
-                                <input type="password" name="pass" class="form-control" id="pass" placeholder="*******" required>
+                                <small id="passHelp" class="form-text text-muted">
+                                    Usa <i>1234nacho</i> para probar la aplicación
+                                </small>
                             </div>
-                        </div>
-
-                        <button type="submit" class="btn-lg btn-dark" name="submit">
-                            <span class="fas fa-sign-in-alt"></span> Login
-                        </button>
-                    </form>
+                            <button class="btn btn-lg bg-light1 text-white" type="submit" name="submit" id="submit">Entrar</button>
+                        </form>
+                    </div>
                     <?php endif; ?>
                 </div>
             </div>

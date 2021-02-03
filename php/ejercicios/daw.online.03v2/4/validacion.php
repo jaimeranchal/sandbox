@@ -33,8 +33,4 @@ function validarNumero($valor){
 function hayErrores() {
     return empty($errores) ? false : true;
 }
-
-function prueba($texto) {
-    return `Esto es un $texto de prueba`;
-}
 ?>
