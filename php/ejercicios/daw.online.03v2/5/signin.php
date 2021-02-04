@@ -14,33 +14,12 @@ if (isset($_POST['submit']) && $_SERVER['REQUEST_METHOD'] === "POST") {
     // mensajes 
     $errorBD = "el usuario ya existe en la base de datos";
     $errorNombre = "el nombre está vacío.";
-    $errorAlias = "formato de alias inválido. Sólo puede contener hasta 8 letras; ni números ni símbolos.";
     $errorPass = "formato de contraseña inválido.";
     $errorEmail = "formato de email inválido.";
 
     // expr.regular con los requisitos
     $formatoAlias = "/^[a-zA-Z]{4,8}$/";
     $formatoPwd = "/^(?=.*\d)(?=.*[A-Za-z])[0-9A-Za-z!@#$%]{8,12}$/";
-
-    // validar alias
-    if (isset($_POST['id'])){
-        if (preg_match($formatoAlias, filter_var($_POST['id'], FILTER_SANITIZE_STRING)) > 0){
-
-            $id = filter_var($_POST['id'], FILTER_SANITIZE_STRING);
-
-            //recuperamos información de la base de datos para comprobar valores únicos
-            $sql = 'SELECT * from usuarios where id=?';
-            $sth = $dbh->prepare($sql);
-            $sth->execute(array($id));
-            $resultado = $sth->fetch();
-
-            // error si encuentra que ya existe el usuario
-            if (!empty($resultado)) $errores[] = "Error: ".$errorBD;
-
-        } else {
-            $errores[] = "Error: ".$errorAlias; 
-        }
-    } 
 
     // validar nombre
     if (isset($_POST['nombre'])) {
@@ -60,6 +39,15 @@ if (isset($_POST['submit']) && $_SERVER['REQUEST_METHOD'] === "POST") {
     // validar email
     if (isset($_POST['email']) && filter_var($_POST['email'], FILTER_VALIDATE_EMAIL) !== false) {
         $email = $_POST['email'];
+        
+        //recuperamos información de la base de datos para comprobar valores únicos
+        $sql = 'SELECT * from usuarios where email=?';
+        $sth = $dbh->prepare($sql);
+        $sth->execute(array($email));
+        $resultado = $sth->fetch();
+
+        // error si encuentra que ya existe el usuario
+        if (!empty($resultado)) $errores[] = "Error: ".$errorBD;
     } else {
         $errores[] = "Error: ".$errorEmail; 
     }
@@ -70,9 +58,9 @@ if (isset($_POST['submit']) && $_SERVER['REQUEST_METHOD'] === "POST") {
 
     if(!$fallo){
         //insertamos en la base de datos
-        $sql = 'INSERT into usuarios(email, id, nombre, password) VALUES(?,?,?,?)';
+        $sql = 'INSERT into usuarios(email, nombre, password, tipo) VALUES(?,?,?,?)';
         $sth = $dbh->prepare($sql);
-        $exito = $sth->execute(array($email, $id, $nombre, $pass));
+        $exito = $sth->execute(array($email, $nombre, $pass, 'c'));
     }
 }
 ?>
@@ -156,7 +144,7 @@ if (isset($_POST['submit']) && $_SERVER['REQUEST_METHOD'] === "POST") {
                     </button>
 
                     <div class="app-title ml-2 mb-n1">
-                        <h2>3.4</h2>
+                        <h2>3.5 Pizzeria</h2>
                     </div>
 
                     <!-- show top menu items on smaller screens -->
@@ -168,7 +156,7 @@ if (isset($_POST['submit']) && $_SERVER['REQUEST_METHOD'] === "POST") {
                     </button>
 
                     <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                        <span class="navbar-text mr-3">
+                        <span class="navbar-text ml-auto mr-3">
                             <a class="nav-link inter-700" href="./signin-form.html">Registrarse </a>
                         </span>
                     </div>
@@ -181,9 +169,9 @@ if (isset($_POST['submit']) && $_SERVER['REQUEST_METHOD'] === "POST") {
                     <p class="lead"><?= $mensaje ?></p>
                 <?php else: ?>
                     <h1 class="display-3 mt-4 inter-700">Todo listo</h1>
-                    <p class="lead">Tu usuario ha sido creado con éxito</p>
+                    <p class="lead">Tu usuario ha sido creado con éxito.</p>
                 <?php endif; ?>
-                    <a class="fg-dark1 font-weight-bold" href="./index.php" title="volver a inicio">
+                    <a class="btn btn-lg bg-light1 text-white" href="./index.php" title="volver a inicio">
                         <?=$enlace?>
                     </a>
                 </div>
