@@ -21,10 +21,6 @@
         <link href="https://fonts.googleapis.com/css2?family=Courgette&display=swap" rel="stylesheet">
     </head>
 
-<?php
-session_start();
-?>
-
     <body>
         <div class="d-flex" id="wrapper">
 
@@ -83,7 +79,7 @@ session_start();
                     </button>
 
                     <div class="app-title ml-2 mb-n1">
-                        <h2>3.5</h2>
+                        <h2>3.5 Pizzeria</h2>
                     </div>
 
                     <!-- show top menu items on smaller screens -->
@@ -95,133 +91,35 @@ session_start();
                     </button>
 
                     <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                        <span class="navbar-text ml-auto">
-                            <?php if(isset($_SESSION['usuario'])): ?>
-                            Hola <span class="fg-dark1 font-weight-bold text-capitalize"><?=$_SESSION['nombre']?></span>
+                        <span class="navbar-text ml-auto mr-3">
+                            <a class="nav-link inter-700" href="./index.php">Iniciar sesión </a>
                         </span>
-                            <?php switch($_SESSION['tipo']){ 
-                                case 'c': ?>
-                        <span class="navbar-text mr-3">
-                            <a class="nav-link inter-700" href="./pedido.php">Pedir </a>
-                        </span>
-                            <?php break; ?>
-                            <?php case 'a': ?>
-                        <span class="navbar-text mr-3">
-                            <a class="nav-link inter-700" href="./admin.php">Administracion </a>
-                        </span>
-                            <?php break; ?>
-                            <?php } ?>
-                        <span class="navbar-text mr-3">
-                            <a class="nav-link inter-700" href="./logout.php">Salir </a>
-                        </span>
-                            <?php else: ?>
-                        <span class="navbar-text mr-3">
-                            <a class="nav-link inter-700" href="./signin-form.html">Registrarse </a>
-                        </span>
-                    <!--     <ul class="navbar-nav ml-auto mt-2 mt-lg-0"> -->
-                    <!--         <li class="nav-item active"> -->
-                    <!--             <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a> -->
-                    <!--         </li> -->
-                    <!--         <li class="nav-item"> -->
-                    <!--             <a class="nav-link" href="#">Link</a> -->
-                    <!--         </li> -->
-                    <!--         <li class="nav-item dropdown"> -->
-                    <!--             <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> -->
-                    <!--                 Dropdown -->
-                    <!--             </a> -->
-                    <!--             <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown"> -->
-                    <!--                 <a class="dropdown-item" href="#">Action</a> -->
-                    <!--                 <a class="dropdown-item" href="#">Another action</a> -->
-                    <!--                 <div class="dropdown-divider"></div> -->
-                    <!--                 <a class="dropdown-item" href="#">Something else here</a> -->
-                    <!--             </div> -->
-                    <!--         </li> -->
-                    <!--     </ul> -->
-                            <?php endif; ?>
                     </div>
                 </nav>
 
                 <!-- Contenido -->
                 <div class="container inter-200">
                     <div class="mb-2">
-                        <h1 class="display-3 mt-4 inter-700">Pizzería Golami</h1>
-                        <p class="lead">La solución para los que tienen hambre ahora, en cualquier lugar</p>
+                        <h1 class="display-3 mt-4 inter-700">Nuevo usuario</h1>
+                        <p class="lead">Introduce tus datos</p>
                     </div>
-                </div>
 
-                <?php if(isset($_SESSION['usuario'])):?>
-                    <?php switch($_SESSION['tipo']){ 
-                        case 'c': ?>
-                <div class="container inter-200">
-                    <?php
-                    // conexión a bbdd
-                    require_once("./conexion.php");
-
-                    // Recuperamos datos de especialidades para mostrar
-                    //sentencia preparada
-                    $sql = 'SELECT * FROM especialidades';
-                    $sth = $dbh->prepare($sql);
-                    $sth->execute();
-                    // Recuperamos los datos 
-                    $especialidades = $sth->fetchAll();
-
-                    // Dejo preparada una sentencia para recuperar los datos
-                    // de cada pizza
-                    // SELECT DISTINCT * from especialidades AS e LEFT JOIN (ingredientes_esp as b, ingredientes as i) ON (e.id = b.especialidad AND b.ingrediente = i.id)
-                    $sql2 = 'SELECT DISTINCT i.nombre from especialidades AS e LEFT JOIN (ingredientes_esp as b, ingredientes as i) ON (e.id = b.especialidad AND b.ingrediente = i.id) WHERE e.id=?';
-                    $sth2 = $dbh->prepare($sql2);
-                    ?>
-                    <h2 class="inter-700">Nuestras especialidades</h1>
-                    <p class="lead">Échale un ojo a las creaciones de nuestro chef o crea la tuya propia!</p>
-                    <a class="btn btn-lg bg-light1 text-white" href="./pedido.php" title="Hacer un pedido">Empieza a pedir ya</a>
-                </div>
-                <div class="container-fluid">
-                    <!-- cliente: catalogo -->
-                    <div class="d-flex flex-wrap justify-content-center m-3 p-3">
-                    <?php foreach ($especialidades as $especialidad) { 
-                        $sth2->execute(array($especialidad['id']));
-                        $ingredientes = $sth2->fetchAll();
-                    ?>
-                        <!-- producto -->
-                        <div class="card text-center">
-                            <div class="card-img-top bg-light2 p-3">
-                                <img class="figure rounded-circle h-100" 
-                                    src="./img/pizza<?=$especialidad['id']?>.png" alt="item">
-                            </div>
-                            <div class="card-footer bg-dark text-light">
-                                <h3 class="card-title courgette"><?=$especialidad['nombre']?></h3>
-                            <!--
-                                <ul class="list-group list-group-flush">
-                                    <?php foreach ($ingredientes as $ingrediente) { ?>
-                                    <li class="list-group-item"> <?=$ingrediente['nombre']?></li>
-                                    <?php } ?>
-                                </ul>
-                            </div>
-                            <div class="card-footer bg-light1">
-                                <h2 class="display-4"><?=$especialidad['precio']?>€</h2>
-                            -->
-                            </div>
-                        </div>
-                    <?php } ?>
-                    </div>
-                </div>
-                    <?php break; ?>
-                    <?php case 'a': ?>
-                <div class="container inter-200">
-                    <h1 class="display-3 mt-4 inter-700">Pedidos recientes</h1>
-                </div>
-                <div class="container-fluid">
-                    <!-- Empresario: Pedidos recientes -->
-                </div>
-                    <?php break; ?>
-                    <?php } ?>
-                <?php else: ?>
-                <div class="container inter-200">
-                    <!-- Formulario de login -->
-                    <h2 class="display-4">Inicia sesión</h2>
+                    <!-- Formulario -->
                     <div>
-                        <form class="login" action="login.php" method="POST">
+                        <form class="login" action="signin.php" method="POST">
 
+                            <div class="form-group">
+                                <label  for="nombre">Nombre y apellidos</label>
+                                <div class="input-group mr-sm-2">
+                                    <div class="input-group-prepend">
+                                        <div class="input-group-text">
+                                            <span class="fas fa-user"></span>
+                                        </div>
+                                    </div>
+                                    <input type="text" name="nombre" class="form-control" id="nombre" placeholder="Alicia Gómez" required>
+                                </div>
+
+                            </div>
                             <div class="form-group">
                                 <label for="email">Email</label>
                                 <div class="input-group mr-sm-2">
@@ -230,10 +128,9 @@ session_start();
                                             <span class="fas fa-envelope"></span>
                                         </div>
                                     </div>
-                                    <input type="email" name="email" class="form-control" id="email" placeholder="nacho@ejemplo.es / jaime@ejemplo.es" required>
+                                    <input type="email" name="email" class="form-control" id="email" placeholder="alicia@ejemplo.es" required>
                                 </div>
                             </div>
-
                             <div class="form-group">
                                 <label for="pass">Contraseña</label>
                                 <div class="input-group mr-sm-2">
@@ -245,13 +142,12 @@ session_start();
                                     <input type="password" name="pass" class="form-control" id="pass" placeholder="*******" aria-describedby="passHelp" required>
                                 </div>
                                 <small id="passHelp" class="form-text text-muted">
-                                    Usa <i>1234nacho</i> para acceso administrador, <i>1234jaime</i> para acceso cliente 
+                                    Entre 8 y 12 caracteres o símbolos (<code>!@#$%</code>). Debe tener al menos un número y una letra.
                                 </small>
                             </div>
-                            <button class="btn btn-lg bg-light1 text-white" type="submit" name="submit" id="submit">Entrar</button>
+                            <button class="btn btn-lg bg-light1 text-white" type="submit" name="submit" id="submit">Guardar</button>
                         </form>
                     </div>
-                <?php endif; ?>
                 </div>
             </div>
             <!-- /#page-content-wrapper -->

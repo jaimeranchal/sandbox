@@ -1,6 +1,4 @@
-
--- Script de creación de bases de datos para MySQL/MariaDB
-
+-- Script de creación de bases de datos para MySQL/MariaDB 
 DROP DATABASE IF EXISTS ud3_balance;
 DROP DATABASE IF EXISTS ud3_app_web;
 
@@ -161,12 +159,19 @@ USE ud3_app_web;
 
 -- Pon aquí tus CREATE TABLE, INSERT INTO y restricciones necesarias.
 CREATE TABLE usuarios(
-    id int AUTO_INCREMENT PRIMARY KEY,
+    id INT AUTO_INCREMENT PRIMARY KEY, -- el cliente no conoce su id
     nombre VARCHAR(50) NOT NULL,
-    tfno int(9) NOT NULL UNIQUE,
-    email VARCHAR(50) NOT NULL,
+    email VARCHAR(50) NOT NULL UNIQUE, -- usado para login
     password VARCHAR(255) NOT NULL,
     tipo char(1) not null -- c 'cliente', a 'admin'
+);
+
+CREATE TABLE facturacion(
+    tfno int(9) NOT NULL,
+    direccion varchar(255) not null,
+    cliente int not null,
+    CONSTRAINT cliente_PK PRIVATE KEY (direccion, cliente),
+    CONSTRAINT cliente_FK FOREIGN KEY (cliente) REFERENCES usuarios(id) ON DELETE CASCADE
 );
 
 CREATE TABLE ingredientes(
@@ -224,19 +229,23 @@ CREATE TABLE ingredientes_pizza(
 -- Insertamos datos
 
 -- Los password son siempre 1234nombre (en minúscula), p.e: 1234jaime 
-INSERT INTO usuarios (nombre, tfno, email, password, tipo) VALUES (
+INSERT INTO usuarios (nombre, email, password, tipo) VALUES (
     'Jaime Ranchal',
-    657334455,
     'jaime@ejemplo.com',
     '$2y$10$oaAuy3rLzzZ.O5FVr2W83ui1P0b5IZq0TvW/5YlTbG3.NMd.TCr56',
     'c'
 ),
 (
     'Nacho Gómez',
-    773112244,
     'nacho@ejemplo.com',
     '$2y$10$PGzlMQKqCbHCG3bN54xllu45vKRuQjKqoNEjsjfwKENhlxNj5Z4ea',
     'a'
+);
+
+INSERT INTO facturacion(tfno, direccion, cliente) VALUES(
+    666999999,
+    'C/Cuesta de la Gomera, 5, b-1, Tenerife',
+    1
 );
 
 INSERT INTO ingredientes (nombre, alergeno) VALUES
@@ -329,8 +338,8 @@ INSERT INTO ingredientes_esp (especialidad, ingrediente) VALUES
 (8,8),
 (8,21);
 
-INSERT INTO ingredientes_pizza (ingrediente, especialidad) VALUES ();
-INSERT INTO pedidos(fecha, entregado, cliente) VALUES ();
-INSERT INTO pizzas(pedido, especialidad) VALUES ();
+/* INSERT INTO ingredientes_pizza (ingrediente, especialidad) VALUES (); */
+/* INSERT INTO pedidos(fecha, entregado, cliente) VALUES (); */
+/* INSERT INTO pizzas(pedido, especialidad) VALUES (); */
 
 -- ---------------------------------------------------------------------
