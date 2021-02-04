@@ -93,10 +93,6 @@ if (isset($_POST['submit']) && $_SERVER['REQUEST_METHOD'] === "POST"):
             $total_gastos = 0;
             $balance = 0;
 
-            // Creamos una instancia de la clase
-            /* $mpdf = new \Mpdf\Mpdf(); */
-            // inicio un búfer para capturar la página
-            /* ob_start(); */
         endif;
     endif;
 // mensaje de error si el formulario está vacío o 
@@ -261,8 +257,11 @@ endif;
                     </div>
                 </div>
                 <?php endif; ?>
-                    <a class="btn btn-lg mt-3 bg-light1 text-white" href="./index.php" title="volver a inicio">
+                    <a class="btn btn-lg mt-3 btn-outline-dark" href="./index.php" title="volver a inicio">
                         <?=$enlace?>
+                    </a>
+                    <a class="btn btn-lg mt-3 bg-light1 text-white" href="./balance-pdf.php" title="volver a inicio">
+                        Imprimir
                     </a>
                 </div>
             </div>
@@ -283,15 +282,6 @@ endif;
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
         <!-- Menu Toggle Script -->
         <script src="../src/js/menu.js" charset="utf-8"></script>
-<?php
-// Si no hay fallos hay que cerrar el búfer e imprimir
-/* if (!$fallo): */
-/*     $html = ob_get_contents(); */
-/*     ob_end_clean(); */
-/*     $mpdf->WriteHTML($html); // Escribe el búfer capturado en el pdf */
-/*     $mpdf->Output(); // Muestra el pdf */
-/* endif; */
-?>
     </body>
 </html>
 

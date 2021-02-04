@@ -151,7 +151,6 @@ session_start();
                     <h2 class="display-4">Inicia sesión</h2>
                     <div>
                         <form class="login" action="login.php" method="POST">
-
                             <div class="form-group">
                                 <label for="usuario">Usuario</label>
                                 <div class="input-group mr-sm-2">
