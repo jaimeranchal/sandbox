@@ -118,15 +118,11 @@ if (!isset($_SERVER['PHP_AUTH_USER'])) {
                         <h1 class="display-3 mt-4 inter-700">Seguridad (1)</h1>
                         <p class="lead">Autenticación de usuario con el método <i>Basic</i></p>
                     </div>
-                    <div>
-                        <h2>¿Qué significa <i>autenticarse</i>?</h2>
-                    </div>
-                    <div>
-                        <h2>Autenticación HTTP</h2>
-                    </div>
-                    <div>
-                        <h2>¿Es seguro?</h2>
-                        <p>No mucho; de hecho, la contraseña es perfectamente visible ("<?=$muestraPass?>")</p>
+                    <div class="jumbotron bg-light">
+                        <h2 class="font-weight-bold">Nota de autoría <span class="badge badge-danger">Ojo</span></h2>
+                        <hr class="my-4">
+                        <p>Lo que sigue es una copia directa de la página de <a href="https://diego.com.es/autenticacion-http">
+                        Diégo Lázaro</a> sobre el tema.</p>
                     </div>
                     <div>
                         <h2>Formas de mejorar la seguridad</h2>

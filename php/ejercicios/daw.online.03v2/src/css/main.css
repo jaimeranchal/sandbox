@@ -56,6 +56,9 @@ button.bg-light1:hover, div.bg-light1:hover {
     margin: 1em 1em;
 }
 
+.contador label {
+    width: 3rem;
+}
 /* Tipografías */
 
 .inter-200 {
