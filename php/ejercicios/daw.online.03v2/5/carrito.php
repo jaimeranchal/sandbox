@@ -1,5 +1,103 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN"
 "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
+<?php
+session_start();
+
+// Conectamos a la bbdd
+require_once("./conexion.php");
+require_once("./validacion.php");
+require_once("./cookies.php");
+
+// Procesamos los datos del formulario 
+if (isset($_POST['submit']) && $_SERVER['REQUEST_METHOD'] === "POST") {
+
+    //variables
+    $pedido = []; // array para guardar las pizzas que se solicitan
+    $especiales = [];
+    $algusto = [];
+    $ingredientes = [];
+    
+    /* Paso 1: veo si existe una cookie y leo su contenido */
+    if (leerCookie("pedido") != false) {
+        $pedido = leerCookie("pedido");
+        // actualizo los arrays con la información guardada
+        $especiales = $pedido['especial'];
+        $algusto = $pedido['algusto'];
+    }
+    /* Paso 2: Inserto nuevos datos al pedido */
+    //Especialidades
+    // bucle de 8 para ver si ha escogido alguna
+    for ($i = 1; $i <= 8; $i++) {
+        if (intval($_POST['cantidadEsp'.$i]) > 0) {
+            $especiales[] = [
+                "id" => $i,
+                "cantidad" => intval($_POST['cantidadEsp'.$i])
+                ];
+        }
+    }
+
+    //Al gusto
+    // bucle de 10 para ver si ha escogido algún ingrediente
+    for ($i = 1; $i <= 10; $i++) {
+        if (isset($_POST['ingrediente'.$i]) && $_POST['ingrediente'.$i] != "0") {
+            $ingredientes[] = intval($_POST['ingrediente'.$i]); 
+        }
+    }
+    if (count($ingredientes) > 0) {
+        $algusto[] = $ingredientes;
+    }
+
+    //Guardo todo el pedido
+    $pedido['especial'] = $especiales;
+    $pedido['algusto'] = $algusto;
+
+    /* Paso 3: Actualizo o guardo el pedido */
+    crearCookie("pedido", $pedido, "+1 hour");
+}
+
+/* Paso 4: recupero información extra de la base de datos:
+ * nombre de las pizzas, ingredientes... 
+ */
+
+$datosPedido = [];
+$datosEsp = [];
+$datosAlgusto = [];
+// Datos de las especialidades
+/* $sql3 = 'SELECT DISTINCT i.nombre from especialidades AS e LEFT JOIN (ingredientes_esp as b, ingredientes as i) ON (e.id = b.especialidad AND b.ingrediente = i.id) WHERE e.id=?'; */
+$sql = 'SELECT * FROM especialidades WHERE id=?';
+$sth = $dbh->prepare($sql);
+
+foreach ($pedido['especial'] as $especial) {
+    $sth->execute(array($especial['id']));
+    $resultado = $sth->fetch();
+    if (!empty($resultado)) {
+        $datosEsp[] = $resultado;
+    }
+}
+
+// Ingredientes de las pizzas creadas a mano
+$sql2 = 'SELECT nombre from ingredientes WHERE id=?';
+$sth2 = $dbh->prepare($sql2);
+
+foreach ($pedido['algusto'] as $pizza) {
+    $ingredientes = [];
+    $num = $pizza != null ? count($pizza) : -1;
+    for ($i = 0; $i < $num; $i++) {
+        $sth2->execute(array($pizza[$i]));
+        $resultado = $sth2->fetch();
+        if (!empty($resultado)) {
+            $ingredientes[] = $resultado;
+        }
+    }
+    $datosAlgusto[] = $ingredientes;
+}
+
+// Guardamos toda la información para mostrarla en la página
+$datosPedido['especial'] = $datosEsp;
+$datosPedido['algusto'] = $datosAlgusto;
+
+?>
+
 <html lang="es" xmlns="http://www.w3.org/1999/xhtml">
     <head>
         <meta charset="utf-8">
@@ -20,30 +118,6 @@
         <link href="https://fonts.googleapis.com/css2?family=Inter:wght@200;400;700&display=swap" rel="stylesheet">
         <link href="https://fonts.googleapis.com/css2?family=Courgette&display=swap" rel="stylesheet">
     </head>
-
-<?php
-session_start();
-// conexión a bbdd
-require_once("./conexion.php");
-
-// Recuperamos datos de especialidades para mostrar
-//sentencias preparadas
-$sql = 'SELECT * FROM especialidades';
-// Dejo preparada una sentencia para recuperar los datos
-// de cada pizza
-// SELECT DISTINCT * from especialidades AS e LEFT JOIN (ingredientes_esp as b, ingredientes as i) ON (e.id = b.especialidad AND b.ingrediente = i.id)
-/* $sql2 = 'SELECT DISTINCT i.nombre from especialidades AS e LEFT JOIN (ingredientes_esp as b, ingredientes as i) ON (e.id = b.especialidad AND b.ingrediente = i.id) WHERE e.id=?'; */
-$sql3 = 'SELECT * FROM ingredientes';
-
-$sth = $dbh->prepare($sql);
-$sth->execute();
-// Recuperamos los datos 
-$especialidades = $sth->fetchAll();
-
-$sth3 = $dbh->prepare($sql3);
-$sth3->execute();
-$ingredientes = $sth3->fetchAll();
-?>
 
     <body>
         <div class="d-flex" id="wrapper">
@@ -127,54 +201,48 @@ $ingredientes = $sth3->fetchAll();
                 <!-- Contenido -->
                 <div class="container inter-200">
                     <div class="mb-2">
-                        <h1 class="display-3 mt-4 inter-700">El menú</h1>
-                        <p class="lead">Escoge una de nuestras especialidades o crea la tuya propia</p>
+                        <h1 class="display-3 mt-4 inter-700">Tu pedido</h1>
+                        <p class="lead">Esta es tu lista por ahora:</p>
                     </div>
-                    <form action="carrito.php" method="POST">
+                    <form action="facturacion.php" method="POST">
                         <div class="card-deck">
-                            <!-- Especialidades -->
-                            <div class="card">
-                                <div class="card-body">
-                                    <h2 class="card-title">Especiales</h2>
-                                        <?php foreach ($especialidades as $especialidad) { ?>
-                                        <div class="input-group">
-                                            <span class="input-group-text col-md-10 bg-white border-0">  <?=$especialidad['nombre']?> 
-                                                <span class="input-group-text ml-auto bg-light font-weight-bold border-0">  <?=$especialidad['precio']?> €</span>
-                                            </span>
-                                            
-                                            <input type="text" name="especialidad<?=$especialidad['id']?>" hidden 
-                                                class="form-control-plaintext" id="especialidad" 
-                                                value="<?=$especialidad['id']?>"> 
-                                            <input type="number" name="cantidadEsp<?=$especialidad['id']?>" class="form-control border-top-0 border-bottom-0 border-right-0 text-center"
-                                                id="cantidadEsp" min="0" max="10" placeholder="0">
-                                        </div>
-                                        <?php } ?>
-                                </div>
-                            </div>
                             <!-- Al gusto -->
                             <div class="card">
                                 <div class="card-body">
                                     <h2 class="card-title">Al gusto</h2>
-                                    <!-- Ingredientes (hasta 10) -->
-                                        <?php for ($i = 0; $i < 10; $i++) { ?>
-                                            <div class="input-group">
-                                                <div class="input-group-prepend contador">
-                                                    <label class="input-group-text bg-white border-top-0 border-left-0"><?=$i+1?>º</label> 
-                                                </div>
-                                                <select name= "ingrediente<?=$i+1?>" class="custom-select  border-top-0 border-right-0 border-left-0" size="1">
-                                                    <option label="..." value="0"></option>
-                                                <?php foreach ($ingredientes as $ingrediente) { ?>
-                                                    <option label="<?=$ingrediente['nombre']?>" value="<?=$ingrediente['id']?>"></option>
+                                        <ul>
+                                        <?php foreach ($datosPedido['algusto'] as $key=>$pizza) { 
+                                            if (!empty($pizza)): ?>
+                                            <li>Pizza <?=$key+1?>
+                                                <ul>
+                                                <?php
+                                                $num = $pizza != null ? count($pizza) : -1;
+                                                for ($i = 0; $i < $num; $i++) { ?>
+                                                    <li><?=$pizza[$i]['nombre']?></li>
                                                 <?php } ?>
-                                                </select>
-                                            </div>
+                                                </ul>
+                                            </li>
+                                            <?php endif; ?>
                                         <?php } ?>
+                                        </ul>
+                                </div>
+                            </div>
+                            <!-- Especialidades -->
+                            <div class="card">
+                                <div class="card-body">
+                                    <h2 class="card-title">Especiales</h2>
+                                        <ul>
+                                        <?php foreach ($datosPedido['especial'] as $especialidad) { ?>
+                                            <li><?=$especialidad['nombre']?>
+                                        <?php } ?>
+                                        </ul>
                                 </div>
                                 <div class="card-footer text-right">
-                                    <button class="btn btn-lg btn-outline-secondary" type="reset" 
-                                    >Borrar</button>
+                                    <a href="pedido.php" class="btn btn-lg btn-outline-secondary" type="reset">
+                                    Añadir más
+                                    </a>
                                     <button class="btn btn-lg bg-light1 text-white" type="submit" 
-                                    name="submit" >Añadir</button>
+                                    name="submit" >Siguiente</button>
                                 </div>
                             </div>
                         </div>

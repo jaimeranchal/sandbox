@@ -21,30 +21,6 @@
         <link href="https://fonts.googleapis.com/css2?family=Courgette&display=swap" rel="stylesheet">
     </head>
 
-<?php
-session_start();
-// conexión a bbdd
-require_once("./conexion.php");
-
-// Recuperamos datos de especialidades para mostrar
-//sentencias preparadas
-$sql = 'SELECT * FROM especialidades';
-// Dejo preparada una sentencia para recuperar los datos
-// de cada pizza
-// SELECT DISTINCT * from especialidades AS e LEFT JOIN (ingredientes_esp as b, ingredientes as i) ON (e.id = b.especialidad AND b.ingrediente = i.id)
-/* $sql2 = 'SELECT DISTINCT i.nombre from especialidades AS e LEFT JOIN (ingredientes_esp as b, ingredientes as i) ON (e.id = b.especialidad AND b.ingrediente = i.id) WHERE e.id=?'; */
-$sql3 = 'SELECT * FROM ingredientes';
-
-$sth = $dbh->prepare($sql);
-$sth->execute();
-// Recuperamos los datos 
-$especialidades = $sth->fetchAll();
-
-$sth3 = $dbh->prepare($sql3);
-$sth3->execute();
-$ingredientes = $sth3->fetchAll();
-?>
-
     <body>
         <div class="d-flex" id="wrapper">
 
@@ -115,70 +91,19 @@ $ingredientes = $sth3->fetchAll();
                     </button>
 
                     <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                        <span class="navbar-text ml-auto">
-                            Hola <span class="fg-dark1 font-weight-bold text-capitalize"><?=$_SESSION['nombre']?></span>
-                        </span>
-                        <span class="navbar-text mr-3">
-                            <a class="nav-link inter-700" href="./logout.php">Salir </a>
+                        <span class="navbar-text ml-auto mr-3">
+                            <a class="nav-link inter-700" href="./index.php">Volver </a>
                         </span>
                     </div>
                 </nav>
 
                 <!-- Contenido -->
                 <div class="container inter-200">
-                    <div class="mb-2">
-                        <h1 class="display-3 mt-4 inter-700">El menú</h1>
-                        <p class="lead">Escoge una de nuestras especialidades o crea la tuya propia</p>
-                    </div>
-                    <form action="carrito.php" method="POST">
-                        <div class="card-deck">
-                            <!-- Especialidades -->
-                            <div class="card">
-                                <div class="card-body">
-                                    <h2 class="card-title">Especiales</h2>
-                                        <?php foreach ($especialidades as $especialidad) { ?>
-                                        <div class="input-group">
-                                            <span class="input-group-text col-md-10 bg-white border-0">  <?=$especialidad['nombre']?> 
-                                                <span class="input-group-text ml-auto bg-light font-weight-bold border-0">  <?=$especialidad['precio']?> €</span>
-                                            </span>
-                                            
-                                            <input type="text" name="especialidad<?=$especialidad['id']?>" hidden 
-                                                class="form-control-plaintext" id="especialidad" 
-                                                value="<?=$especialidad['id']?>"> 
-                                            <input type="number" name="cantidadEsp<?=$especialidad['id']?>" class="form-control border-top-0 border-bottom-0 border-right-0 text-center"
-                                                id="cantidadEsp" min="0" max="10" placeholder="0">
-                                        </div>
-                                        <?php } ?>
-                                </div>
-                            </div>
-                            <!-- Al gusto -->
-                            <div class="card">
-                                <div class="card-body">
-                                    <h2 class="card-title">Al gusto</h2>
-                                    <!-- Ingredientes (hasta 10) -->
-                                        <?php for ($i = 0; $i < 10; $i++) { ?>
-                                            <div class="input-group">
-                                                <div class="input-group-prepend contador">
-                                                    <label class="input-group-text bg-white border-top-0 border-left-0"><?=$i+1?>º</label> 
-                                                </div>
-                                                <select name= "ingrediente<?=$i+1?>" class="custom-select  border-top-0 border-right-0 border-left-0" size="1">
-                                                    <option label="..." value="0"></option>
-                                                <?php foreach ($ingredientes as $ingrediente) { ?>
-                                                    <option label="<?=$ingrediente['nombre']?>" value="<?=$ingrediente['id']?>"></option>
-                                                <?php } ?>
-                                                </select>
-                                            </div>
-                                        <?php } ?>
-                                </div>
-                                <div class="card-footer text-right">
-                                    <button class="btn btn-lg btn-outline-secondary" type="reset" 
-                                    >Borrar</button>
-                                    <button class="btn btn-lg bg-light1 text-white" type="submit" 
-                                    name="submit" >Añadir</button>
-                                </div>
-                            </div>
-                        </div>
-                    </form>
+                    <h1 class="display-3 mt-4 inter-700">Lo siento...</h1>
+                    <p class="lead">La página que has solicitado no está todavía lista. Un señor llamado <span class="text-danger font-weight-bold">Laravel</span> nos requiere con urgencia.</p>
+                    <a class="btn btn-lg bg-light1 text-white" href="./index.php" title="volver a inicio">
+                    Volver a inicio
+                    </a>
                 </div>
             </div>
             <!-- /#page-content-wrapper -->
