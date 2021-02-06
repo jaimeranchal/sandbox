@@ -204,7 +204,7 @@ $datosPedido['algusto'] = $datosAlgusto;
                         <h1 class="display-3 mt-4 inter-700">Tu pedido</h1>
                         <p class="lead">Esta es tu lista por ahora:</p>
                     </div>
-                    <form action="facturacion.php" method="POST">
+                    <form action="wip.php" method="POST">
                         <div class="card-deck">
                             <!-- Al gusto -->
                             <div class="card">

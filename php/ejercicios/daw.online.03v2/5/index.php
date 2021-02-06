@@ -190,6 +190,10 @@ session_start();
                     <?php case 'a': ?>
                 <div class="container inter-200">
                     <h1 class="display-3 mt-4 inter-700">Pedidos recientes</h1>
+                    <p class="lead">Esta sección no está todavía lista. Un señor llamado <span class="text-danger font-weight-bold">Laravel</span> nos requiere con urgencia.</p>
+                    <a class="btn btn-lg bg-light1 text-white" href="./index.php" title="volver a inicio">
+                    Volver a inicio
+                    </a>
                 </div>
                 <div class="container-fluid">
                     <!-- Empresario: Pedidos recientes -->
