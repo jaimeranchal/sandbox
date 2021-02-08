@@ -42,3 +42,11 @@ Thumbs.db
 # *.md
 !README.md
 /java.calculadora/dist/
+
+# Heavy images
+#######
+*.png
+*.jpg
+*.jpeg
+*.gif
+*.tiff
