@@ -16,7 +16,7 @@ Todas las aplicaciones web se realizarán con el framework Laravel
 ### 1. MVC y *framework* web
 
 1. Realiza los siguientes ejercicios:
-a) Resuelve estos diez [ejercicios](https://milq.github.io/cursos/fundprog/ud/06.html) sobre clases usando [OOP](https://www.w3schools.com/php/php_oop_what_is.asp) en PHP.
+a) Resuelve estos diez [ejercicios](https://milq.github.io/cursos/fundprog/ud/06.html) sobre clases usando [OOP](https://www.w3schools.com/php/php_oop_what_is.asp) en PHP; [Ayuda](https://docs.hektorprofe.net/python/programacion-orientada-a-objetos/ejercicios/), y [ayuda2](https://www.superprof.es/apuntes/escolar/matematicas/analitica/recta/punto-medio.html)
 b) Mira este [vídeo](https://www.youtube.com/watch?v=0sHSrqyZCnM&list=PLU8oAlHdN5Bk-qkvjER90g2c_jVmpAHBh&index=1), di qué trata e indica los puntos del curso que más te llaman la atención.
 c) Lee y explica con tus propias palabras lo que es un [patrón de diseño sofware](https://en.wikipedia.org/wiki/Software_design_pattern).
 d) Mira este [vídeo](https://www.youtube.com/watch?v=SbdbHvf5b7c&list=PLU8oAlHdN5Bk-qkvjER90g2c_jVmpAHBh&index=2) y explica con tus propias palabras el patrón de diseño [MVC](https://en.wikipedia.org/wiki/Model–view–controller) ([diagrama](https://milq.github.io/cursos/dwes/ud/4/mvc.jpg)).
