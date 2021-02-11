@@ -4,7 +4,7 @@
     <head>
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width initial-scale=1">
-        <title>LEON: Galería</title>
+        <title>La voz del León: galería</title>
         <link
             rel="stylesheet"
             href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
@@ -12,73 +12,127 @@
             crossorigin="anonymous"
         />
         <link rel="stylesheet" href="./styles.css" type="text/css" media="screen" charset="utf-8"/>
+        <!-- Google fonts -->
+        <link rel="preconnect" href="https://fonts.gstatic.com">
+        <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700&family=Lobster&display=swap" rel="stylesheet">
     </head>
     <body>
         <!-- Navigation -->
-        <div class="container">
-            <nav class="navbar navbar-expand-lg navbar-light bg-light">
-                <a class="navbar-brand h1" href="#">LEON</a>
-                <a class="nav-link" href="#">Inicio <span class="sr-only">(current)</span></a>
-                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-                    <span class="navbar-toggler-icon"></span>
-                </button>
+        <div class="container-fluid" id="portada">
+            <div class="container">
+                <nav class="navbar navbar-expand-lg navbar-dark inter bg-transparent">
+                    <a class="navbar-brand" href="#">LEON</a>
+                    <a class="nav-link" href="./index.html">Inicio </a>
+                    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                        <span class="navbar-toggler-icon"></span>
+                    </button>
 
-                <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                    <ul class="navbar-nav ml-auto">
-                        <!-- <li class="nav-item active"> -->
-                        <!--     <a class="nav-link" href="#">Inicio <span class="sr-only">(current)</span></a> -->
-                        <!-- </li> -->
-                        <li class="nav-item">
-                            <a class="nav-link" href="#">Galería</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="#">Video</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="#">Discografía</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="#">Contacto </a>
-                        </li>
-                    </ul>
-                    <!-- <form class="form-inline my-2 my-lg-0"> -->
-                    <!--     <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search"> -->
-                    <!--     <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button> -->
-                    <!-- </form> -->
+                    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                        <ul class="navbar-nav ml-auto">
+                            <!-- <li class="nav-item active"> -->
+                            <!--     <a class="nav-link" href="#">Inicio <span class="sr-only">(current)</span></a> -->
+                            <!-- </li> -->
+                            <li class="nav-item">
+                                <a class="nav-link" href="./galeria.html">Galería<span class="sr-only">(current)</span></a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="./videos.html">Video</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="./discos.html">Discografía</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="./contact.html">Contacto </a>
+                            </li>
+                        </ul>
+                        <!-- <form class="form-inline my-2 my-lg-0"> -->
+                        <!--     <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search"> -->
+                        <!--     <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button> -->
+                        <!-- </form> -->
+                    </div>
+                </nav>
+                <!-- Header -->
+                <div class="header">
+                    <!-- imagen de portada -->
+                    <div class="jumbotron bg-transparent text-center text-white">
+                        <h1 class="lobster display-1">La voz del León</h1>
+                    </div>
                 </div>
-            </nav>
+            </div>
         </div>
         <!-- Contenido -->
-        <div class="container-fluid">
-            <!-- Header -->
-            <div class="header">
-                <!-- imagen de portada -->
-                <div class="jumbotron text-center">
-                    <p>Texto o cita famosa para la portada</p>
-                </div>
-            </div>
-            <!-- Principal -->
-            <div class="container">
-                <main>
-                    <!-- lista de canciones a la izquierda del texto -->
-                    <h2>La "voz" del heavy metal español</h2>
-                    <p>Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat. Ut wisi enim ad minim veniam, quis nostrud exerci tation ullamcorper suscipit lobortis nisl ut aliquip ex ea commodo consequat. Duis autem vel eum iriure dolor in hendrerit in vulputate velit esse molestie consequat, vel illum dolore eu feugiat nulla facilisis at vero eros et accumsan et iusto odio dignissim qui blandit praesent luptatum zzril delenit augue duis dolore te feugait nulla facilisi.</p>
-                    <p>Vis id minim dicant sensibus. Pri aliquip conclusionemque ad, ad malis evertitur torquatos his. Has ei solum harum reprimique, id illum saperet tractatos his. Ei omnis soleat antiopam quo. Ad augue inani postulant mel, mel ea qualisque forensibus.</p>
-                    <p>Id sea utamur aperiam, te per choro accusamus consulatu. Brute munere corrumpit ut pri. Ea ipsum appareat erroribus mea. Mei probo inani aliquid ad. Omnis fabulas concludaturque an vix, an noluisse takimata facilisis pro, sit te volumus mandamus. Ad malorum imperdiet duo, ea possim utamur accusamus vix.</p>
-                </main>
-                <!-- section1 -->
-                <article>
-                    <!-- video siempre 100% -->
-                    <div class="embed-responsive embed-responsive-16by9">
-                        <!-- <iframe class="embed-responsive-item" src="https://www.youtube.com/embed/zpOULjyy-n8?rel=0" allowfullscreen></iframe> -->
-                        <iframe class="embed-responsive-item" src="https://www.youtube.com/embed/IU9xK07klj0" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+        <!-- Principal -->
+        <div class="container-fluid text-center text-white" id="galeria">
+            <h2 class="display-4 text-center inter-700">Galería</h2>
+            <main class="py-5">
+                <div class="album py-5">
+                    <div class="row">
+                        <!-- imagen 1 -->
+                        <div class="col-md-4">
+                            <div class="card mb-4 box-shadow">
+                                <img src="./img/nathan-fertig-xl.jpg" alt=""/>
+                            </div>
+                        </div>
+                        <!-- imagen 2 -->
+                        <div class="col-md-4">
+                            <div class="card mb-4 box-shadow">
+                                <img src="./img/sam-moqadam-xl.jpg" alt=""/>
+                            </div>
+                        </div>
+                        <!-- imagen 3 -->
+                        <div class="col-md-4">
+                            <div class="card mb-4 box-shadow">
+                                <img src="./img/bruno-emmanuelle-xl.jpg" alt=""/>
+                            </div>
+                        </div>
+                        <!-- imagen 5 -->
+                        <div class="col-md-4">
+                            <div class="card mb-4 box-shadow">
+                                <img src="./img/alex-sheldon-xl.jpg" alt=""/>
+                            </div>
+                        </div>
+                        <!-- imagen 6 -->
+                        <div class="col-md-4">
+                            <div class="card mb-4 box-shadow">
+                                <img src="./img/magdalena-smolnicka-xl.jpg" alt=""/>
+                            </div>
+                        </div>
+                        <!-- imagen 7 -->
+                        <div class="col-md-4">
+                            <div class="card mb-4 box-shadow">
+                                <img src="./img/eric-combeau-xl.jpg" alt=""/>
+                            </div>
+                        </div>
+                        <!-- imagen 8 -->
+                        <div class="col-md-4">
+                            <div class="card mb-4 box-shadow">
+                                <img src="./img/Taylor-xl.jpg" alt=""/>
+                            </div>
+                        </div>
+                        <!-- imagen 9 -->
+                        <div class="col-md-4">
+                            <div class="card mb-4 box-shadow">
+                                <img src="./img/sam-moqadam2-xl.jpg" alt=""/>
+                            </div>
+                        </div>
+                        <!-- imagen 10 -->
+                        <div class="col-md-4">
+                            <div class="card mb-4 box-shadow">
+                                <img src="./img/sam-moqadam3-xl.jpg" alt=""/>
+                            </div>
+                        </div>
+                        <!-- imagen 11 -->
+                        <div class="col-md-4">
+                            <div class="card mb-4 box-shadow">
+                                <img src="./img/sam-moqadam4-xl.jpg" alt=""/>
+                            </div>
+                        </div>
                     </div>
-                    <h2>Concierto de...</h2>
-                    <p>Descripción del video</p>
-                </article>
-            </div>
-            <!-- Footer -->
+                </div>
+            </main>
         </div>
+
+        <!-- Footer -->
     </body>
     <!-- javascript libraries -->
     <!-- JQuery -->
@@ -103,3 +157,4 @@
     <script defer src="https://use.fontawesome.com/releases/v5.0.13/js/solid.js" integrity="sha384-tzzSw1/Vo+0N5UhStP3bvwWPq+uvzCMfrN1fEFe+xBmv1C/AtVX5K0uZtmcHitFZ" crossorigin="anonymous"></script>
     <script defer src="https://use.fontawesome.com/releases/v5.0.13/js/fontawesome.js" integrity="sha384-6OIrr52G08NpOFSZdxxz1xdNSndlD4vdcf/q2myIUVO0VsqaGHJsB0RaBE01VTOY" crossorigin="anonymous"></script>
 </html>
+
