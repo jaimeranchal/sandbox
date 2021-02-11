@@ -38,10 +38,11 @@
 }
 
 .album .card {
-    max-height: 400px;
+    /* max-height: 400px; */
 }
 .album img {
     object-fit:cover; /* ajusta la imagen al contenedor */
+    max-height: 400px;
     overflow: hidden; /* esconde la parte de la imagen que sobresalga del contenedor */
 }
 
