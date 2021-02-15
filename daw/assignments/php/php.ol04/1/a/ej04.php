@@ -24,12 +24,13 @@ $circulo2 = new Circulo(7);
 $circulo3 = new Circulo(9);
 
 // calcular área y circunferencia
-echo($circulo1->calcularArea());
-echo($circulo2->calcularArea());
-echo($circulo3->calcularArea());
+echo("EJERCICIO 4: Calcular área y circunferencias"."<br>");
+echo("Área del círculo 1: ".$circulo1->calcularArea()."<br>");
+echo("Circunferencia del círculo 1: ".$circulo1->calcularCircunferencia()."<br>");
+echo("Área del círculo 2: ".$circulo2->calcularArea()."<br>");
+echo("Circunferencia del círculo 2: ".$circulo2->calcularCircunferencia()."<br>");
+echo("Área del círculo 3: ".$circulo3->calcularArea()."<br>");
+echo("Circunferencia del círculo 3: ".$circulo3->calcularCircunferencia()."<br>");
 
-echo($circulo1->calcularCircunferencia());
-echo($circulo2->calcularCircunferencia());
-echo($circulo3->calcularCircunferencia());
-
+echo("<br>");
 ?>

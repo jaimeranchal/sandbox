@@ -20,7 +20,9 @@ $rectangulo2 = new Rectangulo(5,16);
 $rectangulo3 = new Rectangulo(3,9);
 
 // calcular el área de los rectangulos
-echo($rectangulo1->getArea());
-echo($rectangulo2->getArea());
-echo($rectangulo3->getArea());
+echo("EJERCICIO 3: Calcular área de rectangulos"."<br>");
+echo("Área del rectangulo 1: ".$rectangulo1->getArea()."<br>");
+echo("Área del rectangulo 2: ".$rectangulo2->getArea()."<br>");
+echo("Área del rectangulo 3: ".$rectangulo3->getArea()."<br>");
+echo("<br>");
 ?>

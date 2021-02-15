@@ -41,8 +41,25 @@ $estudiante2 = new Estudiante("Ana", [9.5, 6.5, 8, 7.5]);
 $estudiante3 = new Estudiante("María", [7.5, 5.25, 6.75, 9]);
 
 // calcular media de los estudiantes
-echo($estudiante1->calcularMedia());
-echo($estudiante2->calcularMedia());
-echo($estudiante3->calcularMedia());
+echo("EJERCICIO 5: Calcular nota media de estudiantes"."<br>");
+// Imprimimos las notas
+echo("Estudiante 1"."<br>");
+foreach ($estudiante1->getNotas() as $nota) {
+    echo("- ".$nota."<br>");
+}
+echo("Nota media: ".$estudiante1->calcularMedia()."<br>");
 
+echo("Estudiante 2"."<br>");
+foreach ($estudiante2->getNotas() as $nota) {
+    echo("- ".$nota."<br>");
+}
+echo("Nota media: ".$estudiante2->calcularMedia()."<br>");
+
+echo("Estudiante 3"."<br>");
+foreach ($estudiante3->getNotas() as $nota) {
+    echo("- ".$nota."<br>");
+}
+echo("Nota media: ".$estudiante3->calcularMedia()."<br>");
+
+echo("<br>");
 ?>

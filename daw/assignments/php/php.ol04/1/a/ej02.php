@@ -53,7 +53,18 @@ $linea2 = new Linea(1,2,4,3);
 $linea3 = new Linea(3,6,9,9);
 
 // hallar el punto medio de los segmentos
-echo($linea1->getPuntoMedio());
-echo($linea2->getPuntoMedio());
-echo($linea3->getPuntoMedio());
+echo("EJERCICIO 2: Hallar el punto medio de los segmentos"."<br>");
+echo("El punto medio de la línea 1(".$linea1->getx1().","
+    .$linea1->getx2().","
+    .$linea1->gety1().","
+    .$linea1->gety2().") es ".$linea1->getPuntoMedio()."<br>");
+echo("El punto medio de la línea 2(".$linea2->getx1().","
+    .$linea2->getx2().","
+    .$linea2->gety1().","
+    .$linea2->gety2().") es ".$linea2->getPuntoMedio()."<br>");
+echo("El punto medio de la línea 3(".$linea3->getx1().","
+    .$linea3->getx2().","
+    .$linea3->gety1().","
+    .$linea3->gety2().") es ".$linea3->getPuntoMedio()."<br>");
+echo("<br>");
 ?>
