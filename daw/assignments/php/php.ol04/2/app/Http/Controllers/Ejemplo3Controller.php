@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 
 // Ejemplo de controlador creado con artisan y la opción --resource
-// que incluye métodos para manejar recursos
+// que incluye métodos para manejar recursos: CRUD
 class Ejemplo3Controller extends Controller
 {
     /**
@@ -13,9 +13,18 @@ class Ejemplo3Controller extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index($id)
+    
+    // versión para el ejercicio d)
+    
+    /* public function index($id) */
+    /* { */
+    /*     return "Estás en la página ".$id." de inicio del sitio"; */
+    /* } */
+
+    // versión para el ejercicio e)
+    public function index()
     {
-        return "Estás en la página ".$id." de inicio del sitio";
+        return "Estás en la página de inicio del sitio (ej. e)";
     }
 
     /**
@@ -25,7 +34,8 @@ class Ejemplo3Controller extends Controller
      */
     public function create()
     {
-        //
+        // ejercicio e)
+        return "Estas en el método create";
     }
 
     /**
@@ -58,7 +68,8 @@ class Ejemplo3Controller extends Controller
      */
     public function edit($id)
     {
-        //
+        // ejercicio e)
+        return "Estás accediendo al método edit con el parámetro ".$id;
     }
 
     /**

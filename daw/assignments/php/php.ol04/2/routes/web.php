@@ -52,8 +52,13 @@ Route::get('/post/{id}/{nombre}', function ($id, $nombre) {
 
 // Ejercicio d: estructura de una página
 /* --------------------------------------------------------------------*/
-Route::get('/', 'App\Http\Controllers\PaginasController@inicio');
-Route::get('/inicio', 'App\Http\Controllers\PaginasController@inicio');
-Route::get('/quienesSomos', 'App\Http\Controllers\PaginasController@quienesSomos');
-Route::get('/dondeEstamos', 'App\Http\Controllers\PaginasController@dondeEstamos');
-Route::get('/foro', 'App\Http\Controllers\PaginasController@foro');
+/* Route::get('/', 'App\Http\Controllers\PaginasController@inicio'); */
+/* Route::get('/inicio', 'App\Http\Controllers\PaginasController@inicio'); */
+/* Route::get('/quienesSomos', 'App\Http\Controllers\PaginasController@quienesSomos'); */
+/* Route::get('/dondeEstamos', 'App\Http\Controllers\PaginasController@dondeEstamos'); */
+/* Route::get('/foro', 'App\Http\Controllers\PaginasController@foro'); */
+
+// Ejercicio e: crear estructura de página con métodos CRUD
+/* --------------------------------------------------------------------*/
+Route::resource("posts", "App\Http\Controllers\Ejemplo3Controller");
+
