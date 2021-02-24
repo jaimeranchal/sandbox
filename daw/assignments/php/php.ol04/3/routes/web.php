@@ -22,3 +22,6 @@ Route::get("/","CustomController@index");
 Route::get("/crear",[CustomController::class, "create"]);
 Route::get("/articulos",[CustomController::class, "store"]);
 Route::get("/mostrar",[CustomController::class, "show"]);
+Route::get("/contactar",[CustomController::class, "contactar"]);
+Route::get("/galeria",[CustomController::class, "galeria"]);
+

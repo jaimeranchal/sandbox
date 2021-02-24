@@ -26,6 +26,17 @@ class CustomController extends Controller
         return view("crear");
     }
 
+    public function contactar()
+    {
+        return view("contacto");
+    }
+    public function galeria()
+    {
+        /* $alumnos = ["Ana", "Jaime", "Jose", "Domingo"]; */
+        $alumnos = [];
+        return view("galeria", compact("alumnos"));
+    }
+
     /**
      * Store a newly created resource in storage.
      *
