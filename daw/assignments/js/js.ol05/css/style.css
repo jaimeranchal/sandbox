@@ -122,6 +122,7 @@ button{
     visibility:hidden;
 }
 
+/* Añadido mío para cambiar la visibilidad */
 #tablero.visible {
     visibility:visible !important;
 }
