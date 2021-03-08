@@ -33,16 +33,25 @@ window.addEventListener('load', ()=>{
 // Funciones
 let mostrarTablero = () => {
     if (comprobarCamposVacios()) {
+        
         tablero.classList.add("visible");
-        tableroPuntos.innerHTML = "<h2>Puntuación</h2>";
-        tableroPuntos.innerHTML += "<input type=text readonly value='0'>";
-        cartaBaraja.innerHTML = "<img src='./imagenes/cartaVuelta.jpg' alt='cartaVuelta'/>";
-        botonCarta.innerHTML = "<button class='btn btn-primary'>Carta</button>"
-        botonMePlanto.innerHTML = "<button class='btn btn-danger'>Me planto</button>"
+        tableroPuntos.appendChild(crearElemento("e", "h2"));
+        tableroPuntos.getElementsByTagName("h2")[0].innerText = "Puntuación";
+        tableroPuntos.appendChild(crearElemento("e", "input", {"type":"text", "readonly": true, "value":0}));
+        cartaBaraja.appendChild(crearElemento("e", "img", {"src":"./imagenes/cartaVuelta.jpg", "alt":"cartaVuelta"}));
+        botonCarta.appendChild(crearElemento("e", "button"));
+        botonCarta.getElementsByTagName("button")[0].className = "btn btn-primary";
+        botonCarta.getElementsByTagName("button")[0].innerText = "Carta";
+        botonMePlanto.appendChild(crearElemento("e", "button"));
+        botonMePlanto.getElementsByTagName("button")[0].className = "btn btn-danger";
+        botonMePlanto.getElementsByTagName("button")[0].innerText = "Me planto";
         // generamos una baraja y la barajamos
         baraja = barajar(generarBaraja());
+        // deshabilitamos el botón comenzar
+        comenzar.disabled = true;
     }
 }
+
 let comprobarCamposVacios = () => {
     // mensaje de error
     let error = "Este campo no puede estar vacío";
@@ -50,7 +59,7 @@ let comprobarCamposVacios = () => {
     let salida;
 
     if (usuario.value.length <= 0){
-        document.getElementById("errorUser").innerHTML = error;
+        document.getElementById("errorUser").innerText = error;
         document.getElementById("errorUser").classList.add("requerido");
         salida = false;
     } else {
@@ -58,11 +67,11 @@ let comprobarCamposVacios = () => {
     }
 
     if (edad.value.length <= 0){
-        document.getElementById("errorEdad").innerHTML = error;
+        document.getElementById("errorEdad").innerText = error;
         document.getElementById("errorEdad").classList.add("requerido");
         salida = false;
     } else if (parseInt(edad.value) < 18) {
-        document.getElementById("errorEdad").innerHTML = errorEdad;
+        document.getElementById("errorEdad").innerText = errorEdad;
         document.getElementById("errorEdad").classList.add("requerido");
         salida = false;
     } else {
@@ -125,8 +134,12 @@ let generarBaraja = () => {
 }
 
 let sacarCarta = () => {
+    let rutaCarta = "./imagenes/baraja/"+baraja[0].getImagen();
     // Mostrar primera carta de la baraja y la elimina
-    cartaBaraja.innerHTML = '<img src="./imagenes/baraja/'+baraja[0].getImagen()+'"/>';
+    cartaBaraja.replaceChild(
+        crearElemento("e", "img", {"src": rutaCarta}),
+        cartaBaraja.getElementsByTagName("img")[0]
+    );
     // Sumar puntuación y mostrarla
     puntuacion += baraja[0].getPuntos();
     tableroPuntos.getElementsByTagName("input")[0].value = puntuacion;
@@ -151,8 +164,12 @@ let plantarse = () => {
 
 // reinicia la puntuacion a 0 y muestra la carta boca abajo
 let seguirJugando = () => {
+    let rutaCarta = "./imagenes/cartaVuelta.jpg";
     puntuacion = 0;
-    cartaBaraja.innerHTML = "<img src='./imagenes/cartaVuelta.jpg' alt='cartaVuelta'/>";
+    cartaBaraja.replaceChild(
+        crearElemento("e", "img", {"src": rutaCarta}),
+        cartaBaraja.getElementsByTagName("img")[0]
+    );
     tableroPuntos.getElementsByTagName("input")[0].value = puntuacion;
 }
 
@@ -199,6 +216,24 @@ let mensajeSwal = (texto) => {
             reiniciar();
         }
     })
+}
+
+// versión que usa un array de atributos (más flexible)
+let crearElemento = (elem, tag, attributes) => {
+    let elemento;
+    
+    if (elem == "e") {
+        elemento = document.createElement(tag);
+        for (let attr in attributes) {
+            if (attributes[attr] != null) {
+                elemento.setAttribute(attr, attributes[attr]);
+            }
+            attributes[attr]
+        }
+    } else {
+        elemento = document.createTextNode(tag);
+    }
+    return elemento;
 }
 
 let reiniciar = () => {
