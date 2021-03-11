@@ -35,6 +35,7 @@ let comenzar = () => {
 
     }
 }
+
 let crearBotones = () => {
     //crear botones
     arrayBotones.forEach((ele, ind) => {
