@@ -68,7 +68,7 @@ class Validacion {
     /* Comprueba si hay errores
     * @return `true` si los hay, `false` si no 
     */
-    function hayErrores() {
+    static function hayErrores() {
         return empty(self::$errores) ? false : true;
     }
 

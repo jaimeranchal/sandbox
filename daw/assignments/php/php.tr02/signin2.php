@@ -27,7 +27,7 @@
 
                 $nombre = Validacion::validarCadena($patronNombre, $_POST['nombre']);
                 $alias = Validacion::validarCadena($patronAlias, $_POST['alias']);
-                $password = Validacion::validarCadena($patronPassw, $_POST['pass']);
+                $password = Validacion::validarCadena($patronPassw, $_POST['password']);
                 $email = Validacion::validarEmail($_POST['email']);
 
                 var_dump(Validacion::$errores);
