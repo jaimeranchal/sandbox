@@ -6,25 +6,19 @@
         <?php
         // Cabecera
         include("./componentes/head.php");
+        // conexión a bbdd
+        // require_once("./clases/conexion.php");
         session_start();
+        $_SESSION = array();
+        session_destroy();
         // menú de navegación
         include("./componentes/navbar.php");
         // Cuerpo
-        include("./componentes/bienvenida.php");
-        ?>
-        <div class="container">
-        <?php
-        if (isset($_SESSION['usuario'])) {
-            include("./componentes/opciones.php");
-        } else {
-            include("./componentes/form.login.php");
-            /* include("./componentes/msg.error.php"); */
-            /* include("./componentes/msg.signin.php"); */
-        }
+        include("./componentes/msg.logout.php");
         //librerias
         include("./componentes/librerias.php");
         ?>
-        </div>
 
     </body>
 </html>
+

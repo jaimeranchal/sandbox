@@ -6,16 +6,17 @@
         <?php
         // Cabecera
         include("./componentes/head.php");
+        // conexión a bbdd
+        // require_once("./clases/conexion.php");
         session_start();
         // menú de navegación
         include("./componentes/navbar.php");
-        // Cuerpo
-        include("./componentes/bienvenida.php");
         ?>
         <div class="container">
         <?php
+        // Cuerpo
         if (isset($_SESSION['usuario'])) {
-            include("./componentes/opciones.php");
+            include("./componentes/principal.php");
         } else {
             include("./componentes/form.login.php");
             /* include("./componentes/msg.error.php"); */

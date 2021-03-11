@@ -1,4 +1,4 @@
-<div class="row justify-content-center align-items-center text-center">
+<div class="row vh-100 justify-content-center align-items-center text-center">
     <form class="col-4" action="./login.php" method="POST">
         <h2 class="display-4">Inicia sesión</h2>
         <p class="lead">Introduce tus datos para continuar</p>

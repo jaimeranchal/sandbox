@@ -5,13 +5,13 @@
 class Conexion {
     /* Datos de la conexión */
     private $host = 'localhost';
-    private $db = 'pruebatrim2';
+    private $db; //private $db = 'online2alquiler_coches';
     private $user = 'root';
     private $pass = '';
     
-    public function __construct() {
+    public function __construct($db) {
         $this->host;
-        $this->db;
+        $this->db = $db;
         $this->user;
         $this->pass; 
     }
@@ -50,6 +50,7 @@ class Conexion {
         $comodines .= "?";
 
         $sql = "INSERT INTO $tabla($nombreCampos) VALUES($comodines)";
+        /* var_dump($sql); */
         $sth = $dbh->prepare($sql);
         // ejecutamos la sentencia
         $sth->execute($valores);
@@ -95,9 +96,9 @@ class Conexion {
      * @param `array $param` 
      *  - campo   => valor
      */
-    public function borrarDatos($tabla, $id){
+    public function borrarDatos($tabla, $param){
         $dbh = $this->conectar();
-        $sql = "DELETE FROM $tabla WHERE id=$id";
+        $sql = "DELETE FROM $tabla WHERE {$param['campo']}={$param['valor']}";
         $dbh->exec($sql);
         $dbh = null;
     }

@@ -30,6 +30,8 @@
                 $password = Validacion::validarCadena($patronPassw, $_POST['password']);
                 $email = Validacion::validarEmail($_POST['email']);
 
+                var_dump(Validacion::$errores);
+                var_dump(Validacion::hayErrores());
             }
         }
 
@@ -38,7 +40,7 @@
         if (!Validacion::hayErrores()) {
             // Todo correcto, insertamos datos con una sentencia preparada
             require_once("./clases/conexion.php");
-            $conn = new Conexion();
+            $conn = new Conexion('nombre_db');
             $conn->insertar('usuarios', $campos, array(
                 $nombre, 
                 $alias,

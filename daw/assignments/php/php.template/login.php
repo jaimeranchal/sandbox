@@ -34,7 +34,7 @@
 
         if (!Validacion::hayErrores()) {
             require_once("./clases/conexion.php");
-            $conn = new Conexion();
+            $conn = new Conexion('nombre_db');
             // comprobar que el usuario existe en la base de datos
             $usuario = $conn->leerDatos(
                 'usuarios',
@@ -65,7 +65,6 @@
                 // todo correcto, iniciamos variables de sesion
                 session_start();
                 $_SESSION['usuario'] = $usuario['nombre'];
-                $_SESSION['id'] = $usuario['id'];
                 // menú de navegación
                 include("./componentes/navbar.php");
                 // Cuerpo

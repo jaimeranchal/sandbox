@@ -1,5 +1,5 @@
 <div class="row vh-100 justify-content-center align-items-center">
-    <form class="col-8" action="signin2.php" method="POST">
+    <form class="col-4" action="signin2.php" method="POST">
         <h2 class="display-4">Nuevo usuario</h2>
         <p class="lead">Sólo necesitamos saber un par de cositas</p>
 

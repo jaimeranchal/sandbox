@@ -1,13 +1,9 @@
 <nav class="navbar navbar-expand-lg navbar-light bg-light sticky-top">
-    <a class="navbar-brand" href="./index.php">Vulcanianos</a>
+    <a class="navbar-brand" href="./index.php">Título</a>
     <ul class="navbar-nav mr-auto">
-    <?php if (isset($_SESSION['usuario'])): ?>
-        <li class="nav-item active"><a class="nav-link" href="./jugar.php">Jugar</a></li>
-        <li class="nav-item active"><a class="nav-link" href="./retar.php
-">Retar</a></li>
-        <li class="nav-item active"><a class="nav-link" href="./clasif.php
-">Clasificación</a></li>
-    <?php endif; ?>
+        <li class="nav-item active"><a class="nav-link" href="#">Link1</a></li>
+        <li class="nav-item active"><a class="nav-link" href="#">Link2</a></li>
+        <li class="nav-item active"><a class="nav-link" href="#">Link3</a></li>
     </ul>
     
     <?php if(isset($_SESSION['usuario'])): ?>

@@ -9,17 +9,14 @@
         session_start();
         // menú de navegación
         include("./componentes/navbar.php");
-        // Cuerpo
-        include("./componentes/bienvenida.php");
         ?>
         <div class="container">
         <?php
+        // Cuerpo
         if (isset($_SESSION['usuario'])) {
-            include("./componentes/opciones.php");
+            include("./componentes/tabla.php");
         } else {
             include("./componentes/form.login.php");
-            /* include("./componentes/msg.error.php"); */
-            /* include("./componentes/msg.signin.php"); */
         }
         //librerias
         include("./componentes/librerias.php");
