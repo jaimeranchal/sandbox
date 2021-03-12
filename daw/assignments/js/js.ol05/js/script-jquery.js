@@ -1,5 +1,4 @@
 "use strict";
-
 // Módulos
 import { Carta } from "./carta.mjs";
 
@@ -10,56 +9,51 @@ let ganadas = 0;
 let perdidas = 0;
 let plantadas = 0;
 
-$(function(){
-    
+// Evento
+//===============================================================================
+
+$(()=>{
     // Mostrar el tablero
-    $('#comenzar').click(function(){
-        if (comprobarCamposVacios()) {
-            $("#tablero").css("visibility", "visible");
-            $("#tableroPuntos").html("<h2>Puntuación</h2>");
-            $("#tableroPuntos").append("<input type=text readonly value='0'>");
-            $(".baraja:first").html("<img src='./imagenes/cartaVuelta.jpg' alt='cartaVuelta'/>");
-            $("#botonCarta").html("<button class='btn btn-primary'>Carta</button>");
-            $("#botonMePlanto").html("<button class='btn btn-danger'>Me planto</button>");
-        
-            baraja = barajar(generarBaraja());
-        }
-    });
-
+    $('#comenzar').on("click", mostrarTablero);
     // Funcionalidad botón "Carta"
-    $('#botonCarta').click(function(){
-        // Mostrar primera carta de la baraja y la elimina
-        $(".baraja:first img").attr("src", "./imagenes/baraja/"+baraja[0].getImagen());
-        // Sumar puntuación y mostrarla
-        puntuacion += baraja[0].getPuntos();
-        $("#tableroPuntos > input:first").val(puntuacion);
-        // Elimina esa primera carta
-        baraja.shift();
-        // Mensaje de victoria o derrota
-        if (puntuacion > 7) {
-            if (puntuacion == 7.5) {
-                mensajeSwal('¡¡Ha ganado!!');
-                ganadas++;
-            } else {
-                mensajeSwal('¡¡Ha perdido!!');
-                perdidas++;
-            }
-        }
-    });
-
+    $('#botonCarta').on("click", sacarCarta);
     // Funcionalidad botón "Me Planto"
-    $('#botonMePlanto').click(function(){
-        mensajeSwal('¡¡Se ha plantado!!');
-        plantadas++;
-    });
+    $('#botonMePlanto').on("click", plantarse);
 })
 
 // Funciones
+//===============================================================================
+
+let mostrarTablero = () => {
+    if (comprobarCamposVacios()) {
+        // por alguna razón show() no me funciona
+        $("#tablero").addClass("visible");
+        $("#tableroPuntos").append(crearElemento("e", "h2"));
+        $("#tableroPuntos h2:first").text("Puntuación");
+        $("#tableroPuntos").append(crearElemento("e", "input", {"type":"text", "readonly": true, "value":0}));
+        $(".baraja:first").append(crearElemento("e", "img", {
+            "src":"./imagenes/cartaVuelta.jpg",
+            "alt":"cartaVuelta"
+        }));
+        $("#botonCarta").append(crearElemento("e", "button"));
+        $("#botonCarta button:first").addClass("btn btn-primary").text("Carta");
+        $("#botonMePlanto").append(crearElemento("e", "button"));
+        $("#botonMePlanto button:first").addClass("btn btn-danger").text("Me planto");
+        
+        $("#comenzar").prop("disabled", true);
+
+        baraja = barajar(generarBaraja());
+    }
+}
+
 let comprobarCamposVacios = () => {
     // mensaje de error
     let error = "Este campo no puede estar vacío";
     let errorEdad = "Debes tener más de 18 años";
     let salida;
+    // limpiamos mensajes de error
+    $("#errorUser").removeClass("requerido").empty();
+    $("#errorEdad").removeClass("requerido").empty();
 
     if ($("#usuario").val().length <= 0){
         $("#errorUser").text(error).addClass("requerido");
@@ -133,6 +127,30 @@ let generarBaraja = () => {
     return baraja;
 }
 
+let sacarCarta = () => {
+    let rutaCarta = "./imagenes/baraja/"+baraja[0].getImagen();
+    // Mostrar primera carta de la baraja y la elimina
+    // también podría usarse replaceWith()
+    $(".baraja:first").html(crearElemento("e", "img", {"src": rutaCarta}));
+
+    // Sumar puntuación y mostrarla
+    puntuacion += baraja[0].getPuntos();
+    // $("#tableroPuntos input:first").attr("value", puntuacion);
+    $("#tableroPuntos input:first").val(puntuacion);
+    // Elimina esa primera carta
+    baraja.shift();
+    // Mensaje de victoria o derrota
+    if (puntuacion > 7) {
+        if (puntuacion == 7.5) {
+            mensajeSwal('¡¡Ha ganado!!');
+            ganadas++;
+        } else {
+            mensajeSwal('¡¡Ha perdido!!');
+            perdidas++;
+        }
+    }
+}
+
 let plantarse = () => {
     mensajeSwal('¡¡Se ha plantado!!');
     plantadas++;
@@ -142,34 +160,20 @@ let plantarse = () => {
 let seguirJugando = () => {
     puntuacion = 0;
     $(".baraja:first img").attr("src", "./imagenes/cartaVuelta.jpg");
-    $("#tableroPuntos > input:first").val(puntuacion);
+    $("#tableroPuntos input:first").val(puntuacion);
+    // $("#tableroPuntos input:first").attr("value", puntuacion);
 }
 
 let finalizar = () => {
-    let clave, valor;
-    // Deshabilita botones Carta y mePlanto
-    $("#botonCarta button:first").attr("disabled", true);
-    $("#botonMePlanto button:first").attr("disabled", true);
-    
     // guarda los datos en una cookie
-    // fecha actual
-    let ahora = new Date();
-    let objeto = {
-        edad: edad.value,
-        fecha:ahora.toLocaleDateString()+" "+ahora.toLocaleTimeString(),
-        ganadas: ganadas,
-        jugadas: ganadas+perdidas+plantadas,
-        perdidas:perdidas,
-        plantadas:plantadas
-    };
-    //convertir json a cadena
-    objeto = JSON.stringify(objeto);
-    localStorage.setItem("usuario" 
-    + (localStorage.length + 1), objeto)
-
+    guardarDatos();
+    // limpiar tablero y datos
+    reiniciar();
 }
 
 // Auxiliares
+//===============================================================================
+
 let mensajeSwal = (texto) => {
     Swal.fire({
         title: texto,
@@ -190,6 +194,41 @@ let mensajeSwal = (texto) => {
     })
 }
 
+let guardarDatos = () => {
+    
+    // fecha actual
+    let ahora = new Date();
+    let objeto = {
+        edad: edad.value,
+        fecha:ahora.toLocaleDateString()+" "+ahora.toLocaleTimeString(),
+        ganadas: ganadas,
+        jugadas: ganadas+perdidas+plantadas,
+        perdidas:perdidas,
+        plantadas:plantadas
+    };
+    //convertir json a cadena
+    objeto = JSON.stringify(objeto);
+    localStorage.setItem("usuario" 
+    + (localStorage.length + 1), objeto)
+}
+
+let crearElemento = (elem, tag, attributes) => {
+    let elemento;
+    
+    if (elem == "e") {
+        elemento = document.createElement(tag);
+        for (let attr in attributes) {
+            if (attributes[attr] != null) {
+                elemento.setAttribute(attr, attributes[attr]);
+            }
+            attributes[attr]
+        }
+    } else {
+        elemento = document.createTextNode(tag);
+    }
+    return elemento;
+}
+
 let reiniciar = () => {
     // reiniciamos las variables
     puntuacion = 0;
@@ -197,5 +236,7 @@ let reiniciar = () => {
     perdidas = 0;
     plantadas = 0;
     baraja = [];
-
+    $("#tablero").hide(); // esconde el tablero
+    $(".main-section:first input").val("");
+    // $("#comenzar").prop("disabled", false);
 }

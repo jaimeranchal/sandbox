@@ -14,6 +14,9 @@ let ganadas = 0;
 let perdidas = 0;
 let plantadas = 0;
 
+// Evento
+//===============================================================================
+
 window.addEventListener('load', ()=>{
     // elementos
     usuario = document.getElementById("usuario");
@@ -31,6 +34,7 @@ window.addEventListener('load', ()=>{
 });
 
 // Funciones
+//===============================================================================
 let mostrarTablero = () => {
     if (comprobarCamposVacios()) {
         
@@ -174,30 +178,15 @@ let seguirJugando = () => {
 }
 
 let finalizar = () => {
-    let clave, valor;
-    // Deshabilita botones Carta y mePlanto
-    botonCarta.getElementsByTagName("button")[0].disabled = true;
-    botonMePlanto.getElementsByTagName("button")[0].disabled = true;
-    
     // guarda los datos en una cookie
-    // fecha actual
-    let ahora = new Date();
-    let objeto = {
-        edad: edad.value,
-        fecha:ahora.toLocaleDateString()+" "+ahora.toLocaleTimeString(),
-        ganadas: ganadas,
-        jugadas: ganadas+perdidas+plantadas,
-        perdidas:perdidas,
-        plantadas:plantadas
-    };
-    //convertir json a cadena
-    objeto = JSON.stringify(objeto);
-    localStorage.setItem("usuario" 
-    + (localStorage.length + 1), objeto)
-
+    guardarDatos();
+    // limpiar tablero y datos
+    reiniciar();
 }
 
 // Auxiliares
+//===============================================================================
+
 let mensajeSwal = (texto) => {
     Swal.fire({
         title: texto,
@@ -217,6 +206,26 @@ let mensajeSwal = (texto) => {
         }
     })
 }
+
+let guardarDatos = () => {
+    
+    // fecha actual
+    let ahora = new Date();
+    let objeto = {
+        edad: edad.value,
+        fecha:ahora.toLocaleDateString()+" "+ahora.toLocaleTimeString(),
+        ganadas: ganadas,
+        jugadas: ganadas+perdidas+plantadas,
+        perdidas:perdidas,
+        plantadas:plantadas
+    };
+    //convertir json a cadena
+    objeto = JSON.stringify(objeto);
+    localStorage.setItem("usuario" 
+    + (localStorage.length + 1), objeto)
+
+}
+
 
 // versión que usa un array de atributos (más flexible)
 let crearElemento = (elem, tag, attributes) => {
@@ -243,5 +252,6 @@ let reiniciar = () => {
     perdidas = 0;
     plantadas = 0;
     baraja = [];
+    tablero.classList.remove("visible");
 
 }
