@@ -8,25 +8,34 @@ skinparam linetype ortho
 'skinparam linetype polyline
 
 abstract class Persona {
-    - nombre
-    - edad
+    - nombre: String
+    - edad: String
     + mostrar()
 }
 
 class Empleado {
-    - sueldoBruto
-    + mostrar()
-    + calcSalarioNeto()
+    - sueldoBruto: double
+    - tieneClientes: bool
+    + mostrar(): void
+    + calcSalarioNeto(): double
+    + listarDisponibles(): array Empleado
 }
 
 class Cliente {
-    - tfno
-    + mostrar()
+    - tfno: String
+    - responsable: Empleado
+    + mostrar(): void
+    + editarTfno(): void
+    + asignarEmpleado(Empleado): void
 }
 
 class Directivo {
-    - categoría
-    + mostrar()
+    - categoría: String
+    - subordinados: array Empleado
+    + mostrar(): void
+    + getCategoría(): String
+    + setCategoría(): void
+    + listarSubordinados(): array Empleado
 }
 
 class Empresa {
@@ -36,10 +45,11 @@ class Empresa {
 ' relaciones
 Persona <|-- Empleado
 Persona <|-- Cliente
-Empleado <|-- Directivo
+Empleado <|- Directivo
 Directivo "0..*" -- "0..*" Empleado : subordinados
 
-Empleado "1..*" --* "1" Empresa
+Empleado "1..*" --* "1" Empresa: tiene
+Empleado "1" -- "1" Cliente: asignado
 Cliente "0..*" --o "1..*" Empresa
 
 @enduml
