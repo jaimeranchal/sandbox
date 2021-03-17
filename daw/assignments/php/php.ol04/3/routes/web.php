@@ -19,6 +19,8 @@ use App\Http\Controllers\CustomController;
 /* }); */
 
 Route::get("/","CustomController@index");
+// si da un error como que no encuentra CustomController usa la ruta alternativa
+/* Route::get("/",[CustomController::class, "index"]); */
 Route::get("/crear",[CustomController::class, "create"]);
 Route::get("/articulos",[CustomController::class, "store"]);
 Route::get("/mostrar",[CustomController::class, "show"]);
