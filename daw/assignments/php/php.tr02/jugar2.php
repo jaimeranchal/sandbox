@@ -12,10 +12,14 @@
         // procesar formulario
         if (isset($_POST["submit"]) && $_SERVER["REQUEST_METHOD"] == "POST") {
             $tuMano = $_POST["mano"];
+            $reto = $_POST['reto_id'];
+            $rival = $_POST['rival_id'];
+            $manoRival = $_POST['mano_rival'];
+            echo "tu mano era ".$tuMano."<br>";
+            echo "La mano de tu rival era ".$manoRival."<br>";
         } else {
             $tuMano = "Error";
         }
-        $manoRival = $_SESSION['manoRival'];
         $opciones = array("p", "f", "t", "l", "s");
         $victoria = 0;
 
@@ -46,11 +50,11 @@
         $conn = new Conexion();
         $conn->insertar(
             'partidas',
-            array('usuario', 'victoria'),
-            array($_SESSION['id'], $victoria)
+            array('usuario', 'rival','victoria'),
+            array($_SESSION['id'], $rival, $victoria)
         );
         // eliminar el reto
-        $conn->borrarDatos('retos', $_SESSION['idReto']);
+        $conn->borrarDatos('retos', $reto);
         ?>
         <div class="container">
         <?php

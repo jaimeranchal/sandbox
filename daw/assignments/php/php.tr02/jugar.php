@@ -14,6 +14,8 @@
         <?php
         // Cuerpo
         if (isset($_SESSION['usuario'])) {
+            $title = "Jugar";
+            $subtitle = "Aquí puedes responder a otros jugadores que te hayan retado";
             // comprobar si hay retos pendientes
             require_once("./clases/conexion.php");
             $conn = new Conexion();
@@ -26,22 +28,13 @@
             );
 
             if (!empty($retos)) {
-                // guardo la opción escogida por el rival para usarla luego
-                $_SESSION['manoRival'] = $retos[0]['respuesta'];
-                $_SESSION['idReto'] = $retos[0]['id'];
-                // recupero el nombre del primer retador
-                $rival = $conn->leerDatos(
-                    'usuarios',
-                    array('nombre'),
-                    $param = ['where' => 'WHERE id=?'],
-                    array($retos[0]['de_usuario']),
-                    1
-                );
+                $mensaje = "Para cada desafío, escoge una respuesta y pulsa <b>Responder</b>";
+                include("./componentes/titulo.php");
                 include("./componentes/form.jugar.php");
             } else {
                 // mensaje de que todavía nadie te ha retado
-                $mensajeError = "Parece que nadie te ha retado todavía";
-                include("./componentes/msg.error.php");
+                $mensajeError = "Parece que nadie te ha retado todavía ¿Por qué no pruebas a retar a alguien?";
+                include("./componentes/titulo.php");
             }
 
         } else {

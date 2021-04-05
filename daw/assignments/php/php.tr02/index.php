@@ -10,7 +10,9 @@
         // menú de navegación
         include("./componentes/navbar.php");
         // Cuerpo
-        include("./componentes/bienvenida.php");
+        $title = "Vulcanianos";
+        $subtitle = "Para los que el piedra papel tijera se queda corto";
+        include("./componentes/titulo.php");
         ?>
         <div class="container">
         <?php

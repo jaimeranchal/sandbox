@@ -23,8 +23,10 @@ CREATE TABLE usuarios(
 CREATE TABLE partidas(
     id int AUTO_INCREMENT PRIMARY KEY,
     usuario INT NOT NULL,
+    rival INT NOT NULL,
     victoria BOOLEAN NOT NULL,
-    CONSTRAINT partidas_FK FOREIGN KEY (usuario) REFERENCES usuarios(id) ON DELETE CASCADE
+    CONSTRAINT partidas_de_FK FOREIGN KEY (usuario) REFERENCES usuarios(id) ON DELETE CASCADE,
+    CONSTRAINT partidas_contra_FK FOREIGN KEY (rival) REFERENCES usuarios(id) ON DELETE CASCADE
 );
 
 CREATE TABLE retos(
@@ -69,19 +71,28 @@ INSERT INTO usuarios (nombre, alias, password, email) VALUES (
     'isajur@ejemplo.com'
 );
 
-INSERT INTO partidas (usuario, victoria) VALUES 
-(1,1),
-(2,0),
-(2,0),
-(3,1),
-(4,0),
-(4,0),
-(5,1),
-(2,0),
-(1,1),
-(1,1),
-(5,1);
+INSERT INTO partidas (usuario, rival, victoria) VALUES 
+(1,3, 1),
+(2,5, 0),
+(2,3, 0),
+(3,1, 1),
+(4,3, 0),
+(4,3, 0),
+(5,1, 1),
+(2,1, 0),
+(1,4, 1),
+(1,4, 1),
+(5,4, 1);
 
 
-INSERT INTO retos (de_usuario, para_usuario, respuesta) VALUES (1,2, 'p');
-INSERT INTO retos (de_usuario, para_usuario, respuesta) VALUES (2,1, 'f');
+INSERT INTO retos (de_usuario, para_usuario, respuesta) VALUES 
+(1,2, 'p'),
+(2,4, 'f'),
+(4,2, 'f'),
+(3,2, 't'),
+(3,5, 'p'),
+(3,1, 's'),
+(4,2, 't'),
+(4,5, 'p'),
+(4,1, 's'),
+(2,1, 'f');

@@ -67,17 +67,31 @@ class Conexion {
      */
     public function leerDatos($tabla, $campos, $param, $valores, $modo){
         $dbh = $this->conectar();
+        
         // Construir la sentencia preparada:
+        // recoge todos los valores si no se especifica ninguno
         $nombreCampos = (is_null($campos)) ? "*" : implode(", ", $campos);
+
         $sql = "SELECT $nombreCampos FROM $tabla"; // datos y tabla
-        // claúsulas
-        if (array_key_exists('where', $param)) $sql .= " ".$param['where'];
-        if (array_key_exists('order', $param)) $sql .= " ".$param['order'];
+        
+        // Aplica las claúsulas si están definidas
+        if (!is_null($param)) {
+            if (array_key_exists('where', $param)) $sql .= " ".$param['where'];
+            if (array_key_exists('order', $param)) $sql .= " ".$param['order'];
+        }
         /* $sql = 'select * from usuarios where id=? and pass=?'; */
         /* var_dump($sql); */
         $sth = $dbh->prepare($sql);
+
         /* $sth->execute(array($usuario, $password)); */
-        $sth->execute($valores);
+
+        // aplica los valores a la sentencia preparada, si están definidos
+        if (!is_null($valores)){
+            $sth->execute($valores);
+        } else {
+            $sth->execute();
+        }
+        // controla si recuperar todos los resultados o solo uno
         switch ($modo) {
             case 0:
                 $resultado = $sth->fetchAll();
@@ -90,6 +104,22 @@ class Conexion {
 
         return $resultado;
     }
+
+    /** Leer todo
+     * @param `$tabla`
+     */
+    public function leerTodo($tabla) {
+        $dbh = $this->conectar();
+        // Construir la sentencia preparada:
+        $sql = "SELECT * FROM $tabla";
+        $sth = $dbh->prepare($sql);
+        $sth->execute();
+        $resultado = $sth->fetchAll();
+        $dbh = null;
+
+        return $resultado;
+    }
+
     /* Eliminar
      * @param `$tabla`          nombre de la tabla
      * @param `array $param` 
