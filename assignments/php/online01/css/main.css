@@ -1,0 +1,18 @@
+@media (min-width: 768px){
+    .bg-info{
+        position: sticky;
+        top: 0;
+        z-index: 1071;
+    }
+}
+
+.border-3 {
+    border-width: 25px !important;
+}
+
+img.centered {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    width: 75%;
+}

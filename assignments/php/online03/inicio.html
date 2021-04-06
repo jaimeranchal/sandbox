@@ -1,0 +1,147 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN"
+"http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
+<html lang="es" xmlns="http://www.w3.org/1999/xhtml">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <title>PHP: Tarea Online 3</title>
+        <!-- Bootstrap stylesheet -->
+        <link
+            rel="stylesheet"
+            href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
+            integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh"
+            crossorigin="anonymous"
+        />
+        <link rel="stylesheet" href="./src/css/main.css" type="text/css" media="screen" title="no title" charset="utf-8"/>
+    </head>
+
+    <body>
+        <!-- Navegación con login (barra superior / necesita FontAWS)-->
+         <nav class="navbar navbar-expand-lg navbar-light bg-light">
+            <div class="navbar-brand">
+                <span class="fas fa-chevron-circle-right"></span>
+            </div>
+            <ul class="navbar-nav justify-content-center" id="menu">
+                <li class="nav-item active"><a class="nav-link" href="./1/index.php">Ejercicio 1</a></li>
+                <li class="nav-item">
+                    <a class="nav-link" href="./2/index.php">Ejercicio 2</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="./3/index.php">Ejercicio 3</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="./4/index.php">Ejercicio 4</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="./5/index.php">Ejercicio 5</a>
+                </li>
+            </ul>
+            <button class="btn" id="hamburger">
+                <span class="fas fa-bars"></span>
+            </button>
+        </nav>     
+
+        <!-- Cuerpo de la página -->
+        <div class="jumbotron text-center">
+                    <img src="./src/icons/logo.svg" alt="website in a circle" width="100px;"/>
+            <h2 class="display-3">Prácticas de PHP 3</h2>
+            <p class="lead">Usa los enlaces para acceder a las distintas aplicaciones</p>
+        </div>
+
+        <div class="container">
+            <div class="row mx-lg-n5 justify-content-center">
+                <div class="menu col-md text-light d-flex flex-column p-4 m-3 shadow text-center">
+                    <h2>Autenticación 1</h2>
+                    <p class="lead">Ejemplo de autenticación HTTP básica.</p>
+                    <a class="text-light mt-auto" href="./1/index.php">
+                        <img src="./src/icons/auth-open.svg" alt="website in a circle" width="100px;"/>
+                    </a>
+                    <!-- <button class="btn btn-block btn-info mt-auto"> -->
+                    <!--     <span class="fas fa-sign-in-alt"></span> -->
+                    <!--     <a class="text-light" href="./1/index.php"> Entrar</a> -->
+                    <!-- </button> -->
+                </div>
+                <div class="menu col-md text-light d-flex flex-column p-4 m-3 shadow text-center">
+                    <h2>Autenticación 2</h2>
+                    <p class="lead">Ejemplo de autenticación encriptada, con funciones <i>hash</i>.</p>
+                    <a class="text-light mt-auto" href="./2/index.php">
+                        <img src="./src/icons/auth-key.svg" alt="website in a circle" width="100px;"/>
+                    </a>
+                    <!-- <button class="btn btn-block btn-info mt-auto"> -->
+                    <!--     <span class="fas fa-sign-in-alt"></span> -->
+                    <!--     <a class="text-light" href="./2/index.php"> Entrar</a> -->
+                    <!-- </button> -->
+                </div>
+                <div class="menu col-md text-light d-flex flex-column p-4 m-3 shadow text-center">
+                    <h2>Frutería</h2>
+                    <p class="lead">Cesta de la compra</p>
+                    <a class="text-light mt-auto" href="./3/index.php">
+                        <img src="./src/icons/cesta.svg" alt="website in a circle" width="100px;"/>
+                    </a>
+                    <!-- <button class="btn btn-block btn-info mt-auto"> -->
+                    <!--     <span class="fas fa-sign-in-alt"></span> -->
+                    <!--     <a class="text-light" href="./3/index.php"> Entrar</a> -->
+                    <!-- </button> -->
+                </div>
+            </div>
+            <div class="row mx-lg-n5">
+                <div class="menu col-md text-light d-flex flex-column p-4 m-3 shadow text-center">
+                    <h2>Finanzas</h2>
+                    <p class="lead">Control de ingresos y gastos</p>
+                    <a class="text-light mt-auto" href="./4/index.php">
+                        <img src="./src/icons/factura.svg" alt="website in a circle" width="100px;"/>
+                    </a>
+                    <!-- <button class="btn btn-block btn-info mt-auto"> -->
+                    <!--     <span class="fas fa-sign-in-alt"></span> -->
+                    <!--     <a class="text-light" href="./3/index.php"> Entrar</a> -->
+                    <!-- </button> -->
+                </div>
+                <div class="menu col-md text-light d-flex flex-column p-4 m-3 shadow text-center">
+                    <h2>Golami's Pizza</h2>
+                    <p class="lead">Aplicación de pizzería online</p>
+                    <a class="text-light mt-auto" href="./5/index.php">
+                        <img src="./src/icons/pizza.svg" alt="website in a circle" width="100px;"/>
+                    </a>
+                    <!-- <button class="btn btn-block btn-info mt-auto"> -->
+                    <!--     <span class="fas fa-sign-in-alt"></span> -->
+                    <!--     <a class="text-light" href="./5/index.php"> Entrar</a> -->
+                    <!-- </button> -->
+                </div>
+            </div>
+        </div>
+        <footer class="footer">
+            <div class="container-fluid mt-3 mb-n1 py-3 bg-dark text-light text-center">
+                <p><span class="fas fa-copyright"></span> Jaime Ranchal Beato &mdash; 
+                Icons made by <a href="https://www.flaticon.com/authors/smashicons" title="Smashicons">Smashicons</a> from
+                <a href="https://www.flaticon.com/" title="Flaticon">www.flaticon.com</a>
+                <p>
+                </p>
+            </div>
+        </footer>
+        <!-- Librerías JavaScript -->
+        <!-- Font Awesome JS -->
+        <script defer src="https://use.fontawesome.com/releases/v5.0.13/js/solid.js" integrity="sha384-tzzSw1/Vo+0N5UhStP3bvwWPq+uvzCMfrN1fEFe+xBmv1C/AtVX5K0uZtmcHitFZ" crossorigin="anonymous"></script>
+        <script defer src="https://use.fontawesome.com/releases/v5.0.13/js/fontawesome.js" integrity="sha384-6OIrr52G08NpOFSZdxxz1xdNSndlD4vdcf/q2myIUVO0VsqaGHJsB0RaBE01VTOY" crossorigin="anonymous"></script>
+
+        <!-- Librerías JS requeridas por BootStrap -->
+        <script
+          src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
+          integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
+          crossorigin="anonymous">
+        </script>
+        <script
+          src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
+          integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
+          crossorigin="anonymous">
+        </script>
+        <script
+          src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
+          integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
+          crossorigin="anonymous">
+        </script>
+        <!-- Funciones extra -->
+        <script src="./src/js/menu.js" charset="utf-8"></script>
+ 
+    </body>
+</html>
+

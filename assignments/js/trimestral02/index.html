@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="utf-8">
+    <title>2ª Evaluación</title>
+    <link rel="stylesheet" href="./librerias/fontAwesome/css/fontawesome.min.css">
+    <link rel="stylesheet" href="./librerias/bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+    <div>
+        <div class="titulo">
+            <h2>DIBUJAR</h2>
+        </div>
+        <div class="cols">
+            <div class="main-section">
+                <div class="modal-content">
+                    <div class="col-12 user-img">
+                        <img src="imagenes/avatar.png" alt="avatar">
+                    </div>
+
+                    <form class="col-6">
+                        <div class="row">
+                            <div class="form-group" id="user">
+                                <input type="text" id="usuario" class="form-control" placeholder="Introducir usuario XXXX99">
+                                <span id="errorUser"></span>
+                            </div>
+
+                        </div>
+                       
+                        <div class="row">
+                            <div class="form-group" id="age">
+                                <input type="text" id="edad" class="form-control"
+                                    placeholder="Introducir edad 3-14">
+                                <span id="errorEdad"></span>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col text-center">
+                                <button type="button" id="comenzar" class="btn btn-primary">Comenzar</button>
+                            </div>
+                        </div>
+                    </form>
+
+                </div>
+            </div>
+        </div>
+
+        <div class="cols">
+            <div class="main-section">
+                <div class="modal-content-tablero" id="tablero">
+                   
+
+                    <table class="table rounded mt-2 table-bordered" width="500" id="paleta" summary="Tabla de selección de colores">
+                        <tr>
+                            <td colspan="6" class="text-center"><h4>Haga click en un color para comenzar a pintar</h4></td>
+                        </tr>
+                        <tr>
+                            <td class="color1"></td>
+                            <td class="color2"></td>
+                            <td class="color3"></td>
+                            <td class="color4"></td>
+                            <td class="color5"></td>
+                            <td class="color6"></td>
+                        </tr>
+                        <tr>
+                            <td colspan="6" id="color" class="text-center">Color del pincel</td>
+                        </tr>
+                        <tr>
+                            <td colspan="6" id="pincel" class="text-center">PINCEL ACTIVADO/DESACTIVADO</td>
+                        </tr>
+        
+                    </table>
+                    <div><b>Haga click en cualquier celda para activar/desactivar el Pincel</b></div>
+                    <div id="zonadibujo" class="row justify-content-center"></div>
+
+        </div>
+    </div>
+    <!-- jquery -->
+    <script src="./librerias/jQuery/jquery.min.js" charset="utf-8"></script>   
+    <!-- fontAwesome -->
+    <script src="./librerias/fontAwesome/js/fontawesome.min.js" charset="utf-8"></script>   
+    <!-- bootstrap -->
+    <script src="./librerias/bootstrap/js/bootstrap.min.js" charset="utf-8"></script>   
+    <!-- mi código -->
+    <script src="./script.js"></script>
+</body>
+
+</html>

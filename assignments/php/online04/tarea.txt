@@ -1,0 +1,12 @@
+Esta es la lista de los contenidos que he visto y aplicado:
+
+1. MVC y framework web: todo. El apartado a) contiene en una carpeta cada ejercicio en archivos separados. El apartado h) contiene en una carpeta el proyecto en blanco de laravel solicitado.
+2. Rutas y controladores: todo
+3. Vistas con Bootstrap y Blade: todo.
+4. Bases de datos y Eloquent: todo menos la parte de aprender a usar Tinker.
+5. CRUD con formularios: todo.
+6. Autenticación y sesiones: solo los puntos a) y b).
+
+Me ha gustado mucho el tema de Laravel y me hubiera gustado hacer alguna aplicación del punto 7, pero entre los trimestrales, el resto de asignaturas y mi trabajo no he podido sacar más tiempo.
+
+De aquí a fin de mes trataré de hacer la biblioteca, aunque sea fuera de plazo, pero por aprender.

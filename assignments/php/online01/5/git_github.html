@@ -1,0 +1,128 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN"
+"http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
+<html lang="es" xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width" />
+    <link
+      rel="stylesheet"
+      href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
+      integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh"
+      crossorigin="anonymous"
+    />
+    <link
+      rel="stylesheet"
+      href="../css/main.css"
+      type="text/css"
+      media="screen"
+      title="no title"
+      charset="utf-8"
+    />
+    <title>Git y GitHub</title>
+  </head>
+  <body>
+
+    <!-- Navegación -->
+    <nav class="navbar navbar-expand-lg navbar-dark flex-column flex-md-row bg-dark">
+        <a class="navbar-brand mr-0 mr-md-2" href="#">PHP</a>
+        <div class="navbar-nav-scroll">
+            <ul class="navbar-nav flex-row">
+                <li class="nav-item">
+                    <a class="nav-link" href="../inicio.html">Inicio</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="../1/ejercicio1.html">Ejercicio 1</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="../2/ejercicio2.html">Ejercicio 2</a>
+                </li>
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role?"button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Ejercicio 3</a>
+                    <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                        <a class="dropdown-item" href="../3/a/usuario.html" >Datos de usuario</a>
+                        <a class="dropdown-item" href="../3/b/cv.html" >Genera CV</a>
+                    </div>
+                </li>
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown2" role?"button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Ejercicio 4</a>
+                    <div class="dropdown-menu" aria-labelledby="navbarDropdown2">
+                        <a class="dropdown-item" href="../4/a/piedra_papel.html" >Piedra, papel, tijeras, lagarto, Spock</a>
+                        <a class="dropdown-item" href="../4/b/circunferencia.html" >Circunferencia</a>
+                        <a class="dropdown-item" href="../4/c/informe_salud.html" >Informe de Salud</a>
+                    </div>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="../5/git_github.html">Ejercicio 5</a>
+                </li>
+            </ul>
+        </div>
+    </nav>
+    
+    <!-- Título e imagen de portada -->
+    <header class="header">
+      <div class="jumbotron text-center">
+        <h1 class="display-3">Ejercicio 5</h1>
+        <p class="lead">Git y GitHub</p>
+      </div>
+    </header>
+
+    <div class="container">
+        <h2>Sistemas de Control de Versiones</h2> 
+        <p><a href="https://medium.com/@jointdeveloper/sistemas-de-control-de-versiones-qu%C3%A9-son-y-por-qu%C3%A9-amarlos-24b6957e716e" target="_blank">Joint Developer</a> define el control de versiones como un sistema que registra los cambios realizados sobre un archivo o conjunto de archivos a lo largo del tiempo de tal manera que sea posible recuperar versiones especificas más adelante.</p>
+        <div class="text-center">
+            <img class="rounded mx-auto d-block" src="../images/SCV.png" alt="SCV"/>
+        </div>
+        <p>Los Sistemas de control de versiones (en adelante, SCV) se pueden clasificar en tres tipos: locales, centralizados y distribuidos.</p>
+        <h3>SCV Locales</h3>
+        <p>Los primeros SCV almacenaban cada fase o estado de las modificaciones como <i>versiones</i> en una base de datos local. Si se quería recuperar una versión anterior, el SCV actúa de intermediario a la hora de gestionar los archivos, evitando que se puedan borrar por error.</p>
+        <div class="text-center">
+            <img class="rounded mx-auto d-block" src="../images/SCV-local.jpg" alt="Local"/>
+        </div>
+        <h3>SCV Centralizados</h3>
+        <p>Los sistemas locales tenían la dificultad de hacer difícil compartir código entre varias personas. Para solucionar esto los SCV almacenan las versiones en un servidor, de modo que están disponibles para varios usuarios.</p>
+        <div class="text-center">
+            <img class="rounded mx-auto d-block" src="../images/SCV-central.jpg" alt="Central"/>
+        </div>
+        <p>Con el aumento de los usuarios surge el problema de cómo gestionar múltiples ediciones de un mismo archivo. Los sistemas centralizados recurren a la figura de un tercero para resolver de forma manual los conflictos entre versiones diferentes, además de prohibir que un usuario elimine o sobreescriba el trabajo de otro.</p>
+        <h3>SCV Distribuidos</h3>
+        <p>En proyectos muy grandes y activos, la solución anterior se vuelve muy engorrosa. La solución fue dar a cada usuario una copia local de cada proyecto, creando una <b>red de repositorios</b>.</p>
+        <p>Un <i>repositorio</i> es un paquete que contiene archivos digitales, en su mayor parte <i>scripts</i> pero también puede contener cualquier otro tipo de archivo.</p>
+        <div class="text-center">
+            <img class="rounded mx-auto d-block" src="../images/SCV-distribuido.jpg" alt="Distribuido"/>
+        </div>
+        <h2>Git y Github</h2>
+        <p><i>Git</i> es un SCV distribuido diseñado por Linus Torvalds, el creador del sistema operativo Linux, en 2005, y a día de hoy es una de las herramientas de control de versiones más utilizadas en el mundo, si no la que más.</p>
+        <p>Sobre la funcionalidad de Git se han construido muchos proyectos, algunos centrados en ampliar sus capacidades y animar a la comunidad de desarrolladores a compartir su código y colaborar. Este es el caso de <i>GitHub</i>, una plataforma donde cualquiera puede ver, compartir, clonar y editar sus propios repositorios o los de otros usuarios.</p>
+        <h3>Diferencias principales</h3>
+        <p>Git es un programa local para control de versiones; ni más ni menos. Su interfaz es muy básica, mediante línea de comandos, aunque algunas aplicaciones hacen su uso más visual, como <a href="https://jonas.github.io/tig/" target="_blank">Tig</a>(sin salir del modo texto), u otros más completos y con interfaz gráfica, como <a href="https://www.gitkraken.com" target="_blank">GitKraken</a>.</p>
+        <p>Sin ser una red social, GitHub comparte algunas de sus características, como ofrecer una página de perfil para cada usuario, páginas personales y opciones para seguir o marcar como favoritos a otros usuarios o alguno de sus repositorios. En particular, las páginas de usuario se han convertido en una herramienta muy útil para buscar empleo a través de las páginas de perfil, donde un futuro empleador puede ver de primera mano nuestros proyectos y habilidades.</p>
+        <p>La diferencia principal entre los dos es que <b>Git es un herramienta instalada de forma local</b>, mientras que <b>GitHub es un servicio online</b> para manejar y compartir repositorios creados con Git.</p>
+        <h3>Ejemplos</h3>
+        <p>Aquí añado algunas capturas de la interfaz de GitHub: la página de perfil de usuario y uno de mis repositorios.</p>
+        <div class="text-center">
+            <img class="rounded mx-auto d-block img-thumbnail" src="../images/DWES.TO01.Ej5.cuentaGithub.png" alt="Apache Friends"/>
+            <figcaption class="figure-caption text-center">Captura de la página de inicio de mi cuenta de usuario en Github</figcaption>
+        </div>
+        <div class="text-center">
+            <img class="rounded mx-auto d-block img-thumbnail" src="../images/DWES.TO01.Ej5.repoGithub.png" alt="Apache Friends"/>
+            <figcaption class="figure-caption text-center">Uno de mis repositorios</figcaption>
+        </div>
+    </div>
+    <!-- Librerías JS requeridas por BootStrap -->
+    <script
+      src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
+      integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
+      crossorigin="anonymous">
+    </script>
+    <script
+      src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
+      integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
+      crossorigin="anonymous">
+    </script>
+    <script
+      src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
+      integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
+      crossorigin="anonymous">
+    </script>
+    </body>
+</html>

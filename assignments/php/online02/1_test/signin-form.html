@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <title>Aplicación 1: test PHP</title>
+        <!-- Bootstrap stylesheet -->
+        <link
+            rel="stylesheet"
+            href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
+            integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh"
+            crossorigin="anonymous"
+        />
+    </head>
+    <body>
+        <!-- Navegación con login (barra superior / necesita FontAWS)-->
+        <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+            <div class="container-fluid">
+                <div class="navbar-header">
+                    <a class="navbar-brand" href="#">Academia PHP</a>
+                </div>
+                <ul class="navbar-nav mr-auto">
+                    <li class="nav-item active"><a class="nav-link" href="./index.php">Inicio</a></li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="./test.php">Test</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="./profesor.php">Profesores</a>
+                    </li>
+                </ul>
+
+                <span class="navbar-text">Creando un nuevo usuario...</span>
+            </div>
+        </nav>
+
+        <!-- cuerpo de la página -->
+
+        <div class="container d-flex min-vh-100">
+            <!-- Formulario de registro de nuevo usuario -->
+            <div class="container align-self-center p-4 mt-n5 shadow" style="max-width: 500px;">
+                <h2 class="display-4 text-center">Nuevo usuario</h2>
+                <p class="lead text-center">Introduce tus datos</p>
+                <form action="signin.php" method="POST">
+
+                    <div class="form-group">
+                        <label  for="nombre">Nombre y apellidos</label>
+                        <div class="input-group mr-sm-2">
+                            <div class="input-group-prepend">
+                                <div class="input-group-text">
+                                    <span class="fas fa-user"></span>
+                                </div>
+                            </div>
+                            <input type="text" name="nombre" class="form-control" id="nombre" placeholder="Alicia Gómez" required>
+                        </div>
+                        
+                    </div>
+                    <div class="form-group">
+                        <label for="id">Alias</label>
+                        <div class="input-group mr-sm-2">
+                            <div class="input-group-prepend">
+                                <div class="input-group-text">@</div>
+                            </div>
+                            <input type="text" name="id" class="form-control" id="id" placeholder="aligom" aria-describedby="aliasHelp" required>
+                        </div>
+                        <small id="aliasHelp" class="form-text text-muted">
+                            Entre 4 y 8 caracteres, sin números ni símbolos
+                        </small>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="pass">Contraseña</label>
+                        <div class="input-group mr-sm-2">
+                            <div class="input-group-prepend">
+                                <div class="input-group-text">
+                                    <span class="fas fa-key"></span>
+                                </div>
+                            </div>
+                            <input type="password" name="pass" class="form-control" id="pass" placeholder="*******" aria-describedby="passHelp" required>
+                        </div>
+                        <small id="passHelp" class="form-text text-muted">
+                            Entre 8 y 12 caracteres o símbolos (<code>!@#$%</code>). Debe tener al menos un número y una letra.
+                        </small>
+                    </div>
+                    <div class="form-group">
+                        <label for="email">Email</label>
+                        <div class="input-group mr-sm-2">
+                            <div class="input-group-prepend">
+                                <div class="input-group-text">
+                                    <span class="fas fa-envelope"></span>
+                                </div>
+                            </div>
+                            <input type="email" name="email" class="form-control" id="email" placeholder="aligom@ejemplo.es" required>
+                        </div>
+                    </div>
+
+                    <button type="submit" class="btn btn-primary" name="submit"><span class="fas fa-sign-in-alt"></span> Registrarse</button>
+                </form>
+            </div>
+        </div>
+
+        <!-- Librerías JavaScript -->
+        <!-- Font Awesome JS -->
+        <script defer src="https://use.fontawesome.com/releases/v5.0.13/js/solid.js" integrity="sha384-tzzSw1/Vo+0N5UhStP3bvwWPq+uvzCMfrN1fEFe+xBmv1C/AtVX5K0uZtmcHitFZ" crossorigin="anonymous"></script>
+        <script defer src="https://use.fontawesome.com/releases/v5.0.13/js/fontawesome.js" integrity="sha384-6OIrr52G08NpOFSZdxxz1xdNSndlD4vdcf/q2myIUVO0VsqaGHJsB0RaBE01VTOY" crossorigin="anonymous"></script>
+
+        <!-- Librerías JS requeridas por BootStrap -->
+        <script
+          src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
+          integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
+          crossorigin="anonymous">
+        </script>
+        <script
+          src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
+          integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
+          crossorigin="anonymous">
+        </script>
+        <script
+          src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
+          integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
+          crossorigin="anonymous">
+        </script>
+    </body>
+</html>
+
+

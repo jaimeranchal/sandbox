@@ -1,0 +1,25 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN"
+"http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
+<html lang="es" xmlns="http://www.w3.org/1999/xhtml">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width">
+        <title>Ejercicio 5.4</title>
+    </head>
+    <body>
+        <!-- a. Contorno de un cuadrado grande azul sin relleno 
+        Dentro de él aparece otro (1/5 del grande, color verde)
+        Dará vueltas indefinidamente a lo largo del contorno
+        -->
+        <svg id="dibujo" width="500" height="500" xmlns="http://www.w3.org/2000/svg" version="1.1">
+            <rect x ="0" y ="0" height ="500" width ="500" style ="stroke:#000; fill: lightblue"/>
+            <rect x ="0" y ="0" height ="100" width ="100" style ="stroke:#000; fill: #6ab150">
+                <animateMotion dur="10s" repeatCount="indefinite" path="M0 0 L400 0 
+                    M400 0 L400 400
+                    M400 400 L0 400
+                    M0 400 L0 0" />
+            </rect>
+        </svg>
+    </body>
+</html>
+
