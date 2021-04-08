@@ -15,9 +15,9 @@ if ($result = $connection->query($sql)) {
     while ($row = $result->fetch_object()) {
         $jsondata["data"][] = $row;
     }
+$result->close();
 }
 
-$result->close();
 
 
 header('Content-type: application/json; charset=utf-8');
