@@ -5,10 +5,10 @@ $id=$_REQUEST["perro"];
 
 $jsondata = array();
 if (!empty($id)){
-    $sql="SELECT * FROM perros where chip='$id'";
+    $sql="SELECT * FROM Perros where chip='$id'";
       
 }else{
-    $sql="SELECT * FROM perros";
+    $sql="SELECT * FROM Perros";
 }
 if ($result = $connection->query($sql)) {
    
