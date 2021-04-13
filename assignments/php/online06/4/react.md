@@ -10,8 +10,8 @@ Para seguir el tutorial he creado un proyecto en blanco con `npx`. Como prueba d
 
 Para hacerlo todo más sencillo limpiamos la carpeta `src` de la carpeta que ha creado. Solo necesitamos un `index.js` desde el que mostraremos lo que haga falta.
 
-!!! note "Copiar proyectos"
-    Como ocurre con Laravel, puede haber problemas de dependencias al copiar y pegar un proyecto. Lo mejor es no copiar la carpeta `node_modules` y ejecutar `npm install` en la máquina destino. Esto descargará e instalará las dependencias necesarias.
+> **Copiar proyectos**
+> Como ocurre con Laravel, puede haber problemas de dependencias al copiar y pegar un proyecto. Lo mejor es no copiar la carpeta `node_modules` y ejecutar `npm install` en la máquina destino. Esto descargará e instalará las dependencias necesarias.
 
 ## Capturas
 
