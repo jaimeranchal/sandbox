@@ -23,8 +23,9 @@ let mostrar=function(){
         .done(function (responseText, textStatus, jqXHRs) {
            
             //limpiar
-            
             $("tbody tr").remove();
+
+            // añadimos una fila por cada perro
             $(responseText.data).each((ind, ele)=>{
                 $("tbody").append(`<tr><td>${ele.chip}</td><td>${ele.nombre}</td><td>${ele.raza}</td><td>${ele.fechaNac}</td></tr>`)
             })

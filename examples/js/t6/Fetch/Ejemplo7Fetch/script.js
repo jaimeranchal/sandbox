@@ -6,6 +6,8 @@ $(() => {
 
 let mostrarProv = () => {
     if ($('#regiones').prop("selectedIndex") != 0) {
+        // si pasamos los datos como formData no hace falta
+        // establecer las cabeceras
         let datos = new FormData();
         datos.append("ca", $('#regiones').val())
        

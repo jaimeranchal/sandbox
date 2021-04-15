@@ -7,7 +7,7 @@ $(() => {
 let mostrarProv = () => {
     $.ajax({
             url: "Ejemplo6.php",
-            type: "post",
+            type: "POST",
             data: {
                 ca: $('#regiones').val()
             }

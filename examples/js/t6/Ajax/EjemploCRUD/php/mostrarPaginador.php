@@ -4,7 +4,7 @@ require_once "connection.php";
 
 $jsondata = array();
 
-$sql="SELECT * FROM perros";
+$sql="SELECT * FROM Perros";
 
 if ($result = $connection->query($sql)) {
     

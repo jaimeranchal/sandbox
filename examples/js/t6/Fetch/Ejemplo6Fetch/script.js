@@ -8,7 +8,9 @@ let mostrarProv = () => {
     if ($('#regiones').prop("selectedIndex") != 0) {
         fetch('Ejemplo6.php', {
                 method: 'POST',
-                body: `ca=${$('#regiones').val()}`,
+                // ojo que es diferente de jQuery
+                body: `ca=${$('#regiones').val()}`, 
+                // Si se le pasa un body, hay que pasar un header
                 headers: new Headers({
                     'Content-Type': 'application/x-www-form-urlencoded'
                 })

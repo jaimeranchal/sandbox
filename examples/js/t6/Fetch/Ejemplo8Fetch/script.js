@@ -8,6 +8,7 @@ $(() => {
 
 let mostrarProv = () => {
     fetch("https://raw.githubusercontent.com/IagoLast/pselect/master/data/provincias.json")
+        // sintaxis abreviada
         .then(response => response.json())
         .then((data) => {
             //ordenar por descripción
