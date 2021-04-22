@@ -121,7 +121,7 @@ INSERT INTO perros VALUES
 ('555A', 'Linux', '14/11/2016', 'Beagle', '55555555E'),
 ('555B', 'Windows', '13/01/2018', 'Yorkshire terrier', '55555555E');
 
-INSERT INTO Consultas(id, fecha, hora, chip, veterinario, observaciones) VALUES 
+INSERT INTO consultas(id, fecha, hora, chip, veterinario, observaciones) VALUES 
 ( 1, "2018-01-01", "10:22:00", '111A', '666666666F', 'Vacuna de la rabia.'),
 ( 2, "2018-01-01", "11:33:00", '333A', '777777777G','Perro resfriado. Se prescribe Apiretal.'),
 ( 3, "2018-01-01", "15:51:00", '222B', '666666666F', 'Caida del pelo. Utilizar champú de huevo.'),
