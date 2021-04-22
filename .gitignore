@@ -45,11 +45,11 @@ Thumbs.db
 
 # Heavy images
 #######
-*.png
-*.jpg
-*.jpeg
-*.gif
-*.tiff
+# *.png
+# *.jpg
+# *.jpeg
+# *.gif
+# *.tiff
 
 # Other binary files #
 ######################

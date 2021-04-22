@@ -6,6 +6,8 @@ $(() => {
     cargarTratamientos();
 
     $("#cli").on('change', mostrarPerros);
+
+    $("#addCan").on('click', nuevoPerro);
 })
 
 let cargarOpciones = (origen, id) => {
@@ -79,3 +81,46 @@ let mostrarPerros = () => {
     })
 }
 
+let nuevoPerro = () => {
+    if ($("#cli").prop("selectedIndex") == 0) {
+        return swalError("error", "Debe seleccionar un cliente");
+    }
+
+    $(".frmAddPerro").dialog({
+        modal: true,
+        title: 'Alta de perros',
+    })
+
+    validarForm(".frmAddPerro");
+
+}
+
+let validarForm = (querySelector) => {
+    $(querySelector).validate({
+        rules: {
+            chip: "required",
+            nomPer: "required",
+            fechaN: "required",
+            raza: "required",
+        },
+        submitHandler: function(form) {
+            // enviar formulario
+        },
+        messages: {
+            chip: "El chip debe tener 3 números y una letra",
+            nomPer: "El campo no puede estar vacío",
+            fechaN: "La fecha no puede ser posterior a hoy",
+            raza: "No se puede dejar en blanco"
+        }
+    })
+}
+
+let swalError = (icono, texto) => {
+    Swal.fire({
+        position: 'center',
+        icon: icono,
+        showConfirmButton: true,
+        confirmButtonText: "Ok",
+        text:texto
+    })
+}
