@@ -7,10 +7,10 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Ejemplo de BD</title>
     <link rel="stylesheet" href="../librerias/bootstrap/css/bootstrap.min.css">
-    <link rel="stylesheet" href="../librerias/jquery/jquery-ui.min.css">
-    <link rel="stylesheet" href="../librerias/fontAwesome/css/all.min.css">
+    <link rel="stylesheet" href="../librerias/jquery-ui/jquery-ui.min.css">
+    <link rel="stylesheet" href="../librerias/fontawesome/css/all.min.css">
     <link rel="stylesheet" href="estilos.css" type="text/css">
-    
+
 </head>
 
 <body>
@@ -21,7 +21,7 @@
         <div class="container">
             <div class="text-left">
                 <button type="button" id="add" class="btn btn-success">Añadir perro</button>
-                
+
             </div>
 
             <div class="table-responsive">
@@ -48,40 +48,49 @@
                         <form class="form-horizontal">
                             <fieldset>
                                 <legend class="text-center header">Clinican</legend>
-        
+
                                 <div class="form-group">
-                                    <span class="col-md-1 col-md-offset-2 text-center"><i class="fas fa-microchip bigicon"></i></span>
+                                    <span class="col-md-1 col-md-offset-2 text-center"><i
+                                            class="fas fa-microchip bigicon"></i></span>
                                     <div class="col-md-8">
-                                        <input id="chip" name="chip" type="text" placeholder="Chip del perro" class="form-control">
+                                        <input id="chip" name="chip" type="text" placeholder="Chip del perro"
+                                            class="form-control">
                                     </div>
                                 </div>
                                 <div class="form-group">
-                                    <span class="col-md-1 col-md-offset-2 text-center"><i class="fa fa-user bigicon"></i></span>
+                                    <span class="col-md-1 col-md-offset-2 text-center"><i
+                                            class="fa fa-user bigicon"></i></span>
                                     <div class="col-md-8">
-                                        <input id="nombre" name="nombre" type="text" placeholder="Nombre del perro" class="form-control">
+                                        <input id="nombre" name="nombre" type="text" placeholder="Nombre del perro"
+                                            class="form-control">
                                     </div>
                                 </div>
-        
+
                                 <div class="form-group">
-                                    <span class="col-md-1 col-md-offset-2 text-center"><i class="fas fa-dog bigicon"></i></span>
+                                    <span class="col-md-1 col-md-offset-2 text-center"><i
+                                            class="fas fa-dog bigicon"></i></span>
                                     <div class="col-md-8">
-                                        <input id="raza" name="raza" type="text" placeholder="Raza del perro" class="form-control">
+                                        <input id="raza" name="raza" type="text" placeholder="Raza del perro"
+                                            class="form-control">
                                     </div>
                                 </div>
-        
+
                                 <div class="form-group">
-                                    <span class="col-md-1 col-md-offset-2 text-center"><i class="fas fa-calendar-alt bigicon"></i></span>
+                                    <span class="col-md-1 col-md-offset-2 text-center"><i
+                                            class="fas fa-calendar-alt bigicon"></i></span>
                                     <div class="col-md-8">
-                                        <input id="fechaN" name="fechaN" type="date" placeholder="Fecha de Nacimiento" class="form-control">
+                                        <input id="fechaN" name="fechaN" type="text" placeholder="Fecha de Nacimiento"
+                                            class="form-control">
                                     </div>
                                 </div>
-        
-                            
-        
+
+
+
                                 <div class="form-group">
                                     <div class="col-md-12 text-center">
                                         <button type="submit" class="boton btn btn-primary btn-lg">Añadir</button>
-                                        <button id="cancelar" type="button" class="btn btn-secondary btn-lg">Cancelar</button>
+                                        <button id="cancelar" type="button"
+                                            class="btn btn-secondary btn-lg">Cancelar</button>
                                     </div>
                                 </div>
                             </fieldset>
@@ -92,13 +101,12 @@
         </div>
 
     </section>
-    <script src="../librerias/jquery/jquery-3.5.1.min.js"></script>
-    <script src="../librerias/jquery/jquery-ui.min.js"></script>
-    <!-- <script src="../librerias/jquery/messages_es.min.js"></script> -->
-    <!-- <script src="../librerias/jquery-validator/localization/messages_es.min.js"></script> -->
-    <script src="../librerias/jquery-validator/jquery.validate.min.js"></script>
+    <script src="../librerias/jquery/jquery.min.js"></script>
+    <script src="../librerias/jquery-ui/jquery-ui.min.js"></script>
+    <script src="../librerias/jquery-validation/dist/jquery.validate.min.js"></script>
+    <script src="../librerias/jquery-validation/dist/localization/messages_es.min.js"></script>
     <script src="../librerias/bootstrap/js/bootstrap.min.js"></script>
-    <script src="../librerias/fontAwesome/js/all.min.js"></script>
+    <script src="../librerias/fontawesome/js/all.min.js"></script>
     <script src="../librerias/sweetAlert/sweetalert2.all.min.js"></script>
     <script src="../librerias/crearConexion.js"></script>
     <script src="script.js"></script>
