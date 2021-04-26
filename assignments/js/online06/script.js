@@ -9,6 +9,7 @@ $(() => {
     // botones
     $("#addCan").on('click', nuevoPerro);
     $("#verHis").on('click', verHistorial);
+    $("button.btn-primary").on('click', guardar);
 
     // alterna tratamientos entre consulta y generales
     $(".consulta").append('<ul></ul>');
@@ -181,6 +182,12 @@ let toggleList = function() {
     $(this).remove();
 }
 
+let guardar = () => {
+
+    validarForm2(".form-horizontal");
+
+}
+
 /* Auxiliares */
 // -------------------------------------------------------------------------
 
@@ -222,6 +229,37 @@ let validarForm = (querySelector) => {
     })
 }
 
+let validarForm2 = (querySelector) => {
+
+    $(querySelector).validate({
+        errorElement: "em",
+        rules: {
+            fechaC: {
+                required:true,
+                date: true,
+            },
+            horaC: {
+                required: true,
+            },
+            vet: { 
+                required:true, 
+            },
+            can: {
+                required: true,
+            },
+        },
+        messages: {
+            fechaC: "Debe seleccionar una fecha",
+            horaC: "Debe seleccionar una hora",
+            vet: "Debe seleccionar un veterinario",
+            can: "Debe seleccionar un perro"
+        },
+        submitHandler: () => {
+            guardarConsulta();
+            cerrarForm(querySelector);
+        },
+    })
+}
 let cerrarForm = (querySelector) => {
     //limpiar las cajas de texto
     $(".form-control").val(""); 
@@ -237,8 +275,6 @@ let guardarPerro = () => {
     datos.append("fechaN", $("#fechaN").val())
     datos.append("cli", $("#cli option:selected").val())
 
-    console.log(datos);
-
     fetch("php/saveCan.php", {
             method: 'POST',
             body: datos,
@@ -250,6 +286,39 @@ let guardarPerro = () => {
                 swalError("success", "Se ha guardado la mascota");
             } else {
                 swalError("error", "¡Error! Mascota no guardada", "");
+            }
+
+        })
+        .catch((err) => {
+            Swal.fire("Error: " + err);
+
+        });
+}
+
+let guardarConsulta = () => {
+    
+    let datos = new FormData();
+    datos.append("fec", $("#fechaC").val())
+    datos.append("hora", $("#horaC").val())
+    let observaciones = "";
+    $(".consulta li").each( function() {
+        observaciones += $(this).text() + ". ";
+    });
+    datos.append("observaciones", observaciones);
+    datos.append("vet", $("#vet option:selected").val())
+    datos.append("chip", $("#can option:selected").val())
+
+    fetch("php/saveConsulta.php", {
+            method: 'POST',
+            body: datos,
+        })
+        .then(response => response.json())
+        .then((response) => {
+
+            if (response.mensaje != "Error") {
+                swalError("success", "Se ha guardado la consulta");
+            } else {
+                swalError("error", "¡Error! Consulta no guardada", "");
             }
 
         })
