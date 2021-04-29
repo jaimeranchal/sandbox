@@ -13,10 +13,8 @@ $(() => {
 
     // alterna tratamientos entre consulta y generales
     $(".consulta").append('<ul></ul>');
-    $(".tratamientos").on('dblclick', 'li', toggleList);
-
-    // guardar
-    $('')
+    $(".tratamientos").on('dblclick', 'li', addConsulta);
+    $(".consulta").on('dblclick', 'li', removeConsulta);
 
 })
 
@@ -135,7 +133,7 @@ let cargarHistorial = () => {
 }
 
 
-/* Botones */
+/* Botones/Acciones */
 // -------------------------------------------------------------------------
 
 let nuevoPerro = () => {
@@ -177,8 +175,19 @@ let verHistorial = () => {
 
 }
 
-let toggleList = function() {
+/**
+ * mueve un elemento de los tratamientos a las consultas
+ */
+let addConsulta = function() {
     $('.consulta ul').append(`<li>${$(this).text()}</li>`)
+    $(this).remove();
+}
+
+/**
+ * mueve un elemento de las consultas a los tratamientos
+ */
+let removeConsulta = function() {
+    $('.tratamientos ul').append(`<li>${$(this).text()}</li>`)
     $(this).remove();
 }
 
@@ -191,6 +200,10 @@ let guardar = () => {
 /* Auxiliares */
 // -------------------------------------------------------------------------
 
+/**
+ * Valida los campos del formulario "añadir Perro" y 
+ * llama a guardarPerro
+ */
 let validarForm = (querySelector) => {
     $.validator.addMethod("regExpNom", function (value, element, expresion) {
         let reg = new RegExp(expresion);
@@ -229,6 +242,10 @@ let validarForm = (querySelector) => {
     })
 }
 
+/**
+ * Valida los campos del formulario general de la página 
+ * y llama a guardarConsulta
+ */
 let validarForm2 = (querySelector) => {
 
     $(querySelector).validate({
@@ -260,10 +277,15 @@ let validarForm2 = (querySelector) => {
         },
     })
 }
+
+/**
+ * Limpia el formulario
+ */
 let cerrarForm = (querySelector) => {
-    //limpiar las cajas de texto
+
     $(".form-control").val(""); 
     $(querySelector).dialog("close");
+
 }
 
 let guardarPerro = () => {
@@ -328,6 +350,9 @@ let guardarConsulta = () => {
         });
 }
 
+/**
+ * Imprime mensajes de error
+ */
 let swalError = (icono, texto) => {
     Swal.fire({
         position: 'center',
