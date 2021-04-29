@@ -1,6 +1,7 @@
 "use strict"
 let boton = "<button type='button' class='editar btn btn-primary mr-2'><i class='fas fa-edit'></i></button><button type='button' class='del btn btn-danger'><i class='fas fa-trash-alt'></i></button>"
 let frmDialog;
+let dtTable;
 let fila;
 
 $(() => {
@@ -13,7 +14,9 @@ $(() => {
     })
     confFrmDialog();
     confFormValidacion();
-    mostrarPerros();
+    // mostrarPerros();
+    configDataTable();
+    $(".table").DataTable();
 
 })
 let anadir = () => {
@@ -22,22 +25,23 @@ let anadir = () => {
     frmDialog.dialog("open");
     $(":submit").text("Añadir");
 }
-let mostrarPerros = () => {
-    fetch("php/mostrarPaginador.php")
-        .then(response => response.json())
-        .then((response) => {
-            $(response.data).each((ind, ele) => {
-                $("tbody").append(`<tr><td>${ele.chip}</td><td>${ele.nombre}</td><td>${ele.raza}</td><td>${ele.fechaNac}</td><td>${boton}</td></tr>`)
-            })
-            //asignar eventos a botones del y editar
-            $(".editar").on("click", editarCan);
-            $(".del").on("click", delCan)
-        })
-        .catch((err) => {
-            Swal.fire("Error: " + err);
+//let mostrarPerros = () => {
+//    fetch("php/mostrarPaginador.php")
+//        .then(response => response.json())
+//        .then((response) => {
+//            $(response.data).each((ind, ele) => {
+//                $("tbody").append(`<tr><td>${ele.chip}</td><td>${ele.nombre}</td><td>${ele.raza}</td><td>${ele.fechaNac}</td><td>${boton}</td></tr>`)
+//            })
+//            //asignar eventos a botones del y editar
+//            $(".editar").on("click", editarCan);
+//            $(".del").on("click", delCan)
+//        })
+//        .catch((err) => {
+//            Swal.fire("Error: " + err);
 
-        });
-}
+//        });
+//}
+
 let editarCan = function () {
     fila = $(this).parents("tr")
     frmDialog.dialog("option", "title", "Modificar mascota")
@@ -78,7 +82,8 @@ let EliminarCan = (fila) => {
         })
         .done(function (response, textStatus, jqXHRs) {
             //borrar fila tabla
-            $(fila).remove();
+            // $(fila).remove();
+            dtTable.row(fila).remove().draw(false), // elimina y refresca la tabla
             swalError("error", "Perro eliminado", "")
         })
         .fail(function (response, textStatus, errorThrown) {
@@ -167,7 +172,15 @@ let addReg = () => {
             if (respuesta.mensaje != "Error") {
                 swalError("success", "Mascota insertada", "");
                 //insertar a la tabla
-                $("tbody").append(`<tr><td>${$("#chip").val()}</td><td>${$("#nombre").val()}</td><td>${$("#raza").val()}</td><td>${$("#fechaN").val()}</td><td>${boton}</td></tr>`)
+                // $("tbody").append(`<tr><td>${$("#chip").val()}</td><td>${$("#nombre").val()}</td><td>${$("#raza").val()}</td><td>${$("#fechaN").val()}</td><td>${boton}</td></tr>`)
+                
+                dtTable.row.add({
+                    "chip": $("#chip").val(),
+                    "nombre": $("#nombre").val(),
+                    "raza": $("#raza").val(),
+                    "fechaNac": $("#fechaN").val(),
+                    "defaultContent":boton
+                }).draw();
                 //estableciendo los métodos a los botones editar y eliminar
                 $(".editar").on("click", editarCan)
                 $(".del").on("click", delCan)
@@ -227,4 +240,44 @@ let cerrarVentana = () => {
     frmDialog.dialog("close");
     $(".form-control").val(""); //limpiar las cajas de texto
     $(".form-control").removeClass("is-valid").removeClass("is-invalid");
+}
+
+/**
+ * Configura la tabla con DataTable
+ */
+let configDataTable = () => {
+    dtTable = $(".table").DataTable({
+        "ajax":{
+            url: "php/mostrarPaginador.php",
+            type: "GET",
+            dataType:"json"
+        },
+        "columns":[
+            {
+                "data":"chip"
+            },
+            { 
+                "data":"nombre" 
+            }, 
+            { 
+                "data":"raza"
+            },
+            { 
+                "data":"fechaNac"
+            },
+            {
+                "defaultContent": boton,
+                "orderable":false
+            },
+        ],
+        "sPaginationType": "full_numbers",
+        "language" :  {
+            url: "../librerias/datatables/Spanish.json"
+        }
+
+    })
+
+    // funcionalidad botones
+    $("tbody").on("click", ".editar", editarCan)
+    $("tbody").on("click", ".del", delCan)
 }
