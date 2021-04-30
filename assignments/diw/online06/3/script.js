@@ -1,27 +1,30 @@
 "use strict";
 
 $(()=>{
-    crearTabla();
+    // ...
+    $("input").on('blur', comprobarMayor);
 })
 
-let crearTabla = () => {
-    // genera dos filas
-    for (let i  = 0; i < 2; i++) {
-        $("#ej1 table").append(`<tr></tr`); 
-        // en cada fila genera dos celdas
-        for (let j  = 0; j < 2; j++) {
-            // añade un elemento tr a la fila
-            $("#ej1 table tr:last")
-                .append(`<td>Celda ${i}-${j}</td>`)
-                .on('click', 'td', function(event){
-                    console.log($(this).text());
-                    $(this).toggleClass("red");
-                });
+let comprobarMayor = () => {
+    if ($('input:eq(0)').val() != "" &&
+        $('input:eq(1)').val() != "") 
+        {
+        console.log("estoy funcionando");
+            
+        let mayor;
+        let num1 = $("#num1");
+        let num2 = $("#num2");
+
+        if (parseInt($(num1).val()) == parseInt($(num2).val())) {
+            return mostrarResultado("Los dos números son iguales");
         }
+
+        mayor = (parseInt($(num1).val()) > parseInt($(num2).val())) ? num1 : num2;
+        $(mayor).css("border", "solid 1px red");
+        return mostrarResultado("El número mayor es " + $(mayor).val());
     }
-    
 }
 
-let cambiarColor = function() {
-    $(this).toggleClass("red");
+let mostrarResultado = (mensaje) => {
+    $("#mensaje").text(mensaje);
 }
