@@ -1,27 +1,21 @@
 "use strict";
 
 $(()=>{
-    crearTabla();
+    // Asigno una función al segundo recuadro usando su clase
+    // y un selector especial de jQuery
+    $('.cuadro:last').on('click', desplazarse)
 })
 
-let crearTabla = () => {
-    // genera dos filas
-    for (let i  = 0; i < 2; i++) {
-        $("#ej1 table").append(`<tr></tr`); 
-        // en cada fila genera dos celdas
-        for (let j  = 0; j < 2; j++) {
-            // añade un elemento tr a la fila
-            $("#ej1 table tr:last")
-                .append(`<td>Celda ${i}-${j}</td>`)
-                .on('click', 'td', function(event){
-                    console.log($(this).text());
-                    $(this).toggleClass("red");
-                });
-        }
-    }
-    
+/**
+ * Aplica una animación al elemento seleccionado
+ */
+let desplazarse = function() {
+    // Utilizo el selector especial 'this' para aplicar
+    // una animación sobre el cuadro en el que he pinchado
+    // Opciones:
+    // - Desplazate hasta un punto 500px a la derecha del borde izquierdo
+    // de la pantalla
+    // - Tarda 9 segundos en animarlo (9000 milisegundos)
+    $(this).animate({ left: '500px' }, 9000)
 }
 
-let cambiarColor = function() {
-    $(this).toggleClass("red");
-}
