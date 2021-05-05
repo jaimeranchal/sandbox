@@ -19,6 +19,30 @@
                 height: 200px;
             }
         </style>
+        <!-- librerias -->
+        <script src="../jquery-3.5.1.min.js"></script>
+        <script charset="utf-8">
+            "use strict";
+
+            $(document).ready(function(){
+                // Asigno una función al segundo recuadro usando su clase
+                // y un selector especial de jQuery
+                $('.cuadro:last').on('click', desplazarse)
+            })
+
+            /**
+             * Aplica una animación al elemento seleccionado
+             */
+            let desplazarse = function() {
+                // Utilizo el selector especial 'this' para aplicar
+                // una animación sobre el cuadro en el que he pinchado
+                // Opciones:
+                // - Desplazate hasta un punto 500px a la derecha del borde izquierdo
+                // de la pantalla
+                // - Tarda 9 segundos en animarlo (9000 milisegundos)
+                $(this).animate({ left: '500px' }, 9000)
+            }
+        </script>
     </head>
     <body>
         
@@ -28,8 +52,5 @@
             <div class="cuadro teal"></div>
         </div>
 
-        <!-- librerias -->
-        <script src="../jquery-3.5.1.min.js"></script>
-        <script src="script.js"></script>
     </body>
 </html>
