@@ -6,6 +6,30 @@
         <meta name="viewport" content="width=device-width initial-scale=1">
         <title>Tarea online 6</title>
         <link rel="stylesheet" href="../estilo.css" type="text/css" media="all">
+        <!-- librerias -->
+        <script src="../jquery-3.5.1.min.js"></script>
+        <script charset="utf-8">
+            "use strict";
+
+            $(document).ready(function(){
+                // Asigno la función cambiaColor() a todos los divs hijos del
+                // elemento con clase .colores, mediante un evento 'click'
+                $(".colores").on('click', 'div', cambiaColor);
+            })
+
+            /**
+             * Cambia el color del recuadro principal
+             */
+            let cambiaColor = function() {
+                // guarda el valor de la propiedad css 'color de fondo'
+                // del cuadro que he pinchado en una variable
+                let color = $(this).css('background-color');
+
+                // asigno ese color como valor a la propiedad color de fondo
+                // del recuadro principal, usando su id para seleccionarlo
+                $('#muestra').css('background-color', color);
+            }
+        </script>
     </head>
     <body>
         
@@ -22,8 +46,5 @@
             
         </div>
 
-        <!-- librerias -->
-        <script src="../jquery-3.5.1.min.js"></script>
-        <script src="script.js"></script>
     </body>
 </html>
