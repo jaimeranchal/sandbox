@@ -273,7 +273,11 @@ let validarForm2 = (querySelector) => {
         },
         submitHandler: () => {
             guardarConsulta();
-            cerrarForm(querySelector);
+            $(".form-control").val(""); 
+            // limpiar consultas
+            $('.consulta ul').empty();
+            // volver a cargar tratamientos
+            cargarTratamientos();
         },
     })
 }
@@ -327,8 +331,8 @@ let guardarConsulta = () => {
         observaciones += $(this).text() + ". ";
     });
     datos.append("observaciones", observaciones);
-    datos.append("vet", $("#vet option:selected").val())
     datos.append("chip", $("#can option:selected").val())
+    datos.append("vet", $("#vet option:selected").val())
 
     fetch("php/saveConsulta.php", {
             method: 'POST',
