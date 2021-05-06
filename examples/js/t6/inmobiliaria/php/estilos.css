@@ -1,0 +1,17 @@
+.header {
+    color: #36A0FF;
+    font-size: 27px;
+    padding: 10px;
+}
+
+em.error, .errorStock {
+    color: red;
+}
+.errorStock{
+    font-size: 3px;
+}
+
+.footer {
+    width: 25%;
+    float: right;
+   }
