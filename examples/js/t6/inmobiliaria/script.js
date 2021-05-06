@@ -1,6 +1,7 @@
 "use strict"
 
 let xmlHttp;
+let dtTable;
 
 $(() => {
     // cargar datos
@@ -31,6 +32,8 @@ let cargarZonas = () => {
             let datos = JSON.parse(xmlHttp.responseText);
 
             $(datos.data).each((index,elem) => {
+                // también se puede insertar idzona 
+                // en un atributo custom, tipo idzona=...
                 $("#zona").append(`<option value="${elem.idzona}">${elem.descripcion}</option>`);
             })
         }
@@ -41,29 +44,17 @@ let cargarZonas = () => {
 
 let cargarInmuebles = () => {
     // recuperar datos del formulario
-    let zona = $("#zona option:selected").val();
-    let numhab = $("input[type='radio']:checked").val();
-    let precio = $("#precio option:selected").val();
+    if (dtTable) {
+        dtTable.destroy();
+        $(".botonGrabar").remove();
+    };
 
-    $.ajax({
-        url: "./php/inmuebles.php",
-        type: "POST",
-        async: true,
-        data: {
-            zona: zona,
-            numhab: numhab,
-            precio : precio,
-        }
-    })
-    .done(function (responseText, textStatus, jqXHRs) {
-       
-        // mostrar datos
-        configTable();
-        $(".table").DataTable();
-    })
-    .fail(function (response, textStatus, errorThrown) {
-        Swal.fire("Error: " + errorThrown);
-    })
+    let datos = {
+        zona: $("#zona option:selected").val(),
+        habitaciones: $(".form-check-input:checked").val(),
+        precio: $("#precio option:selected").val()
+    };
+    configTable(datos);
 }
 
 let validar = () => {
@@ -73,7 +64,8 @@ let validar = () => {
         errorPlacement: function (error, element) {
             error.addClass('error');
             if ($(element).attr('type') == "radio") {
-                error.insertAfter(element.parents(".check:last-child"));
+                // error.insertAfter(element.parents(".check:last-child"));
+                error.appendTo(".check");
             } else {
                 error.insertAfter(element);
             }
@@ -106,33 +98,84 @@ let validar = () => {
             precio: "Elija un rango de precios"
         },
         submitHandler: () => {
+            // mostrar datos
             cargarInmuebles();
         },
     })
 
 }
 
-let configTable = () => {
+let configTable = (data) => {
     
     dtTable = $(".table").DataTable({
         "ajax":{
             url: "php/inmuebles.php",
-            type: "GET",
-            dataType:"json"
+            type: "POST",
+            data: data,
+            dataType:"json",
+            // dataSrc: "",
         },
+        // "processing": true,
         "columns":[
             {
-                "data":"domicilio"
+                data:"idinmuebles"
+            },
+            {
+                data:"domicilio"
             },
             { 
-                "data":"precio" 
+                data:"precio" 
             }, 
         ],
         "sPaginationType": "full_numbers",
         "language" :  {
             url: "./lib/datatables/Spanish.json"
+        },
+        "initComplete": function(json) {
+            if (json.json.data.length > 0) {
+                $(".capaGrabar").append("<button class='botonGrabar btn btn-primary'>Grabar</button>");
+                $(".botonGrabar").on('click', reservar);
+
+                $(".table tbody tr").on('click', function() {
+                    $(this).toggleClass("selected");
+                });
+
+            }
         }
 
     })
 
+}
+
+let reservar = () => {
+    // lo de table no funciona
+    $(dtTable.rows('.selected').data()).each(function(ind, datos) {
+        let param = new FormData();
+
+        // append data to datos...
+        param.append("dni", $("#dni").val());
+        param.append("inmueble", datos.idinmuebles);
+
+        fetch("php/reservas.php", {
+                method: 'POST',
+                body: param,
+            })
+            .then(response => response.json())
+            .then((response) => {
+                console.log(response);
+
+                if (response.mensaje != "Error") {
+                    // send message...
+                    Swal.fire("Reserva guardada", "", "success");
+                } else {
+                    // send message...
+                    console.log(response);
+                    Swal.fire("Algo ha ido mal");
+                }
+
+            })
+            .catch((err) => {
+                Swal.fire("Error: " + err);
+            });
+    })
 }

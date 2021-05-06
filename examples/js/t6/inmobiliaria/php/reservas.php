@@ -15,6 +15,7 @@ try {
     }
 } catch (PDOException $e) {
 	$jsondata["mensaje"][]="Error";
+	$jsondata["error"][]=$e->getMessage();
 }
 
 header('Content-type: application/json; charset=utf-8');
