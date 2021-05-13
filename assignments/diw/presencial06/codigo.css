@@ -1,0 +1,46 @@
+.hidden {
+    visibility: hidden;
+}
+.panel {  
+	width: auto;
+	height: auto;
+	left: auto; 
+	top: 10px;
+	margin: auto; 
+	background: white;
+}
+.simpsons {
+	float: left;
+	height: 80%;
+	width: 100%;
+	background-color: white;
+}
+.funcions {  
+ 	width: 100%; 
+	background-color: red; 
+	height: 20%;
+	float: left; 
+}
+.personajes {
+	width: 80%;
+	float: none;
+	margin: 0 auto;
+	margin-top: 5%;
+}
+div { 
+	float: left;
+}
+img.foto {
+	margin: 10px 10px;
+	width: auto;
+	height: 200px;
+}
+div.funcion_i{ 
+        margin: auto 4em;
+	float: left;
+}
+img.funcion_i { 
+	margin: 30px 30px;
+	width: 96px;
+	height: 96px;
+}
