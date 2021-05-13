@@ -1,0 +1,112 @@
+﻿<!DOCTYPE html>
+<html lang="es">
+
+    <head>
+        <meta charset="utf-8">
+        <title>Dependencia</title>
+        <link rel="stylesheet" href="./lib/bootstrap/css/bootstrap.min.css" type="text/css" media="all">
+        <link rel="stylesheet" href="./lib/sweetAlert/sweetalert2.min.css" type="text/css" media="all">
+        <link rel="stylesheet" href="./lib/fontawesome/all.min.css" type="text/css" media="all">
+    </head>
+
+    <body>
+        <div class="container-fluid">
+
+
+            <form class="frm">
+                <fieldset>
+                    <legend class="text-center header">Asignación de Tareas de Dependencia</legend>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <!-- <div class="row">
+                                <div class="form-group col-md-6" id="fcdg">
+
+                                <input id="cdg" name="codigo" type="text" placeholder="código de usuario (AAA/XX)"
+                                class="form-control">
+
+                                </div>
+
+
+                                </div> -->
+                                <div class="row">
+                                    <div class="form-group col-md-6" id="ffecha">
+                                        <input type="date" id ="fecha" name="fechaTarea" class="form-control" placeholder="Seleccionar fecha">
+
+                                    </div>
+
+
+                                </div>
+                                <div class="row">
+                                    <div class="form-group col-md-6" id="fbene">
+                                        <select id="benf" name="beneficiario" class="form-control">
+                                            <option value=""> Seleccionar beneficiario</option>
+                                        </select>
+
+
+                                    </div>
+
+
+                                </div>
+
+                                <div class="row">
+                                    <div class="form-group col-md-6" id="fasis">
+                                        <select id="asistentes" name="asistentes" class="form-control">
+                                            <option value=""> Seleccionar asistentes</option>
+                                        </select>
+
+                                    </div>
+                                </div>
+
+
+                                <div class="row">
+                                    <div class="form-group col-md-6" id="ftarea">
+                                        <label>Asignación de Tareas</label>
+
+                                        <button class="btn btn-outline-dark buscar" type="button">
+
+                                            <i class="fas fa-search"></i>
+                                        </button>
+                                    </div>
+                                </div>
+                        </div>
+                        <div class="row col-md-12">
+                            <div class="card mb-5">
+                                <h5 class="card-header headerbeneficiario">Tareas de XXXXX</h5>
+                                <div class="card-body beneficiario">
+
+                                </div>
+                            </div>
+
+                            <div class="card ml-2 mb-5">
+                                <h5 class="card-header headertareasAsig">Tareas asignadas a XXXX</h5>
+                                <div class="card-body tareasAsig">
+
+                                </div>
+                            </div>
+                        </div>
+
+
+                        <div class="col-md-12">
+                            <div class="col-md-6 text-center">
+                                <button type="submit" class="boton btn btn-primary btn-lg">Guardar</button>
+                                <button id="cancelar" type="button" class="btn btn-secondary btn-lg">Cancelar</button>
+                            </div>
+                        </div>
+                    </div>
+
+
+
+                </fieldset>
+            </form>
+        </div>
+        <!-- librerías -->
+        <script src="./lib/jQuery/jquery-3.5.1.min.js"></script>
+        <script src="./lib/bootstrap/js/bootstrap.min.js"></script>
+        <script src="./lib/fontawesome/all.min.js"></script>
+        <script src="./lib/sweetAlert/sweetalert2.all.min.js"></script>
+        <script src="./lib/jQueryValidation/jquery.validate.min.js"></script>
+        <script src="./lib/crearConexion.js"></script>
+        <script src="script.js"></script>
+    </body>
+
+</html>

@@ -1,0 +1,43 @@
+.header {
+    color: #36A0FF;
+    font-size: 30px;
+    padding: 10px;
+}
+
+
+.form-group input, .form-group label, .form-group select{
+    height: 42px;
+    font-size: 18px;
+    border:0;
+    padding-left: 54px;
+    border-radius: 5px;
+}
+.form-group::before{
+    font-family: "Font Awesome\ 5 Free";
+    position: absolute;
+    left: 25px;
+    font-size: 22px;
+    padding-top:5px;
+    color: #36A0FF;
+}
+
+.form-group#fcdg::before{
+    content: "\f069";
+}
+
+.form-group#fbene::before{
+    content: "\f193";
+}
+.form-group#ffecha::before{
+    content: "\f073";
+}
+.form-group#fasis:before{
+    content: "\f968";
+}
+.form-group#ftarea:before{
+    content: "\f4c2";
+}
+
+.invalido {
+    border: solid 2px red;
+}
